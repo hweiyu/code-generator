@@ -1,80 +1,63 @@
 package com.hwy.utils;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * 分页
+ *
  * @author huangweiyu
  * @version V1.0
  * @date 2018/8/7 14:06
  **/
+@Getter
+@Setter
 public class PageUtils implements Serializable {
-	private static final long serialVersionUID = 1L;
-	//总记录数
-	private int totalCount;
-	//每页记录数
-	private int pageSize;
-	//总页数
-	private int totalPage;
-	//当前页数
-	private int currPage;
-	//列表数据
-	private List<?> list;
-	
-	/**
-	 * 分页
-	 * @param list        列表数据
-	 * @param totalCount  总记录数
-	 * @param pageSize    每页记录数
-	 * @param currPage    当前页数
-	 */
-	public PageUtils(List<?> list, int totalCount, int pageSize, int currPage) {
-		this.list = list;
-		this.totalCount = totalCount;
-		this.pageSize = pageSize;
-		this.currPage = currPage;
-		this.totalPage = (int)Math.ceil((double)totalCount/pageSize);
-	}
 
-	public int getTotalCount() {
-		return totalCount;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
+    /**
+     * 总记录数
+     */
+    private int totalCount;
 
-	public int getPageSize() {
-		return pageSize;
-	}
+    /**
+     * 每页记录数
+     */
+    private int pageSize;
 
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
+    /**
+     * 总页数
+     */
+    private int totalPage;
 
-	public int getTotalPage() {
-		return totalPage;
-	}
+    /**
+     * 当前页数
+     */
+    private int currPage;
 
-	public void setTotalPage(int totalPage) {
-		this.totalPage = totalPage;
-	}
+    /**
+     * 列表数据
+     */
+    private List<?> list;
 
-	public int getCurrPage() {
-		return currPage;
-	}
+    /**
+     * 分页
+     *
+     * @param list       列表数据
+     * @param totalCount 总记录数
+     * @param pageSize   每页记录数
+     * @param currPage   当前页数
+     */
+    public PageUtils(List<?> list, int totalCount, int pageSize, int currPage) {
+        this.list = list;
+        this.totalCount = totalCount;
+        this.pageSize = pageSize;
+        this.currPage = currPage;
+        this.totalPage = (int) Math.ceil((double) totalCount / pageSize);
+    }
 
-	public void setCurrPage(int currPage) {
-		this.currPage = currPage;
-	}
-
-	public List<?> getList() {
-		return list;
-	}
-
-	public void setList(List<?> list) {
-		this.list = list;
-	}
-	
 }

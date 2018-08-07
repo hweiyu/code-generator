@@ -2,6 +2,8 @@ package com.hwy.utils;
 
 import com.hwy.entity.ColumnEntity;
 import com.hwy.entity.TableEntity;
+import com.hwy.model.ColumnModel;
+import com.hwy.model.TableModel;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -21,14 +23,15 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * 代码生成器工具类
+ *
  * @author huangweiyu
  * @version V1.0
  * @date 2018/8/7 14:06
  **/
 public class GenUtils {
 
-    public static List<String> getTemplates(){
-        List<String> templates = new ArrayList<String>();
+    public static List<String> getTemplates() {
+        List<String> templates = new ArrayList<>(9);
         templates.add("template/Entity.java.vm");
         templates.add("template/Dao.java.vm");
         templates.add("template/Dao.xml.vm");
@@ -36,38 +39,31 @@ public class GenUtils {
         templates.add("template/ServiceImpl.java.vm");
         templates.add("template/Controller.java.vm");
         templates.add("template/menu.sql.vm");
-
         templates.add("template/index.vue.vm");
         templates.add("template/add-or-update.vue.vm");
-
         return templates;
     }
 
     /**
      * 生成代码
      */
-    public static void generatorCode(Map<String, String> table,
-                                     List<Map<String, String>> columns, ZipOutputStream zip) {
+    public static void generatorCode(TableModel table,
+                                     List<ColumnModel> columns,
+                                     ZipOutputStream zip) {
         //配置信息
         Configuration config = getConfig();
         boolean hasBigDecimal = false;
         //表信息
-        TableEntity tableEntity = new TableEntity();
-        tableEntity.setTableName(table.get("tableName" ));
-        tableEntity.setComments(table.get("tableComment" ));
+        TableEntity tableEntity = TableEntity.get(table);
         //表名转换成Java类名
-        String className = tableToJava(tableEntity.getTableName(), config.getString("tablePrefix" ));
+        String className = tableToJava(tableEntity.getTableName(), config.getString("tablePrefix"));
         tableEntity.setClassName(className);
         tableEntity.setClassname(StringUtils.uncapitalize(className));
 
         //列信息
         List<ColumnEntity> columsList = new ArrayList<>();
-        for(Map<String, String> column : columns){
-            ColumnEntity columnEntity = new ColumnEntity();
-            columnEntity.setColumnName(column.get("columnName" ));
-            columnEntity.setDataType(column.get("dataType" ));
-            columnEntity.setComments(column.get("columnComment" ));
-            columnEntity.setExtra(column.get("extra" ));
+        for (ColumnModel column : columns) {
+            ColumnEntity columnEntity = ColumnEntity.get(column);
 
             //列名转换成Java属性名
             String attrName = columnToJava(columnEntity.getColumnName());
@@ -75,13 +71,13 @@ public class GenUtils {
             columnEntity.setAttrname(StringUtils.uncapitalize(attrName));
 
             //列的数据类型，转换成Java类型
-            String attrType = config.getString(columnEntity.getDataType(), "unknowType" );
+            String attrType = config.getString(columnEntity.getDataType(), "unknowType");
             columnEntity.setAttrType(attrType);
-            if (!hasBigDecimal && attrType.equals("BigDecimal" )) {
+            if (!hasBigDecimal && "BigDecimal".equals(attrType)) {
                 hasBigDecimal = true;
             }
             //是否主键
-            if ("PRI".equalsIgnoreCase(column.get("columnKey" )) && tableEntity.getPk() == null) {
+            if ("PRI".equalsIgnoreCase(column.getColumnKey()) && tableEntity.getPk() == null) {
                 tableEntity.setPk(columnEntity);
             }
 
@@ -96,12 +92,12 @@ public class GenUtils {
 
         //设置velocity资源加载器
         Properties prop = new Properties();
-        prop.put("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader" );
+        prop.put("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         Velocity.init(prop);
-        String mainPath = config.getString("mainPath" );
+        String mainPath = config.getString("mainPath");
         mainPath = StringUtils.isBlank(mainPath) ? "io.renren" : mainPath;
         //封装模板数据
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         map.put("tableName", tableEntity.getTableName());
         map.put("comments", tableEntity.getComments());
         map.put("pk", tableEntity.getPk());
@@ -111,10 +107,10 @@ public class GenUtils {
         map.put("columns", tableEntity.getColumns());
         map.put("hasBigDecimal", hasBigDecimal);
         map.put("mainPath", mainPath);
-        map.put("package", config.getString("package" ));
-        map.put("moduleName", config.getString("moduleName" ));
-        map.put("author", config.getString("author" ));
-        map.put("email", config.getString("email" ));
+        map.put("package", config.getString("package"));
+        map.put("moduleName", config.getString("moduleName"));
+        map.put("author", config.getString("author"));
+        map.put("email", config.getString("email"));
         map.put("datetime", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
         VelocityContext context = new VelocityContext(map);
 
@@ -123,17 +119,17 @@ public class GenUtils {
         for (String template : templates) {
             //渲染模板
             StringWriter sw = new StringWriter();
-            Template tpl = Velocity.getTemplate(template, "UTF-8" );
+            Template tpl = Velocity.getTemplate(template, "UTF-8");
             tpl.merge(context, sw);
 
             try {
                 //添加到zip
-                zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), config.getString("package" ), config.getString("moduleName" ))));
-                IOUtils.write(sw.toString(), zip, "UTF-8" );
+                zip.putNextEntry(new ZipEntry(getFileName(template, tableEntity.getClassName(), config.getString("package"), config.getString("moduleName"))));
+                IOUtils.write(sw.toString(), zip, "UTF-8");
                 IOUtils.closeQuietly(sw);
                 zip.closeEntry();
             } catch (IOException e) {
-                throw new RRException("渲染模板失败，表名：" + tableEntity.getTableName(), e);
+                throw new CodeGeneratorException("渲染模板失败，表名：" + tableEntity.getTableName(), e);
             }
         }
     }
@@ -143,7 +139,7 @@ public class GenUtils {
      * 列名转换成Java属性名
      */
     public static String columnToJava(String columnName) {
-        return WordUtils.capitalizeFully(columnName, new char[]{'_'}).replace("_", "" );
+        return WordUtils.capitalizeFully(columnName, new char[]{'_'}).replace("_", "");
     }
 
     /**
@@ -151,7 +147,7 @@ public class GenUtils {
      */
     public static String tableToJava(String tableName, String tablePrefix) {
         if (StringUtils.isNotBlank(tablePrefix)) {
-            tableName = tableName.replace(tablePrefix, "" );
+            tableName = tableName.replace(tablePrefix, "");
         }
         return columnToJava(tableName);
     }
@@ -161,9 +157,9 @@ public class GenUtils {
      */
     public static Configuration getConfig() {
         try {
-            return new PropertiesConfiguration("generator.properties" );
+            return new PropertiesConfiguration("generator.properties");
         } catch (ConfigurationException e) {
-            throw new RRException("获取配置文件失败，", e);
+            throw new CodeGeneratorException("获取配置文件失败，", e);
         }
     }
 
@@ -175,45 +171,35 @@ public class GenUtils {
         if (StringUtils.isNotBlank(packageName)) {
             packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
         }
-
-        if (template.contains("Entity.java.vm" )) {
+        if (template.contains("Entity.java.vm")) {
             return packagePath + "entity" + File.separator + className + "Entity.java";
         }
-
-        if (template.contains("Dao.java.vm" )) {
+        if (template.contains("Dao.java.vm")) {
             return packagePath + "dao" + File.separator + className + "Dao.java";
         }
-
-        if (template.contains("Service.java.vm" )) {
+        if (template.contains("Service.java.vm")) {
             return packagePath + "service" + File.separator + className + "Service.java";
         }
-
-        if (template.contains("ServiceImpl.java.vm" )) {
+        if (template.contains("ServiceImpl.java.vm")) {
             return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
         }
-
-        if (template.contains("Controller.java.vm" )) {
+        if (template.contains("Controller.java.vm")) {
             return packagePath + "controller" + File.separator + className + "Controller.java";
         }
-
-        if (template.contains("Dao.xml.vm" )) {
+        if (template.contains("Dao.xml.vm")) {
             return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + moduleName + File.separator + className + "Dao.xml";
         }
-
-        if (template.contains("menu.sql.vm" )) {
+        if (template.contains("menu.sql.vm")) {
             return className.toLowerCase() + "_menu.sql";
         }
-
-        if (template.contains("index.vue.vm" )) {
+        if (template.contains("index.vue.vm")) {
             return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
                     File.separator + moduleName + File.separator + className.toLowerCase() + ".vue";
         }
-
-        if (template.contains("add-or-update.vue.vm" )) {
+        if (template.contains("add-or-update.vue.vm")) {
             return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
                     File.separator + moduleName + File.separator + className.toLowerCase() + "-add-or-update.vue";
         }
-
-        return null;
+        return "";
     }
 }

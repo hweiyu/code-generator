@@ -8,5 +8,4 @@ package com.hwy.utils;
  **/
 public class Constant {
 
-
 }

@@ -1,8 +1,7 @@
 package com.hwy.utils;
 
 import com.alibaba.fastjson.JSON;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -18,33 +17,34 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2018/8/7 14:06
  **/
 @Component
-public class RRExceptionHandler implements HandlerExceptionResolver {
-	private Logger logger = LoggerFactory.getLogger(getClass());
-	
+@Slf4j
+public class CodeGeneratorExceptionHandler implements HandlerExceptionResolver {
+
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
-		R r = new R();
+		Result r = new Result();
 		try {
 			response.setContentType("application/json;charset=utf-8");
 			response.setCharacterEncoding("utf-8");
 			
-			if (ex instanceof RRException) {
-				r.put("code", ((RRException) ex).getCode());
-				r.put("msg", ((RRException) ex).getMessage());
+			if (ex instanceof CodeGeneratorException) {
+				CodeGeneratorException cge = (CodeGeneratorException) ex;
+				r.put("code", cge.getCode());
+				r.put("msg", cge.getMessage());
 			}else if(ex instanceof DuplicateKeyException){
-				r = R.error("数据库中已存在该记录");
+				r = Result.error("数据库中已存在该记录");
 			}else{
-				r = R.error();
+				r = Result.error();
 			}
 			
 			//记录异常日志
-			logger.error(ex.getMessage(), ex);
+			log.error(ex.getMessage(), ex);
 			
 			String json = JSON.toJSONString(r);
 			response.getWriter().print(json);
 		} catch (Exception e) {
-			logger.error("RRExceptionHandler 异常处理失败", e);
+			log.error("RRExceptionHandler 异常处理失败", e);
 		}
 		return new ModelAndView();
 	}

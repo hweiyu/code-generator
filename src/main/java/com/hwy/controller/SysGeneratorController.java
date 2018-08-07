@@ -1,9 +1,10 @@
 package com.hwy.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hwy.utils.Query;
-import com.hwy.utils.R;
+import com.hwy.model.TableModel;
 import com.hwy.service.SysGeneratorService;
+import com.hwy.utils.Query;
+import com.hwy.utils.Result;
 import com.hwy.utils.PageUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +37,13 @@ public class SysGeneratorController {
 	 */
 	@ResponseBody
 	@RequestMapping("/list")
-	public R list(@RequestParam Map<String, Object> params){
+	public Result list(@RequestParam Map<String, Object> params){
 		//查询列表数据
 		Query query = new Query(params);
-		List<Map<String, Object>> list = sysGeneratorService.queryList(query);
+		List<TableModel> list = sysGeneratorService.queryList(query);
 		int total = sysGeneratorService.queryTotal(query);
-		
 		PageUtils pageUtil = new PageUtils(list, total, query.getLimit(), query.getPage());
-		
-		return R.ok().put("page", pageUtil);
+		return Result.ok().put("page", pageUtil);
 	}
 	
 	/**
@@ -52,17 +51,23 @@ public class SysGeneratorController {
 	 */
 	@RequestMapping("/code")
 	public void code(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		String[] tableNames = new String[]{};
+		String[] tableNames = getTables(request);
+		byte[] data = sysGeneratorService.generatorCode(tableNames);
+		setResponseHeader(data, response);
+        IOUtils.write(data, response.getOutputStream());
+	}
+
+	private String[] getTables(HttpServletRequest request) {
+		Object[] tableNames = new Object[]{};
 		String tables = request.getParameter("tables");
 		tableNames = JSON.parseArray(tables).toArray(tableNames);
-		
-		byte[] data = sysGeneratorService.generatorCode(tableNames);
-		
-		response.reset();  
-        response.setHeader("Content-Disposition", "attachment; filename=\"renren.zip\"");  
-        response.addHeader("Content-Length", "" + data.length);  
-        response.setContentType("application/octet-stream; charset=UTF-8");  
-  
-        IOUtils.write(data, response.getOutputStream());  
+		return (String[]) tableNames;
+	}
+
+	private void setResponseHeader(byte[] data, HttpServletResponse response) {
+		response.reset();
+		response.setHeader("Content-Disposition", "attachment; filename=\"code.zip\"");
+		response.addHeader("Content-Length", "" + data.length);
+		response.setContentType("application/octet-stream; charset=UTF-8");
 	}
 }

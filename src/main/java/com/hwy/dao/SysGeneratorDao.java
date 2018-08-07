@@ -1,5 +1,7 @@
 package com.hwy.dao;
 
+import com.hwy.model.ColumnModel;
+import com.hwy.model.TableModel;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,12 +15,32 @@ import java.util.Map;
  **/
 @Component
 public interface SysGeneratorDao {
-	
-	List<Map<String, Object>> queryList(Map<String, Object> map);
-	
+
+	/**
+	 * 表列表
+	 * @param map
+	 * @return
+	 */
+	List<TableModel> queryList(Map<String, Object> map);
+
+	/**
+	 * 表列表数据总量
+	 * @param map
+	 * @return
+	 */
 	int queryTotal(Map<String, Object> map);
-	
-	Map<String, String> queryTable(String tableName);
-	
-	List<Map<String, String>> queryColumns(String tableName);
+
+	/**
+	 * 查表结构
+	 * @param tableName
+	 * @return
+	 */
+	TableModel queryTable(String tableName);
+
+	/**
+	 * 查表字段结构
+	 * @param tableName
+	 * @return
+	 */
+	List<ColumnModel> queryColumns(String tableName);
 }
