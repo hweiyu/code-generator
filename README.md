@@ -8,4 +8,4 @@
 * 项目访问路径：http://localhost:8080
 
 # 演示例子
-[![](show.jpg)]
+![avatar](show.jpg)
