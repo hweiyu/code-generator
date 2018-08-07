@@ -44,7 +44,7 @@ public class CodeGeneratorExceptionHandler implements HandlerExceptionResolver {
 			String json = JSON.toJSONString(r);
 			response.getWriter().print(json);
 		} catch (Exception e) {
-			log.error("RRExceptionHandler 异常处理失败", e);
+			log.error("CodeGeneratorExceptionHandler 异常处理失败", e);
 		}
 		return new ModelAndView();
 	}
