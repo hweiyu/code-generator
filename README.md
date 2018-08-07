@@ -6,3 +6,6 @@
 * 修改application.yml，更新MySQL账号和密码、数据库名称
 * Eclipse、IDEA运行RenrenApplication.java，则可启动项目
 * 项目访问路径：http://localhost:8080
+
+# 演示例子
+[![](show.jpg)]
