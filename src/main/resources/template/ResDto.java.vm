@@ -1,0 +1,40 @@
+package ${package}.${moduleName}.dto.response;
+
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+
+import lombok.*;
+import java.io.Serializable;
+
+import ${package}.${moduleName}.model.${className}Model;
+
+/**
+ *
+ * ${comments}返回dto
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ${className}ResDto implements Serializable {
+	#foreach ($column in $columns)
+
+        /**
+         * $column.comments
+         */
+    private $column.attrType $column.attrname;
+	#end
+
+	public static ${className}ResDto get(${className}Model model) {
+		return ${className}ResDto.builder()
+		#foreach ($column in $columns)
+            .${column.attrname}(model.get${column.attrName}());
+		#end
+				.build();
+	}
+}

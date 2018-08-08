@@ -9,14 +9,14 @@ import java.io.File;
  * @Description: 描述
  * @date 2018/8/8 15:54
  **/
-public class DaoTemp extends BaseTemplate {
+public class ResDtoTemp extends BaseTemplate {
 
-    public DaoTemp(String template, String packagePath) {
+    public ResDtoTemp(String template, String packagePath) {
         super(template, packagePath, null);
     }
 
     @Override
     public String getFileName(String className) {
-        return getPackagePath() + "dao" + File.separator + className + "Mapper.java";
+        return getPackagePath() + "dto" + File.separator + "response" + File.separator + className + "ResDto.java";
     }
 }

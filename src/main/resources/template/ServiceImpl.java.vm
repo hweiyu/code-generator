@@ -1,29 +1,74 @@
 package ${package}.${moduleName}.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Map;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import ${mainPath}.common.utils.PageUtils;
-import ${mainPath}.common.utils.Query;
 
-import ${package}.${moduleName}.dao.${className}Dao;
-import ${package}.${moduleName}.entity.${className}Entity;
+import ${package}.${moduleName}.dao.${className}Mapper;
+import ${package}.${moduleName}.model.${className}Model;
 import ${package}.${moduleName}.service.${className}Service;
+import ${package}.${moduleName}.dto.request.${className}ReqDto;
+import ${package}.${moduleName}.dto.response.${className}ResDto;
 
+import java.util.List;
 
-@Service("${classname}Service")
-public class ${className}ServiceImpl extends ServiceImpl<${className}Dao, ${className}Entity> implements ${className}Service {
+/**
+ * ${comments}服务
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${className}ServiceImpl implements ${className}Service {
 
+    @Autowired
+    private ${className}Mapper ${classname}Mapper;
+
+    /**
+    * 列表
+    */
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        Page<${className}Entity> page = this.selectPage(
-                new Query<${className}Entity>(params).getPage(),
-                new EntityWrapper<${className}Entity>()
-        );
+    public List<${className}ResDto> select(${className}ReqDto reqDto) {
+        List<${className}Model> models = ${classname}Mapper.select(reqDto.to());
+        List<${className}ResDto> result = new ArrayList<>(20);
+        if (null != models) {
+            for (${className}Model model : models) {
+                result.add(${className}ResDto.get(model));
+            }
+        }
+        return result;
+    }
 
-        return new PageUtils(page);
+    /**
+    * 查询
+    */
+    @Override
+    public ${className}ResDto get(${className}ReqDto reqDto) {
+        ${className}Model model = ${classname}Mapper.selectOne(reqDto.to());
+        return ${className}ResDto.get(model);
+    }
+
+    /**
+    * 添加
+    */
+    @Override
+    int insert(${className}ReqDto reqDto) {
+        return ${classname}Mapper.insertSelective(reqDto.to());
+    }
+
+    /**
+    * 修改
+    */
+    @Override
+    int update(${className}ReqDto reqDto) {
+        return ${classname}Mapper.updateByPrimaryKeySelective(reqDto.to());
+    }
+
+    /**
+    * 删除
+    */
+    @Override
+    int delete(${className}ReqDto reqDto) {
+        return ${classname}Mapper.delete(reqDto.to());
     }
 
 }

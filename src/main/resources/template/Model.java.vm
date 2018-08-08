@@ -1,0 +1,40 @@
+package ${package}.${moduleName}.model;
+
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+
+import javax.persistence.Column;
+import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import lombok.*;
+
+/**
+ *
+ * ${comments}模型
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "${tableName}")
+public class ${className}Model {
+#foreach ($column in $columns)
+
+	/**
+	 * $column.comments
+	 */
+	#if($column.columnName == $pk.columnName)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	#end
+    @Column(name = "$column.columnName")
+	private $column.attrType $column.attrname;
+#end
+}

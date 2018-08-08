@@ -16,7 +16,7 @@ public class DaoXmlTemp extends BaseTemplate {
     }
 
     @Override
-    public String getFileName(String className) {
-        return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + getModuleName() + File.separator + className + "Dao.xml";
+    public String getFileName(String name) {
+        return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + getModuleName() + File.separator + name + "-mapper.xml";
     }
 }

@@ -1,0 +1,40 @@
+package ${package}.${moduleName}.dto.request;
+
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+
+import lombok.*;
+import java.io.Serializable;
+
+import ${package}.${moduleName}.model.${className}Model;
+
+/**
+ *
+ * ${comments}请求dto
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class ${className}ReqDto implements Serializable {
+	#foreach ($column in $columns)
+
+        /**
+         * $column.comments
+         */
+        private $column.attrType $column.attrname;
+	#end
+
+    public static ${className}Model to() {
+            return ${className}Model.builder()
+		#foreach ($column in $columns)
+                .${column.attrname}(get${column.attrName}());
+		#end
+        .build();
+    }
+}

@@ -1,20 +1,41 @@
 package ${package}.${moduleName}.service;
 
-import com.baomidou.mybatisplus.service.IService;
-import ${mainPath}.common.utils.PageUtils;
-import ${package}.${moduleName}.entity.${className}Entity;
+import ${package}.${moduleName}.dto.request.${className}ReqDto;
+import ${package}.${moduleName}.dto.response.${className}ResDto;
 
-import java.util.Map;
+import java.util.List;
 
 /**
- * ${comments}
+ * ${comments}接口
  *
  * @author ${author}
- * @email ${email}
  * @date ${datetime}
  */
-public interface ${className}Service extends IService<${className}Entity> {
+public interface ${className}Service {
 
-    PageUtils queryPage(Map<String, Object> params);
+    /**
+    * 列表
+    */
+    List<${className}ResDto> select(${className}ReqDto reqDto);
+
+    /**
+    * 查询
+    */
+    ${className}ResDto get(${className}ReqDto reqDto);
+
+    /**
+    * 添加
+    */
+    int insert(${className}ReqDto reqDto);
+
+    /**
+    * 修改
+    */
+    int update(${className}ReqDto reqDto);
+
+    /**
+    * 删除
+    */
+    int delete(${className}ReqDto reqDto);
 }
 

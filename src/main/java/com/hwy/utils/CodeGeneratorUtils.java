@@ -43,7 +43,7 @@ public class CodeGeneratorUtils {
     /**
      * 模版信息
      */
-    private static List<BaseTemplate> templates = new ArrayList<>(7);
+    private static List<BaseTemplate> templates = new ArrayList<>(20);
 
     static {
         String packageName = config.getString("package");
@@ -52,13 +52,15 @@ public class CodeGeneratorUtils {
         if (StringUtils.isNotBlank(packageName)) {
             packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
         }
-        templates.add(new EntityTemp("template/Entity.java.vm", packagePath));
-        templates.add(new DaoTemp("template/Dao.java.vm", packagePath));
-        templates.add(new DaoXmlTemp("template/Dao.xml.vm", packagePath, moduleName));
+        templates.add(new ModelTemp("template/Model.java.vm", packagePath));
+        templates.add(new ReqDtoTemp("template/ResDto.java.vm", packagePath));
+        templates.add(new ResDtoTemp("template/ReqDto.java.vm", packagePath));
+        templates.add(new DaoTemp("template/Mapper.java.vm", packagePath));
+        templates.add(new DaoXmlTemp("template/Mapper.xml.vm", packagePath, moduleName));
         templates.add(new ServiceTemp("template/Service.java.vm", packagePath));
         templates.add(new ServiceImplTemp("template/ServiceImpl.java.vm", packagePath));
         templates.add(new ControllerTemp("template/Controller.java.vm", packagePath));
-        templates.add(new ListTemp("template/list.vue.vm", packagePath, moduleName));
+        templates.add(new ListTemp("template/List.vue.vm", packagePath, moduleName));
     }
 
     /**
@@ -96,7 +98,7 @@ public class CodeGeneratorUtils {
         tpl.merge(context, sw);
         try {
             //添加到zip
-            String fileName = template.getFileName(tableEntity.getClassName());
+            String fileName = getFileName(template, tableEntity);
             zip.putNextEntry(new ZipEntry(fileName));
             IOUtils.write(sw.toString(), zip, "UTF-8");
             IOUtils.closeQuietly(sw);
@@ -104,6 +106,20 @@ public class CodeGeneratorUtils {
         } catch (IOException e) {
             throw new CodeGeneratorException("渲染模板失败，表名：" + tableEntity.getTableName(), e);
         }
+    }
+
+    private static String getFileName(BaseTemplate template, TableEntity tableEntity) {
+        String fileName;
+        final String defaultMapperXml = "Mapper.xml.vm";
+        boolean isMapperXml = template.getTemplate().contains(defaultMapperXml);
+        if (isMapperXml) {
+            String tablePrefix = config.getString("tablePrefix");
+            String name = tableToXml(tableEntity.getTableName(), tablePrefix);
+            fileName = template.getFileName(name);
+        } else {
+            fileName = template.getFileName(tableEntity.getClassName());
+        }
+        return fileName;
     }
 
     private static boolean isPrimaryKey(TableEntity table, ColumnModel column) {
@@ -119,13 +135,11 @@ public class CodeGeneratorUtils {
                 "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         Velocity.init(prop);
         //封装模板数据
-        Map<String, Object> templateData = wrapTemplateData(tableEntity, config);
+        Map<String, Object> templateData = wrapTemplateData(tableEntity);
         return new VelocityContext(templateData);
     }
 
-    private static Map<String, Object> wrapTemplateData(
-            TableEntity tableEntity,
-            Configuration config) {
+    private static Map<String, Object> wrapTemplateData(TableEntity tableEntity) {
         //封装模板数据
         Map<String, Object> templateData = new HashMap<>(16);
         templateData.put("tableName", tableEntity.getTableName());
@@ -139,7 +153,6 @@ public class CodeGeneratorUtils {
         templateData.put("package", config.getString("package"));
         templateData.put("moduleName", config.getString("moduleName"));
         templateData.put("author", config.getString("author"));
-        templateData.put("email", config.getString("email"));
         templateData.put("datetime", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
         String mainPath = config.getString("mainPath");
         templateData.put("mainPath", StringUtils.isBlank(mainPath) ? "com.hwy" : mainPath);
@@ -154,13 +167,13 @@ public class CodeGeneratorUtils {
         entity.setClassName(className);
         entity.setClassname(StringUtils.uncapitalize(className));
         //封装字段数据
-        wrapColumnEntity(entity, config, columns);
+        wrapColumnEntity(entity, columns);
         //没主键，则第一个字段为主键
         resetPrimaryKey(entity);
         return entity;
     }
 
-    private static ColumnEntity createColumnEntity(ColumnModel column, Configuration config) {
+    private static ColumnEntity createColumnEntity(ColumnModel column) {
         ColumnEntity entity = ColumnEntity.get(column);
         //列名转换成Java属性名
         String attrName = columnToJava(entity.getColumnName());
@@ -172,11 +185,11 @@ public class CodeGeneratorUtils {
         return entity;
     }
 
-    private static void wrapColumnEntity(TableEntity entity, Configuration config, List<ColumnModel> columns) {
+    private static void wrapColumnEntity(TableEntity entity, List<ColumnModel> columns) {
         //列信息
         List<ColumnEntity> columsList = new ArrayList<>();
         for (ColumnModel column : columns) {
-            ColumnEntity columnEntity = createColumnEntity(column, config);
+            ColumnEntity columnEntity = createColumnEntity(column);
             if (hasBigDecimal(entity, columnEntity)) {
                 entity.setHasBigDecimal(Boolean.TRUE);
             }
@@ -216,6 +229,16 @@ public class CodeGeneratorUtils {
             tableName = tableName.substring(tablePrefix.length());
         }
         return columnToJava(tableName);
+    }
+
+    /**
+     * 表名转换成xml名
+     */
+    private static String tableToXml(String tableName, String tablePrefix) {
+        if (StringUtils.isNotBlank(tablePrefix) && tableName.startsWith(tablePrefix)) {
+            tableName = tableName.substring(tablePrefix.length());
+        }
+        return tableName.replace("_", "-");
     }
 
 }

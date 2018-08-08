@@ -19,6 +19,6 @@ public class ListTemp extends BaseTemplate {
     public String getFileName(String className) {
         return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views"
                 + File.separator + "modules" + File.separator + getModuleName() + File.separator
-                + className.toLowerCase() + ".vue";
+                + className.toLowerCase() + "-list.vue";
     }
 }
