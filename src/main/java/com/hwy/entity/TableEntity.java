@@ -1,7 +1,8 @@
 package com.hwy.entity;
 
 import com.hwy.model.TableModel;
-import org.apache.commons.lang.StringUtils;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
  * @version V1.0
  * @date 2018/8/7 14:06
  **/
+@Builder
+@AllArgsConstructor
 public class TableEntity {
 
 	/**
@@ -92,9 +95,9 @@ public class TableEntity {
 	}
 
 	public static TableEntity get(TableModel model) {
-		TableEntity entity = new TableEntity();
-		entity.setTableName(model.getTableName());
-		entity.setComments(model.getTableComment());
-		return entity;
+		return TableEntity.builder()
+				.tableName(model.getTableName())
+				.comments(model.getTableComment())
+				.build();
 	}
 }

@@ -1,6 +1,8 @@
 package com.hwy.entity;
 
 import com.hwy.model.ColumnModel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
 /**
  *
@@ -8,6 +10,8 @@ import com.hwy.model.ColumnModel;
  * @version V1.0
  * @date 2018/8/7 14:06
  **/
+@Builder
+@AllArgsConstructor
 public class ColumnEntity {
 
 	/**
@@ -102,11 +106,11 @@ public class ColumnEntity {
 	}
 
 	public static ColumnEntity get(ColumnModel model) {
-		ColumnEntity entity = new ColumnEntity();
-		entity.setColumnName(model.getColumnName());
-		entity.setDataType(model.getDataType());
-		entity.setComments(model.getColumnComment());
-		entity.setExtra(model.getExtra());
-		return entity;
+		return ColumnEntity.builder()
+				.columnName(model.getColumnName())
+				.dataType(model.getDataType())
+				.comments(model.getColumnComment())
+				.extra(model.getExtra())
+				.build();
 	}
 }

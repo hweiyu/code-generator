@@ -4,7 +4,7 @@ import com.hwy.dao.SysGeneratorDao;
 import com.hwy.model.ColumnModel;
 import com.hwy.model.TableModel;
 import com.hwy.service.SysGeneratorService;
-import com.hwy.utils.GenUtils;
+import com.hwy.utils.CodeGeneratorUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,7 +57,7 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 				//查询列信息
 				List<ColumnModel> columns = queryColumns(tableName);
 				//生成代码
-				GenUtils.generatorCode(table, columns, zip);
+				CodeGeneratorUtils.generatorCode(table, columns, zip);
 			}
 			return outputStream.toByteArray();
 		} catch (Exception e) {
