@@ -6,6 +6,7 @@ import com.hwy.model.TableModel;
 import com.hwy.service.SysGeneratorService;
 import com.hwy.utils.CodeGeneratorUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,20 +50,17 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 
 	@Override
 	public byte[] generatorCode(String[] tableNames) {
-		try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			ZipOutputStream zip = new ZipOutputStream(outputStream)) {
-			for(String tableName : tableNames){
-				//查询表信息
-				TableModel table = queryTable(tableName);
-				//查询列信息
-				List<ColumnModel> columns = queryColumns(tableName);
-				//生成代码
-				CodeGeneratorUtils.generatorCode(table, columns, zip);
-			}
-			return outputStream.toByteArray();
-		} catch (Exception e) {
-			log.error("生成代码失败", e);
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		ZipOutputStream zip = new ZipOutputStream(outputStream);
+		for(String tableName : tableNames){
+			//查询表信息
+			TableModel table = queryTable(tableName);
+			//查询列信息
+			List<ColumnModel> columns = queryColumns(tableName);
+			//生成代码
+			CodeGeneratorUtils.generatorCode(table, columns, zip);
 		}
-		return new byte[0];
+		IOUtils.closeQuietly(zip);
+		return outputStream.toByteArray();
 	}
 }

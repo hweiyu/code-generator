@@ -58,15 +58,15 @@ public class SysGeneratorController {
 	}
 
 	private String[] getTables(HttpServletRequest request) {
-		Object[] tableNames = new Object[]{};
 		String tables = request.getParameter("tables");
-		tableNames = JSON.parseArray(tables).toArray(tableNames);
-		return (String[]) tableNames;
+		List<String> tableList = JSON.parseArray(tables, String.class);
+		return tableList.toArray(new String[]{});
 	}
 
 	private void setResponseHeader(byte[] data, HttpServletResponse response) {
 		response.reset();
-		response.setHeader("Content-Disposition", "attachment; filename=\"code.zip\"");
+		response.setHeader("Content-Disposition",
+				"attachment; filename=\"code_" + System.currentTimeMillis() + ".zip\"");
 		response.addHeader("Content-Length", "" + data.length);
 		response.setContentType("application/octet-stream; charset=UTF-8");
 	}

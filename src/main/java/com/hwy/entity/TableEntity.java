@@ -46,6 +46,11 @@ public class TableEntity {
 	 */
 	private String classname;
 
+	/**
+	 * 是否存在bigDecimal类型的字段
+	 */
+	private Boolean hasBigDecimal;
+
 	public String getTableName() {
 		return tableName;
 	}
@@ -94,10 +99,19 @@ public class TableEntity {
 		this.classname = classname;
 	}
 
+	public Boolean getHasBigDecimal() {
+		return hasBigDecimal;
+	}
+
+	public void setHasBigDecimal(Boolean hasBigDecimal) {
+		this.hasBigDecimal = hasBigDecimal;
+	}
+
 	public static TableEntity get(TableModel model) {
 		return TableEntity.builder()
 				.tableName(model.getTableName())
 				.comments(model.getTableComment())
+				.hasBigDecimal(Boolean.FALSE)
 				.build();
 	}
 }
