@@ -2,6 +2,7 @@ package com.hwy.utils;
 
 import com.hwy.entity.ColumnEntity;
 import com.hwy.entity.TableEntity;
+import com.hwy.entity.template.*;
 import com.hwy.model.ColumnModel;
 import com.hwy.model.TableModel;
 import org.apache.commons.configuration.Configuration;
@@ -34,22 +35,41 @@ public class CodeGeneratorUtils {
         throw new AssertionError("not support to new a instance");
     }
 
-    private static List<String> templates = new ArrayList<>(9);
+    /**
+     * 配置信息
+     */
+    private static Configuration config = getConfig();
+
+    /**
+     * 模版信息
+     */
+    private static List<BaseTemplate> templates = new ArrayList<>(7);
 
     static {
-        templates.add("template/Entity.java.vm");
-        templates.add("template/Dao.java.vm");
-        templates.add("template/Dao.xml.vm");
-        templates.add("template/Service.java.vm");
-        templates.add("template/ServiceImpl.java.vm");
-        templates.add("template/Controller.java.vm");
-        templates.add("template/menu.sql.vm");
-        templates.add("template/index.vue.vm");
-        templates.add("template/add-or-update.vue.vm");
+        String packageName = config.getString("package");
+        String moduleName = config.getString("moduleName");
+        String packagePath = "main" + File.separator + "java" + File.separator;
+        if (StringUtils.isNotBlank(packageName)) {
+            packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
+        }
+        templates.add(new EntityTemp("template/Entity.java.vm", packagePath));
+        templates.add(new DaoTemp("template/Dao.java.vm", packagePath));
+        templates.add(new DaoXmlTemp("template/Dao.xml.vm", packagePath, moduleName));
+        templates.add(new ServiceTemp("template/Service.java.vm", packagePath));
+        templates.add(new ServiceImplTemp("template/ServiceImpl.java.vm", packagePath));
+        templates.add(new ControllerTemp("template/Controller.java.vm", packagePath));
+        templates.add(new ListTemp("template/list.vue.vm", packagePath, moduleName));
     }
 
-    private static List<String> getTemplates() {
-        return templates;
+    /**
+     * 获取配置信息
+     */
+    private static Configuration getConfig() {
+        try {
+            return new PropertiesConfiguration("generator.properties");
+        } catch (ConfigurationException e) {
+            throw new CodeGeneratorException("获取配置文件失败，", e);
+        }
     }
 
     /**
@@ -58,30 +78,26 @@ public class CodeGeneratorUtils {
     public static void generatorCode(TableModel table,
                                      List<ColumnModel> columns,
                                      ZipOutputStream zip) {
-        //配置信息
-        Configuration config = getConfig();
         //表信息
-        TableEntity tableEntity = createTableEntity(table, config, columns);
+        TableEntity tableEntity = createTableEntity(table, columns);
         //封装模板数据
-        VelocityContext context = createVelocityContext(tableEntity, config);
+        VelocityContext context = createVelocityContext(tableEntity);
         //获取模板列表
-        List<String> templates = getTemplates();
-        for (String template : templates) {
-            wrapZip(template, context, tableEntity, config, zip);
+        for (BaseTemplate template : templates) {
+            wrapZip(template, context, tableEntity, zip);
         }
     }
 
-    private static void wrapZip(String template, VelocityContext context,
-                                TableEntity tableEntity, Configuration config, ZipOutputStream zip) {
+    private static void wrapZip(BaseTemplate template, VelocityContext context,
+                                TableEntity tableEntity, ZipOutputStream zip) {
         //渲染模板
         StringWriter sw = new StringWriter();
-        Template tpl = Velocity.getTemplate(template, "UTF-8");
+        Template tpl = Velocity.getTemplate(template.getTemplate(), "UTF-8");
         tpl.merge(context, sw);
         try {
             //添加到zip
-            String name = getFileName(template, tableEntity.getClassName(), config.getString("package"),
-                    config.getString("moduleName"));
-            zip.putNextEntry(new ZipEntry(name));
+            String fileName = template.getFileName(tableEntity.getClassName());
+            zip.putNextEntry(new ZipEntry(fileName));
             IOUtils.write(sw.toString(), zip, "UTF-8");
             IOUtils.closeQuietly(sw);
             zip.closeEntry();
@@ -96,9 +112,7 @@ public class CodeGeneratorUtils {
                 && null == table.getPk();
     }
 
-    private static VelocityContext createVelocityContext(
-            TableEntity tableEntity,
-            Configuration config) {
+    private static VelocityContext createVelocityContext(TableEntity tableEntity) {
         //设置velocity资源加载器
         Properties prop = new Properties();
         prop.put("file.resource.loader.class",
@@ -132,7 +146,7 @@ public class CodeGeneratorUtils {
         return templateData;
     }
 
-    private static TableEntity createTableEntity(TableModel model, Configuration config, List<ColumnModel> columns) {
+    private static TableEntity createTableEntity(TableModel model, List<ColumnModel> columns) {
         //表信息
         TableEntity entity = TableEntity.get(model);
         //表名转换成Java类名
@@ -202,57 +216,6 @@ public class CodeGeneratorUtils {
             tableName = tableName.substring(tablePrefix.length());
         }
         return columnToJava(tableName);
-    }
-
-    /**
-     * 获取配置信息
-     */
-    private static Configuration getConfig() {
-        try {
-            return new PropertiesConfiguration("generator.properties");
-        } catch (ConfigurationException e) {
-            throw new CodeGeneratorException("获取配置文件失败，", e);
-        }
-    }
-
-    /**
-     * 获取文件名
-     */
-    private static String getFileName(String template, String className, String packageName, String moduleName) {
-        String packagePath = "main" + File.separator + "java" + File.separator;
-        if (StringUtils.isNotBlank(packageName)) {
-            packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
-        }
-        if (template.contains("Entity.java.vm")) {
-            return packagePath + "entity" + File.separator + className + "Entity.java";
-        }
-        if (template.contains("Dao.java.vm")) {
-            return packagePath + "dao" + File.separator + className + "Dao.java";
-        }
-        if (template.contains("Service.java.vm")) {
-            return packagePath + "service" + File.separator + className + "Service.java";
-        }
-        if (template.contains("ServiceImpl.java.vm")) {
-            return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
-        }
-        if (template.contains("Controller.java.vm")) {
-            return packagePath + "controller" + File.separator + className + "Controller.java";
-        }
-        if (template.contains("Dao.xml.vm")) {
-            return "main" + File.separator + "resources" + File.separator + "mapper" + File.separator + moduleName + File.separator + className + "Dao.xml";
-        }
-        if (template.contains("menu.sql.vm")) {
-            return className.toLowerCase() + "_menu.sql";
-        }
-        if (template.contains("index.vue.vm")) {
-            return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
-                    File.separator + moduleName + File.separator + className.toLowerCase() + ".vue";
-        }
-        if (template.contains("add-or-update.vue.vm")) {
-            return "main" + File.separator + "resources" + File.separator + "src" + File.separator + "views" + File.separator + "modules" +
-                    File.separator + moduleName + File.separator + className.toLowerCase() + "-add-or-update.vue";
-        }
-        return "";
     }
 
 }
