@@ -1,5 +1,8 @@
 package ${package}.${moduleName}.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +23,7 @@ import ${package}.${moduleName}.service.${className}Service;
  */
 @RestController
 @RequestMapping("${moduleName}/${pathName}")
+@Api(description = "${comments}接口")
 public class ${className}Controller {
 
     @Autowired
@@ -28,6 +32,7 @@ public class ${className}Controller {
     /**
      * 列表
      */
+    @ApiOperation(value = "获取${comments}数据列表", notes = "获取${comments}数据列表")
     @PostMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<${className}ResDto> list(@RequestBody ${className}ReqDto reqDto){
         return Result.success(${classname}Service.select(reqDto));
@@ -36,6 +41,7 @@ public class ${className}Controller {
     /**
      * 查询
      */
+    @ApiOperation(value = "获取${comments}数据", notes = "获取${comments}数据")
     @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<${className}ResDto> get(@RequestBody ${className}ReqDto reqDto){
         return Result.success(${classname}Service.get(reqDto));
@@ -44,6 +50,7 @@ public class ${className}Controller {
     /**
      * 插入
      */
+    @ApiOperation(value = "插入${comments}数据", notes = "插入${comments}数据")
     @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<Void> insert(@RequestBody ${className}ReqDto reqDto){
         return Result.success(${classname}Service.insert(reqDto));
@@ -52,6 +59,7 @@ public class ${className}Controller {
     /**
      * 修改
      */
+    @ApiOperation(value = "修改${comments}数据", notes = "修改${comments}数据")
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<Void> update(@RequestBody ${className}ReqDto reqDto){
         return Result.success(${classname}Service.update(reqDto));
@@ -60,6 +68,7 @@ public class ${className}Controller {
     /**
      * 删除
      */
+    @ApiOperation(value = "删除${comments}数据", notes = "删除${comments}数据")
     @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public Result<Void> delete(@RequestBody ${className}ReqDto reqDto){
         return Result.success(${classname}Service.delete(reqDto));
