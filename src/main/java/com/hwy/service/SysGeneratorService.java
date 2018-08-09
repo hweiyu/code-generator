@@ -2,7 +2,9 @@ package com.hwy.service;
 
 import com.hwy.dto.PageInfo;
 import com.hwy.dto.request.DataSoureReqDto;
+import com.hwy.dto.request.ParamReqDto;
 import com.hwy.dto.response.DataSoureResDto;
+import com.hwy.dto.response.ParamResDto;
 import com.hwy.dto.response.TableResDto;
 
 import java.util.Map;
@@ -25,4 +27,8 @@ public interface SysGeneratorService {
     void saveCacheConfig(DataSoureReqDto reqDto);
 
     boolean connectTest(DataSoureReqDto reqDto);
+
+    ParamResDto getParam();
+
+    void saveParam(ParamReqDto reqDto);
 }

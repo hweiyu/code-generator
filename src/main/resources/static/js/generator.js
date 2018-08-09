@@ -51,7 +51,14 @@ var vm = new Vue({
             port: '',
             database: '',
             userName: '',
-            password: ''
+            password: '',
+            mainPath:''
+        },
+        param: {
+		    author: '',
+            module: '',
+            javaPackage:'',
+            tablePrefix:''
         }
 	},
 	methods: {
@@ -69,10 +76,10 @@ var vm = new Vue({
 			}
 			location.href = "sys/generator/code?tables=" + JSON.stringify(tableNames);
 		},
-        getConfig: function() {
+        getDataSourceConfig: function() {
             $.ajax({
                 type: "post",
-                url: this.serverUrl() + "/sys/generator/config/get",
+                url: this.serverUrl() + "/sys/generator/datasource/get",
                 data: JSON.stringify({}),
                 dataType: "json",
                 success: function(data){
@@ -80,10 +87,10 @@ var vm = new Vue({
                 }
             });
         },
-        saveConfig: function () {
+        saveDataSourceConfig: function () {
             $.ajax({
                 type: "post",
-                url: this.serverUrl() + "/sys/generator/config/save",
+                url: this.serverUrl() + "/sys/generator/datasource/save",
                 data: JSON.stringify(vm.dataSource),
                 dataType: "json",
                 success: function(data){
@@ -97,14 +104,36 @@ var vm = new Vue({
         connectTest: function () {
             $.ajax({
                 type: "post",
-                url: this.serverUrl() + "/sys/generator/connect/test",
+                url: this.serverUrl() + "/sys/generator/datasource/connect/test",
                 data: JSON.stringify(vm.dataSource),
                 dataType: "json",
                 success: function(data){
                     alert(data.data);
                 }
             });
-        }
+        },
+        getParam: function() {
+            $.ajax({
+                type: "post",
+                url: this.serverUrl() + "/sys/generator/param/get",
+                data: JSON.stringify({}),
+                dataType: "json",
+                success: function(data){
+                    vm.param = data.data;
+                }
+            });
+        },
+        saveParam: function () {
+            $.ajax({
+                type: "post",
+                url: this.serverUrl() + "/sys/generator/param/save",
+                data: JSON.stringify(vm.param),
+                dataType: "json",
+                success: function(data){
+                    $('#param').modal('hide');
+                }
+            });
+        },
 	}
 });
 

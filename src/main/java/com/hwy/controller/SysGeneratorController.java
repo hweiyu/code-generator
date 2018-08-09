@@ -3,7 +3,9 @@ package com.hwy.controller;
 import com.alibaba.fastjson.JSON;
 import com.hwy.dto.ResultData;
 import com.hwy.dto.request.DataSoureReqDto;
+import com.hwy.dto.request.ParamReqDto;
 import com.hwy.dto.response.DataSoureResDto;
+import com.hwy.dto.response.ParamResDto;
 import com.hwy.service.SysGeneratorService;
 import com.hwy.dto.PageInfo;
 import com.hwy.utils.ResultUtil;
@@ -41,23 +43,36 @@ public class SysGeneratorController {
 	}
 
 	@ResponseBody
-	@PostMapping("/config/get")
-	public ResultData<DataSoureResDto> getConfig(){
+	@PostMapping("datasource/get")
+	public ResultData<DataSoureResDto> getDataSourceConfig(){
 		return ResultUtil.success(sysGeneratorService.getCacheConfig());
 	}
 
 	@ResponseBody
-	@PostMapping("/config/save")
-	public ResultData<Void> saveConfig(@RequestBody DataSoureReqDto reqDto){
+	@PostMapping("datasource/save")
+	public ResultData<Void> saveDataSourceConfig(@RequestBody DataSoureReqDto reqDto){
 		sysGeneratorService.saveCacheConfig(reqDto);
 		return ResultUtil.success(null);
 	}
 
 	@ResponseBody
-	@PostMapping("/connect/test")
+	@PostMapping("datasource/connect/test")
 	public ResultData<String> connectTest(@RequestBody DataSoureReqDto reqDto){
 		boolean res = sysGeneratorService.connectTest(reqDto);
 		return ResultUtil.success(res ? "连接成功" : "连接失败");
+	}
+
+	@ResponseBody
+	@PostMapping("param/get")
+	public ResultData<ParamResDto> getParam(){
+		return ResultUtil.success(sysGeneratorService.getParam());
+	}
+
+	@ResponseBody
+	@PostMapping("param/save")
+	public ResultData<Void> saveParam(@RequestBody ParamReqDto reqDto){
+		sysGeneratorService.saveParam(reqDto);
+		return ResultUtil.success(null);
 	}
 
 	/**

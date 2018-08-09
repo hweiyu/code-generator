@@ -6,16 +6,15 @@ import com.hwy.aop.DynamicSource;
 import com.hwy.dao.SysGeneratorDao;
 import com.hwy.dto.PageInfo;
 import com.hwy.dto.request.DataSoureReqDto;
+import com.hwy.dto.request.ParamReqDto;
 import com.hwy.dto.request.QueryReqDto;
 import com.hwy.dto.response.DataSoureResDto;
+import com.hwy.dto.response.ParamResDto;
 import com.hwy.dto.response.TableResDto;
 import com.hwy.model.ColumnModel;
 import com.hwy.model.TableModel;
 import com.hwy.service.SysGeneratorService;
-import com.hwy.utils.CodeGeneratorException;
-import com.hwy.utils.CodeGeneratorUtils;
-import com.hwy.utils.DataSourceCacheUtil;
-import com.hwy.utils.JdbcUtil;
+import com.hwy.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +117,16 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 	@Override
 	public boolean connectTest(DataSoureReqDto reqDto) {
 		return JdbcUtil.tryConnect(reqDto.to());
+	}
+
+	@Override
+	public ParamResDto getParam() {
+		return ParamResDto.get(ParamCacheUtil.get());
+	}
+
+	@Override
+	public void saveParam(ParamReqDto reqDto) {
+		ParamCacheUtil.set(reqDto.to());
 	}
 
 }
