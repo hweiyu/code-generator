@@ -1,7 +1,9 @@
 package com.hwy.service;
 
+import com.hwy.dto.PageInfo;
 import com.hwy.dto.request.DataSoureReqDto;
 import com.hwy.dto.response.DataSoureResDto;
+import com.hwy.dto.response.TableResDto;
 import com.hwy.model.ColumnModel;
 import com.hwy.model.TableModel;
 
@@ -17,9 +19,7 @@ import java.util.Map;
  **/
 public interface SysGeneratorService {
 
-    List<TableModel> queryList(Map<String, Object> map);
-
-    int queryTotal(Map<String, Object> map);
+    PageInfo<TableResDto> list(Map<String, Object> map);
 
     TableModel queryTable(String tableName);
 

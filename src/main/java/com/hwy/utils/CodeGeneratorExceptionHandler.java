@@ -24,7 +24,7 @@ public class CodeGeneratorExceptionHandler implements HandlerExceptionResolver {
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
-		ResultData<?> r = new ResultData<>();
+		ResultData<?> r = ResultUtil.error("");
 		try {
 			response.setContentType("application/json;charset=utf-8");
 			response.setCharacterEncoding("utf-8");
@@ -33,9 +33,7 @@ public class CodeGeneratorExceptionHandler implements HandlerExceptionResolver {
 				r.setCode(String.valueOf(cge.getCode()));
 				r.setMessage(cge.getMessage());
 			}else if(ex instanceof DuplicateKeyException){
-				r = ResultUtil.error("数据库中已存在该记录");
-			}else{
-				r = ResultUtil.error("");
+				r.setMessage("数据库中已存在该记录");
 			}
 			//记录异常日志
 			log.error(ex.getMessage(), ex);

@@ -1,11 +1,15 @@
 package com.hwy.service.impl;
 
 import com.hwy.dao.SysGeneratorDao;
+import com.hwy.dto.PageInfo;
 import com.hwy.dto.request.DataSoureReqDto;
+import com.hwy.dto.request.QueryReqDto;
 import com.hwy.dto.response.DataSoureResDto;
+import com.hwy.dto.response.TableResDto;
 import com.hwy.model.ColumnModel;
 import com.hwy.model.TableModel;
 import com.hwy.service.SysGeneratorService;
+import com.hwy.utils.CodeGeneratorException;
 import com.hwy.utils.CodeGeneratorUtils;
 import com.hwy.utils.DataSourceCacheUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipOutputStream;
@@ -32,13 +37,21 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 	private SysGeneratorDao sysGeneratorDao;
 
 	@Override
-	public List<TableModel> queryList(Map<String, Object> map) {
-		return sysGeneratorDao.queryList(map);
-	}
-
-	@Override
-	public int queryTotal(Map<String, Object> map) {
-		return sysGeneratorDao.queryTotal(map);
+	public PageInfo<TableResDto> list(Map<String, Object> map) {
+		if (!DataSourceCacheUtil.hasSetting()) {
+			throw new CodeGeneratorException("请先设置数据源");
+		}
+		//查询列表数据
+		QueryReqDto query = new QueryReqDto(map);
+		int total = sysGeneratorDao.queryTotal(query);
+		List<TableModel> models = sysGeneratorDao.queryList(map);
+		List<TableResDto> result = new ArrayList<>();
+		if (null != models) {
+			for (TableModel tableModel : models) {
+				result.add(TableResDto.get(tableModel));
+			}
+		}
+		return new PageInfo<>(result, total, query.getLimit(), query.getPage());
 	}
 
 	@Override
