@@ -1,10 +1,13 @@
 package com.hwy.service.impl;
 
 import com.hwy.dao.SysGeneratorDao;
+import com.hwy.dto.request.DataSoureReqDto;
+import com.hwy.dto.response.DataSoureResDto;
 import com.hwy.model.ColumnModel;
 import com.hwy.model.TableModel;
 import com.hwy.service.SysGeneratorService;
 import com.hwy.utils.CodeGeneratorUtils;
+import com.hwy.utils.DataSourceCacheUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +65,15 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 		}
 		IOUtils.closeQuietly(zip);
 		return outputStream.toByteArray();
+	}
+
+	@Override
+	public DataSoureResDto getCacheConfig() {
+		return DataSoureResDto.get(DataSourceCacheUtil.get());
+	}
+
+	@Override
+	public void saveCacheConfig(DataSoureReqDto reqDto) {
+		DataSourceCacheUtil.set(reqDto.to());
 	}
 }

@@ -1,5 +1,7 @@
 package com.hwy.service;
 
+import com.hwy.dto.request.DataSoureReqDto;
+import com.hwy.dto.response.DataSoureResDto;
 import com.hwy.model.ColumnModel;
 import com.hwy.model.TableModel;
 
@@ -24,4 +26,8 @@ public interface SysGeneratorService {
     List<ColumnModel> queryColumns(String tableName);
 
     byte[] generatorCode(String[] tableNames);
+
+    DataSoureResDto getCacheConfig();
+
+    void saveCacheConfig(DataSoureReqDto reqDto);
 }
