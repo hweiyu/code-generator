@@ -93,6 +93,17 @@ var vm = new Vue({
         },
         serverUrl: function () {
             return location.protocol + "//" + location.host;
+        },
+        connectTest: function () {
+            $.ajax({
+                type: "post",
+                url: this.serverUrl() + "/sys/generator/connect/test",
+                data: JSON.stringify(vm.dataSource),
+                dataType: "json",
+                success: function(data){
+                    alert(data.data);
+                }
+            });
         }
 	}
 });

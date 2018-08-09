@@ -30,4 +30,6 @@ public interface SysGeneratorService {
     DataSoureResDto getCacheConfig();
 
     void saveCacheConfig(DataSoureReqDto reqDto);
+
+    boolean connectTest(DataSoureReqDto reqDto);
 }

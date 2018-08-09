@@ -53,6 +53,13 @@ public class SysGeneratorController {
 		return ResultUtil.success(null);
 	}
 
+	@ResponseBody
+	@PostMapping("/connect/test")
+	public ResultData<String> connectTest(@RequestBody DataSoureReqDto reqDto){
+		boolean res = sysGeneratorService.connectTest(reqDto);
+		return ResultUtil.success(res ? "连接成功" : "连接失败");
+	}
+
 	/**
 	 * 生成代码
 	 */

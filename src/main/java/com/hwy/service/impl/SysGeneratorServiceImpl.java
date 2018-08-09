@@ -18,6 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -88,5 +91,32 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 	@Override
 	public void saveCacheConfig(DataSoureReqDto reqDto) {
 		DataSourceCacheUtil.set(reqDto.to());
+	}
+
+	@Override
+	public boolean connectTest(DataSoureReqDto reqDto) {
+		Connection con = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection(
+					getUrl(reqDto), reqDto.getUserName(), reqDto.getPassword());
+			return true;
+		} catch (Exception e) {
+			log.error("数据库连接失败");
+		} finally {
+			if (null != con) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					log.error("数据库连接失败");
+				}
+			}
+		}
+		return false;
+	}
+
+	private String getUrl(DataSoureReqDto reqDto) {
+		String template = "jdbc:mysql://%s:%s/%s?useUnicode=true&characterEncoding=UTF-8";
+		return String.format(template, reqDto.getIp(), reqDto.getPort(), reqDto.getDatabase());
 	}
 }
