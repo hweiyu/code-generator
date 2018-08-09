@@ -13,6 +13,8 @@ public class DataSourceCacheUtil {
 
     private static DataSourceEntity dataSource = defaultDataSource();
 
+    private static boolean hasSetting = false;
+
     public static DataSourceEntity defaultDataSource() {
         return DataSourceEntity.builder()
                 .ip("127.0.0.1")
@@ -29,6 +31,13 @@ public class DataSourceCacheUtil {
 
     public static synchronized void set(DataSourceEntity dataSourceEntity) {
         dataSource = dataSourceEntity;
+        if (!hasSetting) {
+            hasSetting = true;
+        }
+    }
+
+    public static boolean hasSetting() {
+        return hasSetting;
     }
 
 }

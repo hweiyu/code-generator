@@ -27,7 +27,7 @@
 		<a class="btn btn-primary" @click="generator"><i class="fa fa-file-code-o"></i>&nbsp;生成代码</a>
 
 		<!-- 按钮触发模态框 -->
-		<button class="btn btn-primary" data-toggle="modal" data-target="#dataSource" @click="config">数据源配置</button>
+		<button class="btn btn-primary" data-toggle="modal" data-target="#dataSource" @click="getConfig">数据源配置</button>
 		<!-- 模态框（Modal） -->
 		<div class="modal fade" id="dataSource" tabindex="-1" role="dialog" aria-labelledby="dataSourceLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -65,7 +65,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						<button type="button" class="btn btn-primary">连接测试</button>
-						<button type="button" class="btn btn-primary" @click="configSave">保存</button>
+						<button type="button" class="btn btn-primary" @click="saveConfig">保存</button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal -->

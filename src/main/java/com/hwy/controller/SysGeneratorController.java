@@ -8,6 +8,7 @@ import com.hwy.model.TableModel;
 import com.hwy.service.SysGeneratorService;
 import com.hwy.dto.request.QueryReqDto;
 import com.hwy.dto.PageInfo;
+import com.hwy.utils.DataSourceCacheUtil;
 import com.hwy.utils.ResultUtil;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class SysGeneratorController {
 	@ResponseBody
 	@RequestMapping("/list")
 	public ResultData<PageInfo> list(@RequestParam Map<String, Object> params){
+		if (!DataSourceCacheUtil.hasSetting()) {
+			return ResultUtil.error("请先设置数据源");
+		}
 		//查询列表数据
 		QueryReqDto query = new QueryReqDto(params);
 		List<TableModel> list = sysGeneratorService.queryList(query);

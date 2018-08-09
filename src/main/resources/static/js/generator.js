@@ -1,7 +1,7 @@
 $(function () {
     $("#jqGrid").jqGrid({
         url: 'sys/generator/list',
-        datatype: "json",
+        datatype: "local",
         colModel: [
 			{ label: '表名', name: 'tableName', width: 100, key: true },
 			{ label: 'Engine', name: 'engine', width: 70},
@@ -31,6 +31,11 @@ $(function () {
         gridComplete:function(){
         	//隐藏grid底部滚动条
         	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" });
+        },
+        loadComplete:function(data) {
+            if ("false" === data.result) {
+                alert(data.message);
+            }
         }
     });
 });
@@ -52,6 +57,7 @@ var vm = new Vue({
 	methods: {
 		query: function () {
 			$("#jqGrid").jqGrid('setGridParam',{
+                datatype: "json",
                 postData:{'tableName': vm.q.tableName},
                 page:1 
             }).trigger("reloadGrid");
@@ -63,7 +69,7 @@ var vm = new Vue({
 			}
 			location.href = "sys/generator/code?tables=" + JSON.stringify(tableNames);
 		},
-        config: function() {
+        getConfig: function() {
             $.ajax({
                 type: "post",
                 url: this.serverUrl() + "/sys/generator/config/get",
@@ -74,7 +80,7 @@ var vm = new Vue({
                 }
             });
         },
-        configSave: function () {
+        saveConfig: function () {
             $.ajax({
                 type: "post",
                 url: this.serverUrl() + "/sys/generator/config/save",
