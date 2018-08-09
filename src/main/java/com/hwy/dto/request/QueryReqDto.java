@@ -1,4 +1,4 @@
-package com.hwy.utils;
+package com.hwy.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,9 +14,9 @@ import java.util.Map;
  **/
 @Getter
 @Setter
-public class Query extends LinkedHashMap<String, Object> {
+public class QueryReqDto extends LinkedHashMap<String, Object> {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2650725986011599517L;
 
     /**
      * 当前页码
@@ -28,7 +28,7 @@ public class Query extends LinkedHashMap<String, Object> {
      */
     private int limit;
 
-    public Query(Map<String, Object> params){
+    public QueryReqDto(Map<String, Object> params){
         this.putAll(params);
 
         //分页参数

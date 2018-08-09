@@ -7,13 +7,13 @@ package com.hwy.dto;
  * @Description: 描述
  * @date 2018/6/14 9:25
  **/
-public class CodeResult<T> extends BaseResult {
+public class ResultData<T> extends BaseResult {
 
     private static final long serialVersionUID = -495303608504114277L;
 
     private T data;
 
-    public CodeResult() {
+    public ResultData() {
 
     }
 

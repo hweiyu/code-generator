@@ -1,6 +1,6 @@
 package com.hwy.utils;
 
-import com.hwy.dto.CodeResult;
+import com.hwy.dto.ResultData;
 
 /**
  * @author huangweiyu
@@ -17,20 +17,20 @@ public class ResultUtil {
 
     private static final String DEFAULT_CODE = "1";
 
-    public static<T> CodeResult<T> success(T data) {
-        CodeResult<T> result = new CodeResult<>();
+    public static<T> ResultData<T> success(T data) {
+        ResultData<T> result = new ResultData<>();
         result.setResult(TRUE);
         result.setData(data);
         result.setCode(DEFAULT_CODE);
         return result;
     }
 
-    public static <T> CodeResult<T> error(String message) {
+    public static <T> ResultData<T> error(String message) {
         return error(message, null);
     }
 
-    public static <T> CodeResult<T> error(String message, T data) {
-        CodeResult<T> result = new CodeResult<>();
+    public static <T> ResultData<T> error(String message, T data) {
+        ResultData<T> result = new ResultData<>();
         result.setResult(FLASE);
         result.setMessage(message);
         result.setData(data);
@@ -38,7 +38,7 @@ public class ResultUtil {
         return result;
     }
 
-    public static <T> CodeResult<T> create(boolean res, String message, T data) {
+    public static <T> ResultData<T> create(boolean res, String message, T data) {
         return res ? success(data) : error(message, data);
     }
 }

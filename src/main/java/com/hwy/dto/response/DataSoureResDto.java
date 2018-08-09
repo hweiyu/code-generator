@@ -19,6 +19,8 @@ import lombok.*;
 @AllArgsConstructor
 public class DataSoureResDto extends BaseRes {
 
+    private static final long serialVersionUID = -7532239555984137243L;
+
     private String ip;
 
     private String port;

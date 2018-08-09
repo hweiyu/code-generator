@@ -1,14 +1,13 @@
 package com.hwy.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.hwy.dto.CodeResult;
+import com.hwy.dto.ResultData;
 import com.hwy.dto.request.DataSoureReqDto;
 import com.hwy.dto.response.DataSoureResDto;
 import com.hwy.model.TableModel;
 import com.hwy.service.SysGeneratorService;
-import com.hwy.utils.Query;
-import com.hwy.utils.Result;
-import com.hwy.utils.PageUtils;
+import com.hwy.dto.request.QueryReqDto;
+import com.hwy.dto.PageInfo;
 import com.hwy.utils.ResultUtil;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,24 +38,24 @@ public class SysGeneratorController {
 	 */
 	@ResponseBody
 	@RequestMapping("/list")
-	public Result list(@RequestParam Map<String, Object> params){
+	public ResultData<PageInfo> list(@RequestParam Map<String, Object> params){
 		//查询列表数据
-		Query query = new Query(params);
+		QueryReqDto query = new QueryReqDto(params);
 		List<TableModel> list = sysGeneratorService.queryList(query);
 		int total = sysGeneratorService.queryTotal(query);
-		PageUtils pageUtil = new PageUtils(list, total, query.getLimit(), query.getPage());
-		return Result.ok().put("page", pageUtil);
+		PageInfo<TableModel> pageInfo = new PageInfo<>(list, total, query.getLimit(), query.getPage());
+		return ResultUtil.success(pageInfo);
 	}
 
 	@ResponseBody
 	@PostMapping("/config/get")
-	public CodeResult<DataSoureResDto> getConfig(){
+	public ResultData<DataSoureResDto> getConfig(){
 		return ResultUtil.success(sysGeneratorService.getCacheConfig());
 	}
 
 	@ResponseBody
 	@PostMapping("/config/save")
-	public CodeResult<Void> saveConfig(@RequestBody DataSoureReqDto reqDto){
+	public ResultData<Void> saveConfig(@RequestBody DataSoureReqDto reqDto){
 		sysGeneratorService.saveCacheConfig(reqDto);
 		return ResultUtil.success(null);
 	}

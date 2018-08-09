@@ -1,4 +1,4 @@
-package com.hwy.utils;
+package com.hwy.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,9 +15,9 @@ import java.util.List;
  **/
 @Getter
 @Setter
-public class PageUtils implements Serializable {
+public class PageInfo<T> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -2163784333406337161L;
 
     /**
      * 总记录数
@@ -42,7 +42,7 @@ public class PageUtils implements Serializable {
     /**
      * 列表数据
      */
-    private List<?> list;
+    private List<T> list;
 
     /**
      * 分页
@@ -52,7 +52,7 @@ public class PageUtils implements Serializable {
      * @param pageSize   每页记录数
      * @param currPage   当前页数
      */
-    public PageUtils(List<?> list, int totalCount, int pageSize, int currPage) {
+    public PageInfo(List<T> list, int totalCount, int pageSize, int currPage) {
         this.list = list;
         this.totalCount = totalCount;
         this.pageSize = pageSize;
