@@ -36,7 +36,7 @@ public class DataSourceCacheUtil {
         }
     }
 
-    public static boolean hasSetting() {
+    public static synchronized boolean hasSetting() {
         return hasSetting;
     }
 
