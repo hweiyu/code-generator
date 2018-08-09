@@ -15,6 +15,8 @@ public class DataSourceCacheUtil {
 
     private static boolean hasSetting = false;
 
+    private static final Object LOCK = new Object();
+
     public static DataSourceEntity defaultDataSource() {
         return DataSourceEntity.builder()
                 .ip("127.0.0.1")
@@ -25,19 +27,25 @@ public class DataSourceCacheUtil {
                 .build();
     }
 
-    public static synchronized DataSourceEntity get() {
-        return dataSource;
-    }
-
-    public static synchronized void set(DataSourceEntity dataSourceEntity) {
-        dataSource = dataSourceEntity;
-        if (!hasSetting) {
-            hasSetting = true;
+    public static DataSourceEntity get() {
+        synchronized (LOCK) {
+            return dataSource;
         }
     }
 
-    public static synchronized boolean hasSetting() {
-        return hasSetting;
+    public static void set(DataSourceEntity dataSourceEntity) {
+        synchronized (LOCK) {
+            dataSource = dataSourceEntity;
+            if (!hasSetting) {
+                hasSetting = true;
+            }
+        }
+    }
+
+    public static boolean hasSetting() {
+        synchronized (LOCK) {
+            return hasSetting;
+        }
     }
 
 }
