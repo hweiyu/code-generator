@@ -4,12 +4,12 @@ server:
 
 # mysql
 spring:
-    datasource:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driverClassName: com.mysql.jdbc.Driver
-        url: jdbc:mysql://192.168.1.101:3306/mpys?useUnicode=true&characterEncoding=UTF-8
-        username: root
-        password: 123456
+#    datasource:
+#        type: com.alibaba.druid.pool.DruidDataSource
+#        driverClassName: com.mysql.jdbc.Driver
+#        url: jdbc:mysql://192.168.1.101:3306/mpys?useUnicode=true&characterEncoding=UTF-8
+#        username: root
+#        password: 123456
     jackson:
         time-zone: GMT+8
         date-format: yyyy-MM-dd HH:mm:ss

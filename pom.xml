@@ -26,6 +26,7 @@
 		<commons.configuration.version>1.10</commons.configuration.version>
 		<fastjson.version>1.2.47</fastjson.version>
 		<velocity.version>1.7</velocity.version>
+		<guava.version>23.0</guava.version>
 	</properties>
 
 	<dependencies>
@@ -86,9 +87,13 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>23.0</version>
+			<version>${guava.version}</version>
 		</dependency>
-	</dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

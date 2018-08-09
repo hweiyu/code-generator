@@ -2,6 +2,7 @@ package com.hwy.service.impl;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import com.hwy.aop.DynamicSource;
 import com.hwy.dao.SysGeneratorDao;
 import com.hwy.dto.PageInfo;
 import com.hwy.dto.request.DataSoureReqDto;
@@ -14,15 +15,13 @@ import com.hwy.service.SysGeneratorService;
 import com.hwy.utils.CodeGeneratorException;
 import com.hwy.utils.CodeGeneratorUtils;
 import com.hwy.utils.DataSourceCacheUtil;
+import com.hwy.utils.JdbcUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +41,7 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 	@Autowired
 	private SysGeneratorDao sysGeneratorDao;
 
+	@DynamicSource
 	@Override
 	public PageInfo<TableResDto> list(Map<String, Object> map) {
 		if (!DataSourceCacheUtil.hasSetting()) {
@@ -62,6 +62,7 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 		return new PageInfo<>(result, total, query.getLimit(), query.getPage());
 	}
 
+	@DynamicSource
 	@Override
 	public byte[] generatorCode(String[] tableNames) {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -116,28 +117,7 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 
 	@Override
 	public boolean connectTest(DataSoureReqDto reqDto) {
-		Connection con = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection(
-					getUrl(reqDto), reqDto.getUserName(), reqDto.getPassword());
-			return true;
-		} catch (Exception e) {
-			log.error("数据库连接失败");
-		} finally {
-			if (null != con) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					log.error("数据库连接失败");
-				}
-			}
-		}
-		return false;
+		return JdbcUtil.tryConnect(reqDto.to());
 	}
 
-	private String getUrl(DataSoureReqDto reqDto) {
-		String template = "jdbc:mysql://%s:%s/%s?useUnicode=true&characterEncoding=UTF-8";
-		return String.format(template, reqDto.getIp(), reqDto.getPort(), reqDto.getDatabase());
-	}
 }

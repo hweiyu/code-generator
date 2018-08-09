@@ -25,4 +25,9 @@ public class DataSourceEntity {
     private String userName;
 
     private String password;
+
+    public String getUrl() {
+        String template = "jdbc:mysql://%s:%s/%s?useUnicode=true&characterEncoding=UTF-8";
+        return String.format(template, getIp(), getPort(), getDatabase());
+    }
 }
