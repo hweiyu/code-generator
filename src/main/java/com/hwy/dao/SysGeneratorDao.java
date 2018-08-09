@@ -32,15 +32,15 @@ public interface SysGeneratorDao {
 
 	/**
 	 * 查表结构
-	 * @param tableName
+	 *
 	 * @return
 	 */
-	TableModel queryTable(String tableName);
+	List<TableModel> queryAllTable();
 
 	/**
 	 * 查表字段结构
-	 * @param tableName
+	 *
 	 * @return
 	 */
-	List<ColumnModel> queryColumns(String tableName);
+	List<ColumnModel> queryAllColumns();
 }

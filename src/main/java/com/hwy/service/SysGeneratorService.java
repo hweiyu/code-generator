@@ -4,10 +4,7 @@ import com.hwy.dto.PageInfo;
 import com.hwy.dto.request.DataSoureReqDto;
 import com.hwy.dto.response.DataSoureResDto;
 import com.hwy.dto.response.TableResDto;
-import com.hwy.model.ColumnModel;
-import com.hwy.model.TableModel;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,10 +17,6 @@ import java.util.Map;
 public interface SysGeneratorService {
 
     PageInfo<TableResDto> list(Map<String, Object> map);
-
-    TableModel queryTable(String tableName);
-
-    List<ColumnModel> queryColumns(String tableName);
 
     byte[] generatorCode(String[] tableNames);
 

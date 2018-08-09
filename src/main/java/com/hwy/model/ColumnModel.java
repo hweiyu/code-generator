@@ -14,6 +14,8 @@ import lombok.Setter;
 @Getter
 public class ColumnModel {
 
+    private String tableName;
+
     private String columnName;
 
     private String dataType;

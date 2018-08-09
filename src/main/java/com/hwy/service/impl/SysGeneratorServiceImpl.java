@@ -1,5 +1,7 @@
 package com.hwy.service.impl;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.hwy.dao.SysGeneratorDao;
 import com.hwy.dto.PageInfo;
 import com.hwy.dto.request.DataSoureReqDto;
@@ -22,6 +24,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipOutputStream;
@@ -46,7 +49,7 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 		}
 		//查询列表数据
 		QueryReqDto query = new QueryReqDto(map);
-		List<TableResDto> result = new ArrayList<>();
+		List<TableResDto> result = new ArrayList<>(256);
 		int total = sysGeneratorDao.queryTotal(query);
 		if (total > 0) {
 			List<TableModel> models = sysGeneratorDao.queryList(query);
@@ -60,29 +63,45 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 	}
 
 	@Override
-	public TableModel queryTable(String tableName) {
-		return sysGeneratorDao.queryTable(tableName);
-	}
-
-	@Override
-	public List<ColumnModel> queryColumns(String tableName) {
-		return sysGeneratorDao.queryColumns(tableName);
-	}
-
-	@Override
 	public byte[] generatorCode(String[] tableNames) {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		ZipOutputStream zip = new ZipOutputStream(outputStream);
+		//查表结构信息，因为数据不多所以直接查全表
+		Map<String, TableModel> tableMap = getAllTable();
+		//查表字段结构信息，因为数据不多所以直接查全表
+		Multimap<String, ColumnModel> columnMap = getAllColumn();
 		for(String tableName : tableNames){
 			//查询表信息
-			TableModel table = queryTable(tableName);
+			TableModel table = tableMap.get(tableName);
 			//查询列信息
-			List<ColumnModel> columns = queryColumns(tableName);
+			List<ColumnModel> columns = (List<ColumnModel>) columnMap.get(tableName);
 			//生成代码
 			CodeGeneratorUtils.generatorCode(table, columns, zip);
 		}
 		IOUtils.closeQuietly(zip);
 		return outputStream.toByteArray();
+	}
+
+	private Map<String, TableModel> getAllTable() {
+		Map<String, TableModel> result = new HashMap<>(256);
+		List<TableModel> tableModels = sysGeneratorDao.queryAllTable();
+		if (null != tableModels) {
+			for (TableModel tableModel : tableModels) {
+				result.put(tableModel.getTableName(), tableModel);
+			}
+		}
+		return result;
+	}
+
+	private Multimap<String, ColumnModel> getAllColumn() {
+		Multimap<String, ColumnModel> result = ArrayListMultimap.create();
+		List<ColumnModel> columnModels = sysGeneratorDao.queryAllColumns();
+		if (null != columnModels) {
+			for (ColumnModel columnModel : columnModels) {
+				result.put(columnModel.getTableName(), columnModel);
+			}
+		}
+		return result;
 	}
 
 	@Override
