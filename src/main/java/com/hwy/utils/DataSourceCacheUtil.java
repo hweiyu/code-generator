@@ -11,9 +11,9 @@ import com.hwy.entity.DataSourceEntity;
  **/
 public class DataSourceCacheUtil {
 
-    private static DataSourceEntity dataSource = defaultDataSource();
+    private static volatile DataSourceEntity dataSource = defaultDataSource();
 
-    private static boolean hasSetting = false;
+    private static volatile boolean hasSetting = false;
 
     private static final Object LOCK = new Object();
 

@@ -46,12 +46,14 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 		}
 		//查询列表数据
 		QueryReqDto query = new QueryReqDto(map);
-		int total = sysGeneratorDao.queryTotal(query);
-		List<TableModel> models = sysGeneratorDao.queryList(map);
 		List<TableResDto> result = new ArrayList<>();
-		if (null != models) {
-			for (TableModel tableModel : models) {
-				result.add(TableResDto.get(tableModel));
+		int total = sysGeneratorDao.queryTotal(query);
+		if (total > 0) {
+			List<TableModel> models = sysGeneratorDao.queryList(query);
+			if (null != models) {
+				for (TableModel tableModel : models) {
+					result.add(TableResDto.get(tableModel));
+				}
 			}
 		}
 		return new PageInfo<>(result, total, query.getLimit(), query.getPage());
