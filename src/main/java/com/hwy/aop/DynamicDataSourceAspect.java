@@ -31,8 +31,8 @@ public class DynamicDataSourceAspect {
     @Around("@annotation(com.hwy.aop.DynamicSource))")
     public Object invoke(ProceedingJoinPoint point) {
         try {
-            tryConnect();
-            setDataSource();
+//            tryConnect();
+//            setDataSource();
             return point.proceed();
         } catch (CodeGeneratorException e) {
             throw e;

@@ -36,7 +36,7 @@ public class ${className}ReqDto implements Serializable {
     public ${className}Model to() {
             return ${className}Model.builder()
 		#foreach ($column in $columns)
-                .${column.attrname}(get${column.attrName}());
+                .${column.attrname}(get${column.attrName}())
 		#end
         .build();
     }

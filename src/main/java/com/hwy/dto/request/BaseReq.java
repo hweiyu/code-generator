@@ -1,4 +1,6 @@
-package com.hwy.dto;
+package com.hwy.dto.request;
+
+import com.hwy.dto.Dto;
 
 /**
  * @author huangweiyu

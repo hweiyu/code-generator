@@ -1,6 +1,5 @@
 package com.hwy;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,7 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2018/8/7 14:06
  **/
 @SpringBootApplication
-@MapperScan("com.hwy.dao")
 public class CodeGeneratorApplication {
 
 	public static void main(String[] args) {

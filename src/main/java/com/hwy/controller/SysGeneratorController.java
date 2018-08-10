@@ -7,7 +7,7 @@ import com.hwy.dto.request.ParamReqDto;
 import com.hwy.dto.response.DataSoureResDto;
 import com.hwy.dto.response.ParamResDto;
 import com.hwy.service.SysGeneratorService;
-import com.hwy.dto.PageInfo;
+import com.hwy.dto.response.PageResDto;
 import com.hwy.utils.ResultUtil;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class SysGeneratorController {
 	 */
 	@ResponseBody
 	@RequestMapping("/list")
-	public ResultData<PageInfo> list(@RequestParam Map<String, Object> params){
+	public ResultData<PageResDto> list(@RequestParam Map<String, Object> params){
 		return ResultUtil.success(sysGeneratorService.list(params));
 	}
 
@@ -53,13 +53,6 @@ public class SysGeneratorController {
 	public ResultData<Void> saveDataSourceConfig(@RequestBody DataSoureReqDto reqDto){
 		sysGeneratorService.saveCacheConfig(reqDto);
 		return ResultUtil.success(null);
-	}
-
-	@ResponseBody
-	@PostMapping("datasource/connect/test")
-	public ResultData<String> connectTest(@RequestBody DataSoureReqDto reqDto){
-		boolean res = sysGeneratorService.connectTest(reqDto);
-		return ResultUtil.success(res ? "连接成功" : "连接失败");
 	}
 
 	@ResponseBody

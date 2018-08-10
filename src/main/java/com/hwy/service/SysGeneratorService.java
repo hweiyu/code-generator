@@ -1,6 +1,6 @@
 package com.hwy.service;
 
-import com.hwy.dto.PageInfo;
+import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.request.DataSoureReqDto;
 import com.hwy.dto.request.ParamReqDto;
 import com.hwy.dto.response.DataSoureResDto;
@@ -18,15 +18,13 @@ import java.util.Map;
  **/
 public interface SysGeneratorService {
 
-    PageInfo<TableResDto> list(Map<String, Object> map);
+    PageResDto<TableResDto> list(Map<String, Object> map);
 
     byte[] generatorCode(String[] tableNames);
 
     DataSoureResDto getCacheConfig();
 
     void saveCacheConfig(DataSoureReqDto reqDto);
-
-    boolean connectTest(DataSoureReqDto reqDto);
 
     ParamResDto getParam();
 

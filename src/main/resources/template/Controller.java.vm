@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import ${package}.${moduleName}.dto.request.${className}ReqDto;
 import ${package}.${moduleName}.dto.response.${className}ResDto;
 import ${package}.${moduleName}.service.${className}Service;
+import ${package}.${moduleName}.utils.ResultUtil;
+import ${package}.${moduleName}.dto.ResultData;
+
+import java.util.List;
 
 /**
  * ${comments}控制器
@@ -34,8 +38,8 @@ public class ${className}Controller {
      */
     @ApiOperation(value = "获取${comments}数据列表", notes = "获取${comments}数据列表")
     @PostMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Result<${className}ResDto> list(@RequestBody ${className}ReqDto reqDto){
-        return Result.success(${classname}Service.select(reqDto));
+    public ResultData<List<${className}ResDto>> list(@RequestBody ${className}ReqDto reqDto){
+        return ResultUtil.success(${classname}Service.select(reqDto));
     }
 
     /**

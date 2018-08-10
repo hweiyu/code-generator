@@ -1,6 +1,7 @@
 # port
 server:
     port: 8080
+#    context-path: /hweiyu/gen
 
 # mysql
 spring:
@@ -10,6 +11,20 @@ spring:
         url: jdbc:mysql://localhost:3306/code_gen?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
         username: root
         password: root123456
+        initialSize: 1
+        minIdle: 3
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 30000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,slf4j
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     jackson:
         time-zone: GMT+8
         date-format: yyyy-MM-dd HH:mm:ss

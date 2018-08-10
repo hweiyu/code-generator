@@ -1,6 +1,5 @@
 package com.hwy.dto.response;
 
-import com.hwy.dto.BaseRes;
 import com.hwy.entity.DataSourceEntity;
 import com.hwy.utils.DataSourceCacheUtil;
 import lombok.*;

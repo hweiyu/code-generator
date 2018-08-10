@@ -41,4 +41,8 @@ public class ResultUtil {
     public static <T> ResultData<T> create(boolean res, String message, T data) {
         return res ? success(data) : error(message, data);
     }
+
+    public static <T> ResultData<T> create(int res) {
+        return res > 0 ? success(null) : error("操作失败", null);
+    }
 }

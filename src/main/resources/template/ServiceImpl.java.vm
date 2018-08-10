@@ -10,6 +10,7 @@ import ${package}.${moduleName}.dto.request.${className}ReqDto;
 import ${package}.${moduleName}.dto.response.${className}ResDto;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * ${comments}服务
@@ -51,7 +52,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     * 添加
     */
     @Override
-    int insert(${className}ReqDto reqDto) {
+    public int insert(${className}ReqDto reqDto) {
         return ${classname}Mapper.insertSelective(reqDto.to());
     }
 
@@ -59,7 +60,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     * 修改
     */
     @Override
-    int update(${className}ReqDto reqDto) {
+    public int update(${className}ReqDto reqDto) {
         return ${classname}Mapper.updateByPrimaryKeySelective(reqDto.to());
     }
 
@@ -67,7 +68,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     * 删除
     */
     @Override
-    int delete(${className}ReqDto reqDto) {
+    public int delete(${className}ReqDto reqDto) {
         return ${classname}Mapper.delete(reqDto.to());
     }
 

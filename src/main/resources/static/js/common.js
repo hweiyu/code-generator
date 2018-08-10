@@ -48,6 +48,7 @@ window.confirm = function(msg, callback){
 	function(){//确定事件
 		if(typeof(callback) === "function"){
 			callback("ok");
+            parent.layer.closeAll('dialog');
 		}
 	});
 }

@@ -1,6 +1,5 @@
 package com.hwy.dto.response;
 
-import com.hwy.dto.BaseRes;
 import com.hwy.entity.ParamEntity;
 import com.hwy.utils.ParamCacheUtil;
 import lombok.*;

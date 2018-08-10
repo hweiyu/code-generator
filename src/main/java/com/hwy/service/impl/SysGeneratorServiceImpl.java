@@ -4,7 +4,8 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.hwy.aop.DynamicSource;
 import com.hwy.dao.SysGeneratorDao;
-import com.hwy.dto.PageInfo;
+import com.hwy.dto.Page;
+import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.request.DataSoureReqDto;
 import com.hwy.dto.request.ParamReqDto;
 import com.hwy.dto.request.QueryReqDto;
@@ -42,14 +43,12 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 
 	@DynamicSource
 	@Override
-	public PageInfo<TableResDto> list(Map<String, Object> map) {
-		if (!DataSourceCacheUtil.hasSetting()) {
-			throw new CodeGeneratorException("请先设置数据源");
-		}
+	public PageResDto<TableResDto> list(Map<String, Object> map) {
 		//查询列表数据
 		QueryReqDto query = new QueryReqDto(map);
 		List<TableResDto> result = new ArrayList<>(256);
 		int total = sysGeneratorDao.queryTotal(query);
+		Page page = Page.builder().total(total).page(query.getPage()).limit(query.getLimit()).build();
 		if (total > 0) {
 			List<TableModel> models = sysGeneratorDao.queryList(query);
 			if (null != models) {
@@ -58,7 +57,7 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 				}
 			}
 		}
-		return new PageInfo<>(result, total, query.getLimit(), query.getPage());
+		return PageUtil.getPageInfo(result, page);
 	}
 
 	@DynamicSource
@@ -112,11 +111,6 @@ public class SysGeneratorServiceImpl implements SysGeneratorService {
 	@Override
 	public void saveCacheConfig(DataSoureReqDto reqDto) {
 		DataSourceCacheUtil.set(reqDto.to());
-	}
-
-	@Override
-	public boolean connectTest(DataSoureReqDto reqDto) {
-		return JdbcUtil.tryConnect(reqDto.to());
 	}
 
 	@Override

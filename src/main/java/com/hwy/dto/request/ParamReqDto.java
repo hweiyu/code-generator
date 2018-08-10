@@ -1,6 +1,5 @@
 package com.hwy.dto.request;
 
-import com.hwy.dto.BaseReq;
 import com.hwy.entity.ParamEntity;
 import lombok.*;
 

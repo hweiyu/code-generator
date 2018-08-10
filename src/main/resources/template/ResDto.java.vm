@@ -36,7 +36,7 @@ public class ${className}ResDto implements Serializable {
 	public static ${className}ResDto get(${className}Model model) {
 		return ${className}ResDto.builder()
 		#foreach ($column in $columns)
-            .${column.attrname}(model.get${column.attrName}());
+            .${column.attrname}(model.get${column.attrName}())
 		#end
 				.build();
 	}
