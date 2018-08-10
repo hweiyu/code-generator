@@ -22,10 +22,7 @@ IF NOT EXISTS `t_template` (
 	`id` BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT '主键',
 	`group_id` BIGINT (20) NOT NULL DEFAULT 0 COMMENT '模板组id',
 	`template_name` VARCHAR (100) NOT NULL DEFAULT '' COMMENT '模板名',
-	`module_name` VARCHAR (50) NOT NULL DEFAULT '' COMMENT '功能模块名称',
 	`context` VARCHAR (5000) NOT NULL DEFAULT '' COMMENT '模板内容',
-	`author` VARCHAR (50) NOT NULL DEFAULT '' COMMENT '作者',
-	`table_prefix` VARCHAR (20) NOT NULL DEFAULT '' COMMENT '表前缀',
 	`template_type` TINYINT (4) NOT NULL DEFAULT 0 COMMENT '0:java,1:xml,2:html',
 	`package_path` VARCHAR (100) NOT NULL DEFAULT '' COMMENT '生成包名',
 	`file_name` VARCHAR (100) NOT NULL DEFAULT '' COMMENT '文件名',
@@ -33,4 +30,20 @@ IF NOT EXISTS `t_template` (
 	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
 	`update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
 	PRIMARY KEY (`id`)
-) ENGINE = INNODB DEFAULT CHARSET = utf8 COMMENT = '模板';
+) ENGINE = INNODB DEFAULT CHARSET = utf8 COMMENT = '模板信息';
+
+DROP TABLE `t_template_group`;
+
+CREATE TABLE
+IF NOT EXISTS `t_template_group` (
+	`id` BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+	`group_name` VARCHAR (20) NOT NULL DEFAULT '' COMMENT '模板组名称',
+	`module_name` VARCHAR (20) NOT NULL DEFAULT '' COMMENT '模块名',
+	`author` VARCHAR (20) NOT NULL DEFAULT '' COMMENT '作者',
+	`table_prefix` VARCHAR (20) NOT NULL DEFAULT '' COMMENT '表前缀',
+	`main_package` VARCHAR (50) NOT NULL DEFAULT '' COMMENT '主包名',
+	`data_status` TINYINT (4) NOT NULL DEFAULT '1' COMMENT '0:禁用,1:启用,2:已删除',
+	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+	`update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+	PRIMARY KEY (`id`)
+) ENGINE = INNODB AUTO_INCREMENT = 16 DEFAULT CHARSET = utf8 COMMENT = '模板组';

@@ -1,7 +1,7 @@
 $(function () {
     $("#jqGrid").jqGrid({
         url: '/template/list',
-        datatype: "local",
+        datatype: "json",
         mtype: 'POST',
         colModel: [
             { label: 'id', name: 'id', width: 50, key: true, hidden: true},
@@ -12,9 +12,6 @@ $(function () {
                 }
             },
 			{ label: '模板名', name: 'templateName', width: 50},
-            { label: '功能模块', name: 'moduleName', width: 50},
-			{ label: '作者', name: 'author', width: 50},
-			{ label: '表前缀', name: 'tablePrefix', width: 20 },
 			{ label: '模板类型', name: 'templateType', width: 50 },
             { label: '生成包名', name: 'packagePath', width: 100 },
             { label: '文件名', name: 'fileName', width: 100 }
@@ -62,9 +59,6 @@ var vm = new Vue({
 		},
         addForm: {
             templateName:'',
-            moduleName:'',
-            author:'',
-            tablePrefix: '',
             templateType: '',
             packagePath: '',
             fileName: ''
@@ -72,9 +66,6 @@ var vm = new Vue({
         editForm: {
 		    id: '',
             templateName:'',
-            moduleName:'',
-            author:'',
-            tablePrefix: '',
             templateType: '',
             packagePath: '',
             fileName: ''

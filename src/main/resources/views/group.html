@@ -21,7 +21,7 @@
 <div id="rrapp">
 	<div class="grid-btn">
 		<div class="form-group col-sm-2">
-			<input type="text" class="form-control" v-model="q.name" @keyup.enter="query" placeholder="模板组名称">
+			<input type="text" class="form-control" v-model="q.name" @keyup.enter="query" placeholder="模板名称">
 		</div>
 		<a class="btn btn-default" @click="query">查询</a>
 
@@ -33,27 +33,31 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="addFormLabel">添加模板</h4>
+						<h4 class="modal-title" id="addFormLabel">添加模板组</h4>
 					</div>
 
 					<div class="modal-body">
 						<table class="table table-bordered">
 							<tbody>
 							<tr>
-								<td class="col-sm-2">模板名称</td>
-								<td><input type="text" class="form-control" v-model="addForm.templateName" placeholder="模板名称"></td>
+								<td class="col-sm-2">模板组名称</td>
+								<td><input type="text" class="form-control" v-model="addForm.groupName" placeholder="模板组名称"></td>
 							</tr>
 							<tr>
-								<td>类型</td>
-								<td><input type="text" class="form-control" v-model="addForm.templateType" placeholder="类型"></td>
+								<td class="col-sm-2">模块名</td>
+								<td><input type="text" class="form-control" v-model="addForm.moduleName" placeholder="模块名"></td>
 							</tr>
 							<tr>
-								<td>生成包名</td>
-								<td><input type="text" class="form-control" v-model="addForm.packagePath" placeholder="生成包名"></td>
+								<td>作者</td>
+								<td><input type="text" class="form-control" v-model="addForm.author" placeholder="作者"></td>
 							</tr>
 							<tr>
-								<td>文件名</td>
-								<td><input type="text" class="form-control" v-model="addForm.fileName" placeholder="文件名"></td>
+								<td>表前缀</td>
+								<td><input type="text" class="form-control" v-model="addForm.tablePrefix" placeholder="表前缀"></td>
+							</tr>
+							<tr>
+								<td>主包名</td>
+								<td><input type="text" class="form-control" v-model="addForm.mainPackage" placeholder="主包名"></td>
 							</tr>
 							</tbody>
 						</table>
@@ -71,26 +75,30 @@
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="editFormLabel">编辑模板</h4>
+						<h4 class="modal-title" id="editFormLabel">编辑模板组</h4>
 					</div>
 					<div class="modal-body">
 						<table class="table table-bordered">
 							<tbody>
 							<tr>
-								<td class="col-sm-2">模板名称</td>
-								<td><input type="text" class="form-control" v-model="editForm.templateName" placeholder="模板名称"></td>
+								<td class="col-sm-2">模板组名称</td>
+								<td><input type="text" class="form-control" v-model="editForm.groupName" placeholder="模板组名称"></td>
 							</tr>
 							<tr>
-								<td>类型</td>
-								<td><input type="text" class="form-control" v-model="editForm.templateType" placeholder="类型"></td>
+								<td class="col-sm-2">模块名</td>
+								<td><input type="text" class="form-control" v-model="editForm.moduleName" placeholder="模块名"></td>
 							</tr>
 							<tr>
-								<td>生成包名</td>
-								<td><input type="text" class="form-control" v-model="editForm.packagePath" placeholder="生成包名"></td>
+								<td>作者</td>
+								<td><input type="text" class="form-control" v-model="editForm.author" placeholder="作者"></td>
 							</tr>
 							<tr>
-								<td>文件名</td>
-								<td><input type="text" class="form-control" v-model="editForm.fileName" placeholder="文件名"></td>
+								<td>表前缀</td>
+								<td><input type="text" class="form-control" v-model="editForm.tablePrefix" placeholder="表前缀"></td>
+							</tr>
+							<tr>
+								<td>主包名</td>
+								<td><input type="text" class="form-control" v-model="editForm.mainPackage" placeholder="主包名"></td>
 							</tr>
 							</tbody>
 						</table>
@@ -103,39 +111,11 @@
 			</div><!-- /.modal -->
 		</div>
 
-		<div class="modal fade bs-example-modal-lg" id="editContextForm" tabindex="-1" role="dialog" aria-labelledby="editContextFormLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="editContextFormLabel">编辑模板内容</h4>
-					</div>
-					<div class="modal-body">
-						<table class="table table-bordered">
-							<tbody>
-							<tr>
-								<td class="col-sm-2">模板名称</td>
-								<td><input type="text" class="form-control" v-model="editContextForm.templateName" readonly placeholder="模板名称"></td>
-							</tr>
-							<tr>
-								<td colspan="2"><textarea class="form-control" v-model="editContextForm.context" placeholder="内容" rows="25"></textarea>
-							</tr>
-							</tbody>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-primary" @click="editContext">保存</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal -->
-		</div>
-
 	</div>
     <table id="jqGrid"></table>
     <div id="jqGridPager"></div>
 </div>
 
-<script src="js/template.js"></script>
+<script src="js/templategroup.js"></script>
 </body>
 </html>

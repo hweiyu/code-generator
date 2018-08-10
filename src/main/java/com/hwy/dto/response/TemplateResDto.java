@@ -30,24 +30,9 @@ public class TemplateResDto extends BaseRes {
     private String templateName;
 
     /**
-     * 功能模块名称
-     */
-    private String moduleName;
-
-    /**
      * 模板内容
      */
     private String context;
-
-    /**
-     * 作者
-     */
-    private String author;
-
-    /**
-     * 表前缀
-     */
-    private String tablePrefix;
 
     /**
      * 0:java,1:xml,2:html
@@ -83,10 +68,7 @@ public class TemplateResDto extends BaseRes {
         return TemplateResDto.builder()
                 .id(model.getId())
                 .templateName(model.getTemplateName())
-                .moduleName(model.getModuleName())
                 .context(model.getContext())
-                .author(model.getAuthor())
-                .tablePrefix(model.getTablePrefix())
                 .templateType(model.getTemplateType())
                 .packagePath(model.getPackagePath())
                 .fileName(model.getFileName())

@@ -29,24 +29,9 @@ public class TemplateReqDto extends BaseReq {
     private String templateName;
 
     /**
-     * 功能模块名称
-     */
-    private String moduleName;
-
-    /**
      * 模板内容
      */
     private String context;
-
-    /**
-     * 作者
-     */
-    private String author;
-
-    /**
-     * 表前缀
-     */
-    private String tablePrefix;
 
     /**
      * 0:java,1:xml,2:html
@@ -72,10 +57,7 @@ public class TemplateReqDto extends BaseReq {
         return TemplateModel.builder()
                 .id(getId())
                 .templateName(getTemplateName())
-                .moduleName(getModuleName())
                 .context(getContext())
-                .author(getAuthor())
-                .tablePrefix(getTablePrefix())
                 .templateType(getTemplateType())
                 .packagePath(getPackagePath())
                 .fileName(getFileName())

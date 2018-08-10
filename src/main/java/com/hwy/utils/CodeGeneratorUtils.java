@@ -62,7 +62,7 @@ public class CodeGeneratorUtils {
         //封装模板数据
         for (TemplateModel template : templates) {
             if (!hasSetting) {
-                setClassName(template.getTablePrefix(), tableEntity);
+//                setClassName(template.getTablePrefix(), tableEntity);
                 hasSetting = true;
             }
             VelocityContext context = createVelocityContext(template, tableEntity);
@@ -116,8 +116,8 @@ public class CodeGeneratorUtils {
         templateData.put("columns", tableEntity.getColumns());
         templateData.put("hasBigDecimal", tableEntity.getHasBigDecimal());
         templateData.put("package", template.getPackagePath());
-        templateData.put("author", template.getAuthor());
-        templateData.put("moduleName", template.getModuleName());
+//        templateData.put("author", template.getAuthor());
+//        templateData.put("moduleName", template.getModuleName());
         templateData.put("datetime", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
         return templateData;
     }

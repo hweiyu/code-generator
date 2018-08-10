@@ -10,18 +10,18 @@ import javax.persistence.Id;
 import lombok.*;
 
 /**
- * 模板模型
+ * 模板组模型
  *
  * @author hweiyu
- * @date 2018-08-10 09:47:28
+ * @date 2018-08-10 22:32:56
  */
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "t_template")
-public class TemplateModel {
+@Table(name = "t_template_group")
+public class TemplateGroupModel {
 
     /**
      * 主键
@@ -32,40 +32,34 @@ public class TemplateModel {
     private Long id;
 
     /**
-     * 模板组id
+     * 模板组名称
      */
-    @Column(name = "group_id")
-    private Long groupId;
+    @Column(name = "group_name")
+    private String groupName;
 
     /**
-     * 模板名
+     * 模块名
      */
-    @Column(name = "template_name")
-    private String templateName;
+    @Column(name = "module_name")
+    private String moduleName;
 
     /**
-     * 模板内容
+     * 作者
      */
-    @Column(name = "context")
-    private String context;
+    @Column(name = "author")
+    private String author;
 
     /**
-     * 0:java,1:xml,2:html
+     * 表前缀
      */
-    @Column(name = "template_type")
-    private Integer templateType;
+    @Column(name = "table_prefix")
+    private String tablePrefix;
 
     /**
-     * 生成包名
+     * 主包名
      */
-    @Column(name = "package_path")
-    private String packagePath;
-
-    /**
-     * 文件名
-     */
-    @Column(name = "file_name")
-    private String fileName;
+    @Column(name = "main_package")
+    private String mainPackage;
 
     /**
      * 0:禁用,1:启用,2:已删除
