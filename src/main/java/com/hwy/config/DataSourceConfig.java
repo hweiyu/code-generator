@@ -4,6 +4,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -22,6 +23,15 @@ import java.util.Map;
 @Configuration
 public class DataSourceConfig {
 
+    @Value("${spring.datasource.url}")
+    private String url;
+    @Value("${spring.datasource.username}")
+    private String userName;
+    @Value("${spring.datasource.password}")
+    private String password;
+    @Value("${spring.datasource.driverClassName}")
+    private String driverClassName;
+
     /**
      * 配置动态数据源
      *
@@ -32,6 +42,10 @@ public class DataSourceConfig {
         DynamicDataSource dynamic = DynamicDataSource.get();
         DruidDataSource defaultDataSource = new DruidDataSource();
         Map<Object, Object> dataSourceMap = new HashMap<>(16);
+        defaultDataSource.setUrl(url);
+        defaultDataSource.setUsername(userName);
+        defaultDataSource.setPassword(password);
+        defaultDataSource.setDriverClassName(driverClassName);
         dataSourceMap.put("default", new DruidDataSource());
         dynamic.setTargetDataSources(dataSourceMap);
         dynamic.setDefaultTargetDataSource(defaultDataSource);
