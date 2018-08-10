@@ -1,5 +1,6 @@
 package com.hwy.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.hwy.dao.TemplateMapper;
 import com.hwy.dto.Page;
 import com.hwy.dto.request.TemplateQueryReqDto;
@@ -42,8 +43,8 @@ public class TemplateServiceImpl implements TemplateService {
         int total = templateMapper.selectCountByExample(example);
         Page page = reqDto.to(total);
         if (total > 0) {
-            List<TemplateModel> models = templateMapper.selectByExampleAndRowBounds(example,
-                    PageUtil.getRowBounds(page));
+            PageHelper.startPage(page.getPage(), page.getLimit());
+            List<TemplateModel> models = templateMapper.selectByExample(example);
             if (null != models) {
                 for (TemplateModel model : models) {
                     result.add(TemplateResDto.get(model));

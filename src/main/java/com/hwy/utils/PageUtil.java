@@ -25,10 +25,4 @@ public class PageUtil {
         return pageInfo;
     }
 
-    public static RowBounds getRowBounds(Page page) {
-        int curPage = LangUtils.nvl(page.getPage(), 1) - 1;
-        int limit = LangUtils.nvl(page.getLimit(), 10);
-        return new RowBounds((curPage > 0 ? curPage : 0), limit);
-    }
-
 }

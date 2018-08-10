@@ -28,6 +28,7 @@
 		<velocity.version>1.7</velocity.version>
 		<guava.version>23.0</guava.version>
 		<tk.mapper.version>1.2.4</tk.mapper.version>
+		<pagehelper.version>1.2.3</pagehelper.version>
 	</properties>
 
 	<dependencies>
@@ -98,6 +99,11 @@
 			<groupId>tk.mybatis</groupId>
 			<artifactId>mapper-spring-boot-starter</artifactId>
 			<version>${tk.mapper.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>${pagehelper.version}</version>
 		</dependency>
     </dependencies>
 

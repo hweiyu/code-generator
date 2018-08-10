@@ -1,5 +1,6 @@
 package com.hwy.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.hwy.dao.DataSourceMapper;
 import com.hwy.dto.Page;
 import com.hwy.dto.response.PageResDto;
@@ -43,8 +44,8 @@ public class DataSourceServiceImpl implements DataSourceService {
         int total = dataSourceMapper.selectCountByExample(example);
         Page page = reqDto.to(total);
         if (total > 0) {
-            List<DataSourceModel> models = dataSourceMapper.selectByExampleAndRowBounds(example,
-                    PageUtil.getRowBounds(page));
+            PageHelper.startPage(page.getPage(), page.getLimit());
+            List<DataSourceModel> models = dataSourceMapper.selectByExample(example);
             if (null != models) {
                 for (DataSourceModel model : models) {
                     result.add(DataSourceResDto.get(model));
