@@ -127,6 +127,34 @@
 			</div><!-- /.modal -->
 		</div>
 
+		<div class="modal fade" id="editContextForm" tabindex="-1" role="dialog" aria-labelledby="editContextFormLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="editContextFormLabel">编辑模板内容</h4>
+					</div>
+					<div class="modal-body">
+						<table class="table table-bordered">
+							<tbody>
+							<tr>
+								<td class="col-sm-2">模板名称</td>
+								<td><input type="text" class="form-control" v-model="editContextForm.templateName" readonly placeholder="模板名称"></td>
+							</tr>
+							<tr>
+								<td colspan="2"><textarea class="form-control" v-model="editContextForm.context" placeholder="内容" rows="25"></textarea>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" @click="editContext">保存</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal -->
+		</div>
+
 	</div>
     <table id="jqGrid"></table>
     <div id="jqGridPager"></div>

@@ -8,7 +8,7 @@ $(function () {
             {
                 label: '操作', name: 'operate', width: 70,
                 formatter: function (cellvalue, options, rowObject) {
-                    return '<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.get(' + options.rowId +')">编辑</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.delete(' + options.rowId +')">删除</a>';
+                    return '<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.get(' + options.rowId +')">编辑</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.getContext(' + options.rowId +')">编辑模板</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.delete(' + options.rowId +')">删除</a>';
                 }
             },
 			{ label: '模板名', name: 'templateName', width: 50},
@@ -69,12 +69,18 @@ var vm = new Vue({
             context:''
         },
         editForm: {
+		    id: '',
             templateName:'',
             author:'',
             tablePrefix: '',
             templateType: '',
             packagePath: '',
             filePath: '',
+            context:''
+        },
+        editContextForm: {
+		    id: '',
+            templateName:'',
             context:''
         }
 	},
@@ -112,6 +118,34 @@ var vm = new Vue({
                         alert(data.message);
                     } else {
                         $('#editForm').modal('hide');
+                        vm.query();
+                    }
+                }
+            });
+        },
+        getContext: function(id) {
+            $.ajax({
+                type: "post",
+                url: this.serverUrl() + "/template/get",
+                data: JSON.stringify({id: id}),
+                dataType: "json",
+                success: function(data){
+                    vm.editContextForm = data.data;
+                    $('#editContextForm').modal('show');
+                }
+            });
+        },
+        editContext: function() {
+            $.ajax({
+                type: "post",
+                url: this.serverUrl() + "/template/update",
+                data: JSON.stringify(vm.editContextForm),
+                dataType: "json",
+                success: function(data){
+                    if ("false" === data.result) {
+                        alert(data.message);
+                    } else {
+                        $('#editContextForm').modal('hide');
                         vm.query();
                     }
                 }
