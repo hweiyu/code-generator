@@ -12,7 +12,8 @@ $(function () {
                 }
             },
 			{ label: '模板名', name: 'templateName', width: 50},
-			{ label: '模板类型', name: 'templateType', width: 50 },
+            { label: '模板组', name: 'groupName', width: 50},
+			{ label: '模板类型', name: 'templateTypeName', width: 50 },
             { label: '生成包名', name: 'packagePath', width: 100 },
             { label: '文件名', name: 'fileName', width: 100 }
         ],
@@ -55,17 +56,31 @@ var vm = new Vue({
 	el:'#rrapp',
 	data:{
 		q:{
-			name: null
+		    groupId: 0,
+		    type: 0,
+			name: null,
+            groupList:[
+                {id: 0, name: '请选择模板组'}
+            ],
+            typeList:[
+                {id: 0, name: '请选择模板类型'},
+                {id: 1, name: 'java'},
+                {id: 2, name: 'xml'},
+                {id: 3, name: 'html'},
+                {id: 4, name: 'javascript'}
+            ]
 		},
         addForm: {
             templateName:'',
-            templateType: '',
+            groupId: 0,
+            templateType: 1,
             packagePath: '',
             fileName: ''
         },
         editForm: {
 		    id: '',
             templateName:'',
+            groupId: '',
             templateType: '',
             packagePath: '',
             fileName: ''
@@ -74,13 +89,20 @@ var vm = new Vue({
 		    id: '',
             templateName:'',
             context:''
-        }
+        },
+        typeList:[
+            {id: 1, name: 'java'},
+            {id: 2, name: 'xml'},
+            {id: 3, name: 'html'},
+            {id: 4, name: 'javascript'}
+        ],
+        groupList:[]
 	},
 	methods: {
 		query: function () {
 			$("#jqGrid").jqGrid('setGridParam',{
                 datatype: "json",
-                postData:{'template': vm.q.name},
+                postData:{'type': vm.q.type, 'template': vm.q.name},
                 page:1 
             }).trigger("reloadGrid");
 		},
@@ -171,16 +193,30 @@ var vm = new Vue({
                     vm.query();
                     vm.addForm = {
                         templateName:'',
-                        moduleName:'',
-                        author:'',
-                        tablePrefix: '',
-                        templateType: '',
+                        groupId: 0,
+                        templateType: 1,
                         packagePath: '',
                         fileName: ''
                     };
                 }
             });
+        },
+        getGroup: function() {
+            $.ajax({
+                type: "post",
+                url: this.serverUrl() + "/group/list/all",
+                data: JSON.stringify({}),
+                dataType: "json",
+                success: function(data){
+                    vm.q.groupList = [{id: 0, name: '请选择模板组'}];
+                    for (var i = 0; i < data.data.lenght; i++) {
+                        vm.q.groupList.push(data.data[i]);
+                    }
+                    vm.groupList = data.data;
+                }
+            });
         }
 	}
 });
+vm.getGroup();
 

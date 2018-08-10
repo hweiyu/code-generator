@@ -1,5 +1,6 @@
 package com.hwy.dto.response;
 
+import com.hwy.enums.TemplateTypeEnum;
 import com.hwy.model.TemplateModel;
 
 import lombok.*;
@@ -30,14 +31,29 @@ public class TemplateResDto extends BaseRes {
     private String templateName;
 
     /**
+     * 模板组id
+     */
+    private Long groupId;
+
+    /**
+     * 模板组名称
+     */
+    private String groupName;
+
+    /**
      * 模板内容
      */
     private String context;
 
     /**
-     * 0:java,1:xml,2:html
+     * 1:java,2:xml,3:html,4:javascript
      */
     private Integer templateType;
+
+    /**
+     * 1:java,2:xml,3:html,4:javascript
+     */
+    private String templateTypeName;
 
     /**
      * 生成包名
@@ -68,13 +84,20 @@ public class TemplateResDto extends BaseRes {
         return TemplateResDto.builder()
                 .id(model.getId())
                 .templateName(model.getTemplateName())
+                .groupId(model.getGroupId())
                 .context(model.getContext())
                 .templateType(model.getTemplateType())
+                .templateTypeName(TemplateTypeEnum.typeOf(model.getTemplateType()).getDesc())
                 .packagePath(model.getPackagePath())
                 .fileName(model.getFileName())
                 .dataStatus(model.getDataStatus())
                 .createTime(model.getCreateTime())
                 .updateTime(model.getUpdateTime())
                 .build();
+    }
+
+    public TemplateResDto setTemplateGroupName(String groupName) {
+        setGroupName(groupName);
+        return this;
     }
 }

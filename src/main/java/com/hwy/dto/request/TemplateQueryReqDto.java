@@ -18,8 +18,13 @@ public class TemplateQueryReqDto extends PageReq {
     private static final long serialVersionUID = 1124765859935956749L;
 
     /**
-     * 数据源名称
+     * 模板名称
      */
     private String template;
+
+    /**
+     * 模板类型
+     */
+    private Integer type;
 
 }

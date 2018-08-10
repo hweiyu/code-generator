@@ -5,12 +5,15 @@ import com.hwy.dto.request.TemplateGroupQueryReqDto;
 import com.hwy.dto.request.TemplateGroupReqDto;
 import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.response.TemplateGroupResDto;
+import com.hwy.dto.response.TemplateGroupSelectResDto;
 import com.hwy.service.TemplateGroupService;
 
 import com.hwy.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 模板组控制器
@@ -63,5 +66,13 @@ public class TemplateGroupController {
     @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<Void> delete(@RequestBody TemplateGroupReqDto reqDto){
         return ResultUtil.create(templateGroupService.delete(reqDto));
+    }
+
+    /**
+     * 列表
+     */
+    @PostMapping(value = "/list/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultData<List<TemplateGroupSelectResDto>> listAll(){
+        return ResultUtil.success(templateGroupService.listAll());
     }
 }

@@ -4,6 +4,9 @@ import com.hwy.dto.request.TemplateGroupQueryReqDto;
 import com.hwy.dto.request.TemplateGroupReqDto;
 import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.response.TemplateGroupResDto;
+import com.hwy.dto.response.TemplateGroupSelectResDto;
+
+import java.util.List;
 
 /**
  * 数据库源接口
@@ -37,6 +40,8 @@ public interface TemplateGroupService {
      * 删除
      */
     int delete(TemplateGroupReqDto reqDto);
+
+    List<TemplateGroupSelectResDto> listAll();
 
 }
 

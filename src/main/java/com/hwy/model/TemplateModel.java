@@ -50,7 +50,7 @@ public class TemplateModel {
     private String context;
 
     /**
-     * 0:java,1:xml,2:html
+     * 1:java,2:xml,3:html,4:javascript
      */
     @Column(name = "template_type")
     private Integer templateType;

@@ -29,12 +29,17 @@ public class TemplateReqDto extends BaseReq {
     private String templateName;
 
     /**
+     * 模板组id
+     */
+    private Long groupId;
+
+    /**
      * 模板内容
      */
     private String context;
 
     /**
-     * 0:java,1:xml,2:html
+     * 1:java,2:xml,3:html,4:javascript
      */
     private Integer templateType;
 
@@ -57,6 +62,7 @@ public class TemplateReqDto extends BaseReq {
         return TemplateModel.builder()
                 .id(getId())
                 .templateName(getTemplateName())
+                .groupId(getGroupId())
                 .context(getContext())
                 .templateType(getTemplateType())
                 .packagePath(getPackagePath())
