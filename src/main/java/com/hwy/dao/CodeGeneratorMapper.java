@@ -14,7 +14,7 @@ import java.util.Map;
  * @date 2018/8/7 14:06
  **/
 @Component
-public interface SysGeneratorDao {
+public interface CodeGeneratorMapper {
 
 	/**
 	 * 表列表

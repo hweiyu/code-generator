@@ -44,6 +44,10 @@
 								<td><input type="text" class="form-control" v-model="addForm.templateName" placeholder="模板名称"></td>
 							</tr>
 							<tr>
+								<td class="col-sm-2">功能模块</td>
+								<td><input type="text" class="form-control" v-model="addForm.moduleName" placeholder="功能模块"></td>
+							</tr>
+							<tr>
 								<td>作者</td>
 								<td><input type="text" class="form-control" v-model="addForm.author" placeholder="作者"></td>
 							</tr>
@@ -60,12 +64,8 @@
 								<td><input type="text" class="form-control" v-model="addForm.packagePath" placeholder="生成包名"></td>
 							</tr>
 							<tr>
-								<td>生成的文件路径</td>
-								<td><input type="text" class="form-control" v-model="addForm.filePath" placeholder="生成的文件路径"></td>
-							</tr>
-							<tr>
-								<td>内容</td>
-								<td><input type="text" class="form-control" v-model="addForm.context" placeholder="内容"></td>
+								<td>文件名</td>
+								<td><input type="text" class="form-control" v-model="addForm.fileName" placeholder="文件名"></td>
 							</tr>
 							</tbody>
 						</table>
@@ -93,6 +93,10 @@
 								<td><input type="text" class="form-control" v-model="editForm.templateName" placeholder="模板名称"></td>
 							</tr>
 							<tr>
+								<td class="col-sm-2">功能模块</td>
+								<td><input type="text" class="form-control" v-model="editForm.moduleName" placeholder="功能模块"></td>
+							</tr>
+							<tr>
 								<td>作者</td>
 								<td><input type="text" class="form-control" v-model="editForm.author" placeholder="作者"></td>
 							</tr>
@@ -109,12 +113,8 @@
 								<td><input type="text" class="form-control" v-model="editForm.packagePath" placeholder="生成包名"></td>
 							</tr>
 							<tr>
-								<td>生成的文件路径</td>
-								<td><input type="text" class="form-control" v-model="editForm.filePath" placeholder="生成的文件路径"></td>
-							</tr>
-							<tr>
-								<td>内容</td>
-								<td><input type="text" class="form-control" v-model="editForm.context" placeholder="内容"></td>
+								<td>文件名</td>
+								<td><input type="text" class="form-control" v-model="editForm.fileName" placeholder="文件名"></td>
 							</tr>
 							</tbody>
 						</table>

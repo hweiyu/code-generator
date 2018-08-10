@@ -3,7 +3,6 @@ package com.hwy.aop;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.hwy.config.DynamicDataSource;
 import com.hwy.utils.CodeGeneratorException;
-import com.hwy.utils.DataSourceCacheUtil;
 import com.hwy.utils.JdbcUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -45,9 +44,9 @@ public class DynamicDataSourceAspect {
     private void setDataSource() {
         DruidDataSource currentDataSource = new DruidDataSource();
         currentDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        currentDataSource.setUrl(DataSourceCacheUtil.get().getUrl());
-        currentDataSource.setUsername(DataSourceCacheUtil.get().getUserName());
-        currentDataSource.setPassword(DataSourceCacheUtil.get().getPassword());
+//        currentDataSource.setUrl(DataSourceCacheUtil.get().getUrl());
+//        currentDataSource.setUsername(DataSourceCacheUtil.get().getUserName());
+//        currentDataSource.setPassword(DataSourceCacheUtil.get().getPassword());
         //连接异常重连次数
         currentDataSource.setConnectionErrorRetryAttempts(0);
         //拿到动态切换数据源对象
@@ -57,8 +56,8 @@ public class DynamicDataSourceAspect {
     }
 
     private void tryConnect() {
-        if (!JdbcUtil.tryConnect(DataSourceCacheUtil.get())) {
-            throw new CodeGeneratorException("连接失败");
-        }
+//        if (!JdbcUtil.tryConnect(DataSourceCacheUtil.get())) {
+//            throw new CodeGeneratorException("连接失败");
+//        }
     }
 }

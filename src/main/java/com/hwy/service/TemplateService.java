@@ -4,6 +4,9 @@ import com.hwy.dto.request.TemplateQueryReqDto;
 import com.hwy.dto.request.TemplateReqDto;
 import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.response.TemplateResDto;
+import com.hwy.model.TemplateModel;
+
+import java.util.List;
 
 /**
  * 模板接口
@@ -37,5 +40,7 @@ public interface TemplateService {
     * 删除
     */
     int delete(TemplateReqDto reqDto);
+
+    List<TemplateModel> listByGroupId(Long groupId);
 }
 

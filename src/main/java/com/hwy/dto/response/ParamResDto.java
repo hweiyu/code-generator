@@ -1,7 +1,6 @@
 package com.hwy.dto.response;
 
 import com.hwy.entity.ParamEntity;
-import com.hwy.utils.ParamCacheUtil;
 import lombok.*;
 
 /**
@@ -31,9 +30,6 @@ public class ParamResDto extends BaseRes {
     private String mainPath;
 
     public static ParamResDto get(ParamEntity entity) {
-        if (null == entity) {
-            entity = ParamCacheUtil.defaultParamEntity();
-        }
         return ParamResDto.builder()
                 .author(entity.getAuthor())
                 .module(entity.getModule())

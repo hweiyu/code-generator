@@ -1,6 +1,6 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: 'sys/generator/list',
+        url: 'code/generator/list',
         datatype: "local",
         colModel: [
 			{ label: '表名', name: 'tableName', width: 100, key: true },
@@ -74,66 +74,8 @@ var vm = new Vue({
 			if(tableNames == null){
 				return ;
 			}
-			location.href = "sys/generator/code?tables=" + JSON.stringify(tableNames);
-		},
-        getDataSourceConfig: function() {
-            $.ajax({
-                type: "post",
-                url: this.serverUrl() + "/sys/generator/datasource/get",
-                data: JSON.stringify({}),
-                dataType: "json",
-                success: function(data){
-                    vm.dataSource = data.data;
-                }
-            });
-        },
-        saveDataSourceConfig: function () {
-            $.ajax({
-                type: "post",
-                url: this.serverUrl() + "/sys/generator/datasource/save",
-                data: JSON.stringify(vm.dataSource),
-                dataType: "json",
-                success: function(data){
-                    $('#dataSource').modal('hide');
-                }
-            });
-        },
-        serverUrl: function () {
-            return location.protocol + "//" + location.host;
-        },
-        connectTest: function () {
-            $.ajax({
-                type: "post",
-                url: this.serverUrl() + "/sys/generator/datasource/connect/test",
-                data: JSON.stringify(vm.dataSource),
-                dataType: "json",
-                success: function(data){
-                    alert(data.data);
-                }
-            });
-        },
-        getParam: function() {
-            $.ajax({
-                type: "post",
-                url: this.serverUrl() + "/sys/generator/param/get",
-                data: JSON.stringify({}),
-                dataType: "json",
-                success: function(data){
-                    vm.param = data.data;
-                }
-            });
-        },
-        saveParam: function () {
-            $.ajax({
-                type: "post",
-                url: this.serverUrl() + "/sys/generator/param/save",
-                data: JSON.stringify(vm.param),
-                dataType: "json",
-                success: function(data){
-                    $('#param').modal('hide');
-                }
-            });
-        },
+			location.href = "code/generator/code?tables=" + JSON.stringify(tableNames);
+		}
 	}
 });
 

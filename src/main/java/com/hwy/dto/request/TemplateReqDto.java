@@ -29,6 +29,11 @@ public class TemplateReqDto extends BaseReq {
     private String templateName;
 
     /**
+     * 功能模块名称
+     */
+    private String moduleName;
+
+    /**
      * 模板内容
      */
     private String context;
@@ -54,9 +59,9 @@ public class TemplateReqDto extends BaseReq {
     private String packagePath;
 
     /**
-     * 生成的文件路径
+     * 文件名
      */
-    private String filePath;
+    private String fileName;
 
     /**
      * 0:禁用,1:启用,2:已删除
@@ -67,12 +72,13 @@ public class TemplateReqDto extends BaseReq {
         return TemplateModel.builder()
                 .id(getId())
                 .templateName(getTemplateName())
+                .moduleName(getModuleName())
                 .context(getContext())
                 .author(getAuthor())
                 .tablePrefix(getTablePrefix())
                 .templateType(getTemplateType())
                 .packagePath(getPackagePath())
-                .filePath(getFilePath())
+                .fileName(getFileName())
                 .dataStatus(getDataStatus())
                 .build();
     }

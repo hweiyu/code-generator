@@ -32,10 +32,22 @@ public class TemplateModel {
     private Long id;
 
     /**
+     * 模板组id
+     */
+    @Column(name = "group_id")
+    private Long groupId;
+
+    /**
      * 模板名
      */
     @Column(name = "template_name")
     private String templateName;
+
+    /**
+     * 功能模块名称
+     */
+    @Column(name = "module_name")
+    private String moduleName;
 
     /**
      * 模板内容
@@ -68,10 +80,10 @@ public class TemplateModel {
     private String packagePath;
 
     /**
-     * 生成的文件路径
+     * 文件名
      */
-    @Column(name = "file_path")
-    private String filePath;
+    @Column(name = "file_name")
+    private String fileName;
 
     /**
      * 0:禁用,1:启用,2:已删除

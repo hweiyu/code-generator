@@ -30,6 +30,11 @@ public class TemplateResDto extends BaseRes {
     private String templateName;
 
     /**
+     * 功能模块名称
+     */
+    private String moduleName;
+
+    /**
      * 模板内容
      */
     private String context;
@@ -55,9 +60,9 @@ public class TemplateResDto extends BaseRes {
     private String packagePath;
 
     /**
-     * 生成的文件路径
+     * 文件名
      */
-    private String filePath;
+    private String fileName;
 
     /**
      * 0:禁用,1:启用,2:已删除
@@ -78,12 +83,13 @@ public class TemplateResDto extends BaseRes {
         return TemplateResDto.builder()
                 .id(model.getId())
                 .templateName(model.getTemplateName())
+                .moduleName(model.getModuleName())
                 .context(model.getContext())
                 .author(model.getAuthor())
                 .tablePrefix(model.getTablePrefix())
                 .templateType(model.getTemplateType())
                 .packagePath(model.getPackagePath())
-                .filePath(model.getFilePath())
+                .fileName(model.getFileName())
                 .dataStatus(model.getDataStatus())
                 .createTime(model.getCreateTime())
                 .updateTime(model.getUpdateTime())

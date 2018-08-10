@@ -87,4 +87,9 @@ public class TemplateServiceImpl implements TemplateService {
         return templateMapper.delete(reqDto.to());
     }
 
+    @Override
+    public List<TemplateModel> listByGroupId(Long groupId) {
+        return templateMapper.select(TemplateModel.builder().build());
+    }
+
 }
