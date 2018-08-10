@@ -53,8 +53,8 @@ public class CodeGeneratorUtils {
             packagePath += packageName.replace(".", File.separator) + File.separator + moduleName + File.separator;
         }
         templates.add(new ModelTemp("template/Model.java.vm", packagePath));
-        templates.add(new ReqDtoTemp("template/ResDto.java.vm", packagePath));
-        templates.add(new ResDtoTemp("template/ReqDto.java.vm", packagePath));
+        templates.add(new ReqDtoTemp("template/ReqDto.java.vm", packagePath));
+        templates.add(new ResDtoTemp("template/ResDto.java.vm", packagePath));
         templates.add(new DaoTemp("template/Mapper.java.vm", packagePath));
         templates.add(new DaoXmlTemp("template/Mapper.xml.vm", packagePath, moduleName));
         templates.add(new ServiceTemp("template/Service.java.vm", packagePath));
