@@ -101,16 +101,22 @@ public class TemplateGroupServiceImpl implements TemplateGroupService {
     @Override
     public List<TemplateGroupSelectResDto> listAll() {
         List<TemplateGroupSelectResDto> result = CollectionUtil.newArrayList();
-        List<TemplateGroupModel> models = templateGroupMapper.select(
-                TemplateGroupModel.builder()
-                        .dataStatus(DataStatusEnum.ENABLE.getType())
-                        .build());
+        List<TemplateGroupModel> models = listAllModel();
         if (null != models) {
             for (TemplateGroupModel model : models) {
                 result.add(TemplateGroupSelectResDto.get(model));
             }
         }
         return result;
+    }
+
+    @Override
+    public List<TemplateGroupModel> listAllModel() {
+        List<TemplateGroupModel> models = templateGroupMapper.select(
+                TemplateGroupModel.builder()
+                        .dataStatus(DataStatusEnum.ENABLE.getType())
+                        .build());
+        return CollectionUtil.newArrayList(models);
     }
 
 }

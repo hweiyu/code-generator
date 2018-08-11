@@ -6,8 +6,8 @@ import com.hwy.dto.Page;
 import com.hwy.dto.request.TemplateQueryReqDto;
 import com.hwy.dto.request.TemplateReqDto;
 import com.hwy.dto.response.PageResDto;
-import com.hwy.dto.response.TemplateGroupSelectResDto;
 import com.hwy.dto.response.TemplateResDto;
+import com.hwy.model.TemplateGroupModel;
 import com.hwy.model.TemplateModel;
 import com.hwy.service.TemplateGroupService;
 import com.hwy.service.TemplateService;
@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,8 +41,28 @@ public class TemplateServiceImpl implements TemplateService {
     */
     @Override
     public PageResDto<TemplateResDto> select(TemplateQueryReqDto reqDto) {
-        List<TemplateResDto> result = new ArrayList<>(20);
+        List<TemplateResDto> result = CollectionUtil.newArrayList();
         Example example = new Example(TemplateModel.class);
+        setCondition(example, reqDto);
+        int total = templateMapper.selectCountByExample(example);
+        Page page = reqDto.to(total);
+        if (total > 0) {
+            Map<Long, TemplateGroupModel> groupMap = getGroupMap();
+            PageHelper.startPage(page.getPage(), page.getLimit());
+            List<TemplateModel> models = templateMapper.selectByExample(example);
+            if (CollectionUtil.isNotEmpty(models)) {
+                for (TemplateModel model : models) {
+                    TemplateGroupModel group = groupMap.get(model.getGroupId());
+                    result.add(TemplateResDto.get(model)
+                            .setTemplateGroupName(group.getGroupName())
+                            .setFilePath(group.getMainPackage()));
+                }
+            }
+        }
+        return PageUtil.getPageInfo(result, page);
+    }
+
+    private void setCondition(Example example, TemplateQueryReqDto reqDto) {
         Example.Criteria criteria = example.createCriteria();
         if (null != reqDto.getTemplate()) {
             criteria.andLike("templateName", "%" + reqDto.getTemplate() + "%");
@@ -54,30 +73,13 @@ public class TemplateServiceImpl implements TemplateService {
         if (LangUtils.nvl(reqDto.getGroupId()) > 0) {
             criteria.andEqualTo("groupId", reqDto.getGroupId());
         }
-        int total = templateMapper.selectCountByExample(example);
-        Page page = reqDto.to(total);
-        if (total > 0) {
-            Map<Long, String> groupMap = getGroupMap();
-            PageHelper.startPage(page.getPage(), page.getLimit());
-            List<TemplateModel> models = templateMapper.selectByExample(example);
-            if (CollectionUtil.isNotEmpty(models)) {
-                for (TemplateModel model : models) {
-                    result.add(TemplateResDto.get(model)
-                            .setTemplateGroupName(
-                                    groupMap.get(model.getGroupId())));
-                }
-            }
-        }
-        return PageUtil.getPageInfo(result, page);
     }
 
-    private Map<Long, String> getGroupMap() {
-        Map<Long, String> result = CollectionUtil.newHashMap();
-        List<TemplateGroupSelectResDto> resDtos = templateGroupService.listAll();
-        if (CollectionUtil.isNotEmpty(resDtos)) {
-            for (TemplateGroupSelectResDto resDto : resDtos) {
-                result.put(resDto.getId(), resDto.getGroupName());
-            }
+    private Map<Long, TemplateGroupModel> getGroupMap() {
+        Map<Long, TemplateGroupModel> result = CollectionUtil.newHashMap();
+        List<TemplateGroupModel> models = templateGroupService.listAllModel();
+        for (TemplateGroupModel model : models) {
+            result.put(model.getId(), model);
         }
         return result;
     }

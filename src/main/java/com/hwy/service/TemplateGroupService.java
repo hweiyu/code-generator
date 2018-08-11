@@ -46,5 +46,6 @@ public interface TemplateGroupService {
 
     List<TemplateGroupSelectResDto> listAll();
 
+    List<TemplateGroupModel> listAllModel();
 }
 

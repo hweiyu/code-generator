@@ -100,4 +100,9 @@ public class TemplateResDto extends BaseRes {
         setGroupName(groupName);
         return this;
     }
+
+    public TemplateResDto setFilePath(String mainPath) {
+        setPackagePath(mainPath + "." + getPackagePath());
+        return this;
+    }
 }

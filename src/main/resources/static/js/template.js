@@ -14,7 +14,7 @@ $(function () {
 			{ label: '模板名', name: 'templateName', width: 50},
             { label: '模板组', name: 'groupName', width: 50},
 			{ label: '模板类型', name: 'templateTypeName', width: 50 },
-            { label: '生成包名', name: 'packagePath', width: 100 },
+            { label: '生成路径', name: 'packagePath', width: 100 },
             { label: '文件名', name: 'fileName', width: 100 }
         ],
 		viewrecords: true,
