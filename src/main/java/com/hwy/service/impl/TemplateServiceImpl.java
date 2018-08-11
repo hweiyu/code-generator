@@ -1,6 +1,7 @@
 package com.hwy.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.hwy.enums.DataStatusEnum;
 import com.hwy.mapper.TemplateMapper;
 import com.hwy.dto.Page;
 import com.hwy.dto.request.TemplateQueryReqDto;
@@ -90,7 +91,7 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public TemplateResDto get(TemplateReqDto reqDto) {
         TemplateModel model = templateMapper.selectOne(reqDto.to());
-        return TemplateResDto.get(model);
+        return TemplateResDto.getWithContext(model);
     }
 
     /**
@@ -120,6 +121,22 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public List<TemplateModel> listByGroupId(Long groupId) {
         return templateMapper.select(TemplateModel.builder().build());
+    }
+
+    @Override
+    public List<TemplateResDto> genList(Long groupId) {
+        TemplateGroupModel groupModel = templateGroupService.getById(groupId);
+        List<TemplateModel> templateModels = templateMapper.select(
+                TemplateModel.builder().groupId(groupId).dataStatus(DataStatusEnum.ENABLE.getType()).build());
+        List<TemplateResDto> result = CollectionUtil.newArrayList();
+        if (null != groupModel
+                && CollectionUtil.isNotEmpty(templateModels)) {
+            for (TemplateModel templateModel : templateModels) {
+                result.add(TemplateResDto.get(templateModel)
+                        .setFilePath(groupModel.getMainPackage()));
+            }
+        }
+        return result;
     }
 
 }

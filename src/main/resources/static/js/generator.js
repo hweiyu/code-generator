@@ -51,16 +51,35 @@ var vm = new Vue({
         groupList: [],
         genForm: {
 		    groupId: 0
-        }
+        },
+        templateList: []
 	},
 	methods: {
 		query: function () {
+            if (vm.q.sourceId <= 0) {
+                alert("请选择模板组");
+                return;
+            }
 			$("#jqGrid").jqGrid('setGridParam',{
                 datatype: "json",
                 postData:{'tableName': vm.q.tableName},
                 page:1 
             }).trigger("reloadGrid");
 		},
+        templateQuery: function () {
+            $.ajax({
+                type: "post",
+                url: this.serverUrl() + "/template/gen/list",
+                data: JSON.stringify({'id': vm.genForm.groupId}),
+                dataType: "json",
+                success: function(data){
+                    vm.templateList = data.data;
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        },
         preGen: function () {
             var tableNames = getSelectedRows();
             if(tableNames == null){
@@ -110,6 +129,9 @@ var vm = new Vue({
                     }
                 }
             });
+        },
+        groupChange: function () {
+		    vm.templateQuery();
         }
 	}
 });

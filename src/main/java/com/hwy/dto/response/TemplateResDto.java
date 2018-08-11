@@ -85,6 +85,21 @@ public class TemplateResDto extends BaseRes {
                 .id(model.getId())
                 .templateName(model.getTemplateName())
                 .groupId(model.getGroupId())
+                .templateType(model.getTemplateType())
+                .templateTypeName(TemplateTypeEnum.typeOf(model.getTemplateType()).getDesc())
+                .packagePath(model.getPackagePath())
+                .fileName(model.getFileName())
+                .dataStatus(model.getDataStatus())
+                .createTime(model.getCreateTime())
+                .updateTime(model.getUpdateTime())
+                .build();
+    }
+
+    public static TemplateResDto getWithContext(TemplateModel model) {
+        return TemplateResDto.builder()
+                .id(model.getId())
+                .templateName(model.getTemplateName())
+                .groupId(model.getGroupId())
                 .context(model.getContext())
                 .templateType(model.getTemplateType())
                 .templateTypeName(TemplateTypeEnum.typeOf(model.getTemplateType()).getDesc())
@@ -105,4 +120,5 @@ public class TemplateResDto extends BaseRes {
         setPackagePath(mainPath + "." + getPackagePath());
         return this;
     }
+
 }

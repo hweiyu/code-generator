@@ -42,5 +42,7 @@ public interface TemplateService {
     int delete(TemplateReqDto reqDto);
 
     List<TemplateModel> listByGroupId(Long groupId);
+
+    List<TemplateResDto> genList(Long groupId);
 }
 

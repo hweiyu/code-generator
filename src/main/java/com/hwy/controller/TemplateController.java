@@ -1,6 +1,7 @@
 package com.hwy.controller;
 
 import com.hwy.dto.ResultData;
+import com.hwy.dto.request.IdReqDto;
 import com.hwy.dto.request.TemplateQueryReqDto;
 import com.hwy.dto.request.TemplateReqDto;
 import com.hwy.dto.response.PageResDto;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 模板控制器
@@ -65,5 +68,13 @@ public class TemplateController {
     @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<Void> delete(@RequestBody TemplateReqDto reqDto){
         return ResultUtil.create(templateService.delete(reqDto));
+    }
+
+    /**
+     * 列表
+     */
+    @PostMapping(value = "gen/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultData<List<TemplateResDto>> genList(@RequestBody IdReqDto reqDto){
+        return ResultUtil.success(templateService.genList(reqDto.getId()));
     }
 }
