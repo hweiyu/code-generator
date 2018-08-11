@@ -1,7 +1,7 @@
 package com.hwy.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.hwy.dao.TemplateGroupMapper;
+import com.hwy.mapper.TemplateGroupMapper;
 import com.hwy.dto.Page;
 import com.hwy.dto.request.TemplateGroupQueryReqDto;
 import com.hwy.dto.request.TemplateGroupReqDto;
@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,6 +63,15 @@ public class TemplateGroupServiceImpl implements TemplateGroupService {
     public TemplateGroupResDto get(TemplateGroupReqDto reqDto) {
         TemplateGroupModel model = templateGroupMapper.selectOne(reqDto.to());
         return TemplateGroupResDto.get(model);
+    }
+
+    @Override
+    public TemplateGroupModel getById(Long id) {
+        TemplateGroupModel param = TemplateGroupModel.builder()
+                .id(id)
+                .dataStatus(DataStatusEnum.ENABLE.getType())
+                .build();
+        return templateGroupMapper.selectOne(param);
     }
 
     /**

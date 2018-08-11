@@ -78,7 +78,7 @@ var vm = new Vue({
 		query: function () {
 			$("#jqGrid").jqGrid('setGridParam',{
                 datatype: "json",
-                postData:{'template': vm.q.name},
+                postData:{'groupName': vm.q.name},
                 page:1 
             }).trigger("reloadGrid");
 		},

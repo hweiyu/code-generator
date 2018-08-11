@@ -1,9 +1,12 @@
 package com.hwy.service;
 
+import com.hwy.dto.response.DataSourceSelectResDto;
 import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.request.DataSourceQueryReqDto;
 import com.hwy.dto.request.DataSourceReqDto;
 import com.hwy.dto.response.DataSourceResDto;
+
+import java.util.List;
 
 /**
  * 数据库源接口
@@ -39,5 +42,7 @@ public interface DataSourceService {
     int delete(DataSourceReqDto reqDto);
 
     boolean connectTest(DataSourceReqDto reqDto);
+
+    List<DataSourceSelectResDto> listAll();
 }
 

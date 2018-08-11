@@ -27,4 +27,6 @@ public class TemplateQueryReqDto extends PageReq {
      */
     private Integer type;
 
+    private Integer groupId;
+
 }

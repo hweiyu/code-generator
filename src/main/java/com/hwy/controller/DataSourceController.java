@@ -1,5 +1,6 @@
 package com.hwy.controller;
 
+import com.hwy.dto.response.DataSourceSelectResDto;
 import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.ResultData;
 import com.hwy.dto.request.DataSourceQueryReqDto;
@@ -11,6 +12,8 @@ import com.hwy.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 数据库源控制器
@@ -69,5 +72,13 @@ public class DataSourceController {
     public ResultData<String> connectTest(@RequestBody DataSourceReqDto reqDto){
         boolean res = dataSourceService.connectTest(reqDto);
         return ResultUtil.success(res ? "连接成功" : "连接失败");
+    }
+
+    /**
+     * 列表
+     */
+    @PostMapping(value = "/list/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultData<List<DataSourceSelectResDto>> listAll(){
+        return ResultUtil.success(dataSourceService.listAll());
     }
 }

@@ -1,7 +1,7 @@
 package com.hwy.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.hwy.dao.TemplateMapper;
+import com.hwy.mapper.TemplateMapper;
 import com.hwy.dto.Page;
 import com.hwy.dto.request.TemplateQueryReqDto;
 import com.hwy.dto.request.TemplateReqDto;
@@ -50,6 +50,9 @@ public class TemplateServiceImpl implements TemplateService {
         }
         if (LangUtils.nvl(reqDto.getType()) > 0) {
             criteria.andEqualTo("templateType", reqDto.getType());
+        }
+        if (LangUtils.nvl(reqDto.getGroupId()) > 0) {
+            criteria.andEqualTo("groupId", reqDto.getGroupId());
         }
         int total = templateMapper.selectCountByExample(example);
         Page page = reqDto.to(total);

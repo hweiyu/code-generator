@@ -1,7 +1,9 @@
 package com.hwy.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.hwy.dao.DataSourceMapper;
+import com.hwy.dto.response.DataSourceSelectResDto;
+import com.hwy.enums.DataStatusEnum;
+import com.hwy.mapper.DataSourceMapper;
 import com.hwy.dto.Page;
 import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.request.DataSourceQueryReqDto;
@@ -9,6 +11,7 @@ import com.hwy.dto.request.DataSourceReqDto;
 import com.hwy.dto.response.DataSourceResDto;
 import com.hwy.model.DataSourceModel;
 import com.hwy.service.DataSourceService;
+import com.hwy.utils.CollectionUtil;
 import com.hwy.utils.JdbcUtil;
 import com.hwy.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,5 +94,20 @@ public class DataSourceServiceImpl implements DataSourceService {
     @Override
     public boolean connectTest(DataSourceReqDto reqDto) {
         return JdbcUtil.tryConnect(reqDto.to());
+    }
+
+    @Override
+    public List<DataSourceSelectResDto> listAll() {
+        List<DataSourceSelectResDto> result = CollectionUtil.newArrayList();
+        List<DataSourceModel> models = dataSourceMapper.select(
+                DataSourceModel.builder()
+                        .dataStatus(DataStatusEnum.ENABLE.getType())
+                        .build());
+        if (null != models) {
+            for (DataSourceModel model : models) {
+                result.add(DataSourceSelectResDto.get(model));
+            }
+        }
+        return result;
     }
 }

@@ -5,6 +5,7 @@ import com.hwy.dto.request.TemplateGroupReqDto;
 import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.response.TemplateGroupResDto;
 import com.hwy.dto.response.TemplateGroupSelectResDto;
+import com.hwy.model.TemplateGroupModel;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ public interface TemplateGroupService {
      * 查询
      */
     TemplateGroupResDto get(TemplateGroupReqDto reqDto);
+
+    TemplateGroupModel getById(Long id);
 
     /**
      * 添加

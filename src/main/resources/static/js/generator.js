@@ -44,21 +44,13 @@ var vm = new Vue({
 	el:'#rrapp',
 	data:{
 		q:{
+		    sourceId: 0,
 			tableName: null
 		},
-        dataSource: {
-		    ip: '',
-            port: '',
-            database: '',
-            userName: '',
-            password: '',
-            mainPath:''
-        },
-        param: {
-		    author: '',
-            module: '',
-            javaPackage:'',
-            tablePrefix:''
+        dataSourceList: [],
+        groupList: [],
+        genForm: {
+		    groupId: 0
         }
 	},
 	methods: {
@@ -69,13 +61,59 @@ var vm = new Vue({
                 page:1 
             }).trigger("reloadGrid");
 		},
+        preGen: function () {
+            var tableNames = getSelectedRows();
+            if(tableNames == null){
+                return ;
+            }
+            $('#genForm').modal('show');
+        },
 		generator: function() {
 			var tableNames = getSelectedRows();
 			if(tableNames == null){
 				return ;
 			}
-			location.href = "code/generator/code?tables=" + JSON.stringify(tableNames);
-		}
+			if (vm.genForm.groupId <= 0) {
+			    alert("请选择模板组");
+			    return;
+            }
+            $('#genForm').modal('hide');
+			location.href = "code/generator/code?tables=" + JSON.stringify(tableNames) + "&groupId=" + vm.genForm.groupId;
+		},
+        getDataSource: function () {
+            $.ajax({
+                type: "post",
+                url: this.serverUrl() + "/datasource/list/all",
+                data: JSON.stringify({}),
+                dataType: "json",
+                success: function(data){
+                    vm.dataSourceList = [{id: 0, dataSourceName: '请选择数据源'}];
+                    for (var i = 0; i < data.data.length; i++) {
+                        vm.dataSourceList.push(data.data[i]);
+                    }
+                }
+            });
+        },
+        serverUrl: function () {
+            return location.protocol + "//" + location.host;
+        },
+        getGroup: function() {
+            $.ajax({
+                type: "post",
+                url: this.serverUrl() + "/group/list/all",
+                data: JSON.stringify({}),
+                dataType: "json",
+                success: function(data){
+                    vm.groupList = [{id: 0, groupName: '请选择模板组'}];
+                    for (var i = 0; i < data.data.length; i++) {
+                        vm.groupList.push(data.data[i]);
+                    }
+                }
+            });
+        }
 	}
 });
+
+vm.getDataSource();
+vm.getGroup();
 

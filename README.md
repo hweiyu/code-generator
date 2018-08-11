@@ -8,5 +8,11 @@
 * Eclipse、IDEA运行com.hwy.CodeGeneratorApplication.java，则可启动项目
 * 项目访问路径：http://localhost:8080
 
+# 使用教程
+1. 配置模板组  
+2. 配置模板  
+3. 配置数据源
+4. 生成代码
+
 # 演示例子
 ![avatar](show.jpg)

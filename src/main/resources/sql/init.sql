@@ -24,7 +24,6 @@ IF NOT EXISTS `t_template` (
 	`template_name` VARCHAR (100) NOT NULL DEFAULT '' COMMENT '模板名',
 	`context` VARCHAR (5000) NOT NULL DEFAULT '' COMMENT '模板内容',
 	`template_type` TINYINT (4) NOT NULL DEFAULT 1 COMMENT '1:java,2:xml,3:html,4:javascript',
-	`package_path` VARCHAR (100) NOT NULL DEFAULT '' COMMENT '生成包名',
 	`file_name` VARCHAR (100) NOT NULL DEFAULT '' COMMENT '文件名',
 	`data_status` TINYINT (4) NOT NULL DEFAULT 1 COMMENT '0:禁用,1:启用,2:已删除',
 	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',

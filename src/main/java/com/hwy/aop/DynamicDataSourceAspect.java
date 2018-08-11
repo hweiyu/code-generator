@@ -2,8 +2,7 @@ package com.hwy.aop;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.hwy.config.DynamicDataSource;
-import com.hwy.utils.CodeGeneratorException;
-import com.hwy.utils.JdbcUtil;
+import com.hwy.exception.CodeGenException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -33,11 +32,11 @@ public class DynamicDataSourceAspect {
 //            tryConnect();
 //            setDataSource();
             return point.proceed();
-        } catch (CodeGeneratorException e) {
+        } catch (CodeGenException e) {
             throw e;
         } catch (Throwable t) {
             log.error("操作失败", t);
-            throw new CodeGeneratorException("操作失败");
+            throw new CodeGenException("操作失败");
         }
     }
 

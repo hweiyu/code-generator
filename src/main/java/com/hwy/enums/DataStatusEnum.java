@@ -1,6 +1,6 @@
 package com.hwy.enums;
 
-import com.hwy.utils.CodeGeneratorException;
+import com.hwy.exception.CodeGenException;
 
 /**
  * 0:禁用,1:启用,2:已删除
@@ -36,7 +36,7 @@ public enum DataStatusEnum {
                 return curEnum;
             }
         }
-        throw new CodeGeneratorException("DataStatusEnum param error, type:" + type);
+        throw new CodeGenException("DataStatusEnum param error, type:" + type);
     }
 
     private int type;

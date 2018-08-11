@@ -21,10 +21,48 @@
 <div id="rrapp">
 	<div class="grid-btn">
 		<div class="form-group col-sm-2">
+			<select v-model="q.sourceId" class="form-control">
+				<option v-for="(item, index) in dataSourceList" :value="item.id">{{item.dataSourceName}}</option>
+			</select>
+		</div>
+		<div class="form-group col-sm-2">
 			<input type="text" class="form-control" v-model="q.tableName" @keyup.enter="query" placeholder="表名">
 		</div>
 		<a class="btn btn-default" @click="query">查询</a>
-		<a class="btn btn-primary" @click="generator"><i class="fa fa-file-code-o"></i>&nbsp;生成代码</a>
+		<!--<a class="btn btn-primary" @click="generator"><i class="fa fa-file-code-o"></i>&nbsp;生成代码</a>-->
+
+		<!-- 按钮触发模态框 -->
+		<button class="btn btn-primary" @click="preGen">生成代码</button>
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="genForm" tabindex="-1" role="dialog" aria-labelledby="genFormLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="genFormLabel">生成代码</h4>
+					</div>
+
+					<div class="modal-body">
+						<table class="table table-bordered">
+							<tbody>
+							<tr>
+								<td class="col-sm-2">模板组</td>
+								<td>
+									<select v-model="genForm.groupId" class="form-control">
+										<option v-for="(item, index) in groupList" :value="item.id">{{item.groupName}}</option>
+									</select>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" @click="generator">生成代码</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal -->
+		</div>
 	</div>
     <table id="jqGrid"></table>
     <div id="jqGridPager"></div>

@@ -1,6 +1,6 @@
 package com.hwy.enums;
 
-import com.hwy.utils.CodeGeneratorException;
+import com.hwy.exception.CodeGenException;
 
 /**
  * 1:java,2:xml,3:html,4:javascript
@@ -41,7 +41,7 @@ public enum TemplateTypeEnum {
                 return curEnum;
             }
         }
-        throw new CodeGeneratorException("TemplateTypeEnum param error, type:" + type);
+        throw new CodeGenException("TemplateTypeEnum param error, type:" + type);
     }
 
     private int type;

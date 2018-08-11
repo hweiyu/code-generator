@@ -48,19 +48,19 @@ $(function () {
         },
         serializeGridData: function (postData) {
             return JSON.stringify(postData);
-        },
+        }
     });
 });
 
 var vm = new Vue({
-	el:'#rrapp',
-	data:{
-		q:{
-		    groupId: 0,
-		    type: 0,
-			name: null,
+    el:'#rrapp',
+    data:{
+        q:{
+            groupId: 0,
+            type: 0,
+            name: null,
             groupList:[
-                {id: 0, name: '请选择模板组'}
+                {id: 0, groupName: '请选择模板组'}
             ],
             typeList:[
                 {id: 0, name: '请选择模板类型'},
@@ -69,7 +69,7 @@ var vm = new Vue({
                 {id: 3, name: 'html'},
                 {id: 4, name: 'javascript'}
             ]
-		},
+        },
         addForm: {
             templateName:'',
             groupId: 0,
@@ -78,7 +78,7 @@ var vm = new Vue({
             fileName: ''
         },
         editForm: {
-		    id: '',
+            id: '',
             templateName:'',
             groupId: '',
             templateType: '',
@@ -86,7 +86,7 @@ var vm = new Vue({
             fileName: ''
         },
         editContextForm: {
-		    id: '',
+            id: '',
             templateName:'',
             context:''
         },
@@ -97,15 +97,15 @@ var vm = new Vue({
             {id: 4, name: 'javascript'}
         ],
         groupList:[]
-	},
-	methods: {
-		query: function () {
-			$("#jqGrid").jqGrid('setGridParam',{
+    },
+    methods: {
+        query: function () {
+            $("#jqGrid").jqGrid('setGridParam',{
                 datatype: "json",
-                postData:{'type': vm.q.type, 'template': vm.q.name},
-                page:1 
+                postData:{'type': vm.q.type, 'template': vm.q.name, 'groupId': vm.q.groupId},
+                page:1
             }).trigger("reloadGrid");
-		},
+        },
         serverUrl: function () {
             return location.protocol + "//" + location.host;
         },
@@ -208,15 +208,17 @@ var vm = new Vue({
                 data: JSON.stringify({}),
                 dataType: "json",
                 success: function(data){
-                    vm.q.groupList = [{id: 0, name: '请选择模板组'}];
-                    for (var i = 0; i < data.data.lenght; i++) {
+                    vm.q.groupList = [{id: 0, groupName: '请选择模板组'}];
+                    for (var i = 0; i < data.data.length; i++) {
                         vm.q.groupList.push(data.data[i]);
                     }
                     vm.groupList = data.data;
                 }
             });
         }
-	}
+    }
 });
+
 vm.getGroup();
+
 

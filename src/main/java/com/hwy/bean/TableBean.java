@@ -1,8 +1,10 @@
-package com.hwy.entity;
+package com.hwy.bean;
 
 import com.hwy.model.TableModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ import java.util.List;
  **/
 @Builder
 @AllArgsConstructor
-public class TableEntity {
+public class TableBean {
 
 	/**
 	 * 表的名称
@@ -29,12 +31,12 @@ public class TableEntity {
 	/**
 	 * 表的主键
 	 */
-	private ColumnEntity pk;
+	private ColumnBean pk;
 
 	/**
 	 * 表的列名(不包含主键)
 	 */
-	private List<ColumnEntity> columns;
+	private List<ColumnBean> columns;
 
 	/**
 	 * 类名(第一个字母大写)，如：sys_user => SysUser
@@ -50,6 +52,14 @@ public class TableEntity {
 	 * 是否存在bigDecimal类型的字段
 	 */
 	private Boolean hasBigDecimal;
+
+	public static TableBean get(TableModel model) {
+		return TableBean.builder()
+				.tableName(model.getTableName())
+				.comments(model.getTableComment())
+				.hasBigDecimal(Boolean.FALSE)
+				.build();
+	}
 
 	public String getTableName() {
 		return tableName;
@@ -67,19 +77,19 @@ public class TableEntity {
 		this.comments = comments;
 	}
 
-	public ColumnEntity getPk() {
+	public ColumnBean getPk() {
 		return pk;
 	}
 
-	public void setPk(ColumnEntity pk) {
+	public void setPk(ColumnBean pk) {
 		this.pk = pk;
 	}
 
-	public List<ColumnEntity> getColumns() {
+	public List<ColumnBean> getColumns() {
 		return columns;
 	}
 
-	public void setColumns(List<ColumnEntity> columns) {
+	public void setColumns(List<ColumnBean> columns) {
 		this.columns = columns;
 	}
 
@@ -105,13 +115,5 @@ public class TableEntity {
 
 	public void setHasBigDecimal(Boolean hasBigDecimal) {
 		this.hasBigDecimal = hasBigDecimal;
-	}
-
-	public static TableEntity get(TableModel model) {
-		return TableEntity.builder()
-				.tableName(model.getTableName())
-				.comments(model.getTableComment())
-				.hasBigDecimal(Boolean.FALSE)
-				.build();
 	}
 }

@@ -1,8 +1,10 @@
-package com.hwy.entity;
+package com.hwy.bean;
 
 import com.hwy.model.ColumnModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -12,7 +14,9 @@ import lombok.Builder;
  **/
 @Builder
 @AllArgsConstructor
-public class ColumnEntity {
+public class ColumnBean {
+
+	private String columnKey;
 
 	/**
 	 * 列名
@@ -48,6 +52,24 @@ public class ColumnEntity {
 	 * auto_increment
 	 */
 	private String extra;
+
+	public static ColumnBean get(ColumnModel model) {
+		return ColumnBean.builder()
+				.columnKey(model.getColumnKey())
+				.columnName(model.getColumnName())
+				.dataType(model.getDataType())
+				.comments(model.getColumnComment())
+				.extra(model.getExtra())
+				.build();
+	}
+
+	public String getColumnKey() {
+		return columnKey;
+	}
+
+	public void setColumnKey(String columnKey) {
+		this.columnKey = columnKey;
+	}
 
 	public String getColumnName() {
 		return columnName;
@@ -103,14 +125,5 @@ public class ColumnEntity {
 
 	public void setExtra(String extra) {
 		this.extra = extra;
-	}
-
-	public static ColumnEntity get(ColumnModel model) {
-		return ColumnEntity.builder()
-				.columnName(model.getColumnName())
-				.dataType(model.getDataType())
-				.comments(model.getColumnComment())
-				.extra(model.getExtra())
-				.build();
 	}
 }

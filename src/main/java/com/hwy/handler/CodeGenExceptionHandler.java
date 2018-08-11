@@ -1,7 +1,9 @@
-package com.hwy.utils;
+package com.hwy.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.hwy.dto.ResultData;
+import com.hwy.exception.CodeGenException;
+import com.hwy.utils.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  **/
 @Component
 @Slf4j
-public class CodeGeneratorExceptionHandler implements HandlerExceptionResolver {
+public class CodeGenExceptionHandler implements HandlerExceptionResolver {
 
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request,
@@ -28,8 +30,8 @@ public class CodeGeneratorExceptionHandler implements HandlerExceptionResolver {
 		try {
 			response.setContentType("application/json;charset=utf-8");
 			response.setCharacterEncoding("utf-8");
-			if (ex instanceof CodeGeneratorException) {
-				CodeGeneratorException cge = (CodeGeneratorException) ex;
+			if (ex instanceof CodeGenException) {
+				CodeGenException cge = (CodeGenException) ex;
 				r.setCode(String.valueOf(cge.getCode()));
 				r.setMessage(cge.getMessage());
 			}else if(ex instanceof DuplicateKeyException){

@@ -55,6 +55,10 @@ public class CollectionUtil {
         return new HashMap<>(MAP_DEAULT_CAPACITY);
     }
 
+    public static <K, V> Map<K, V> newHashMap(int cap) {
+        return new HashMap<>(cap);
+    }
+
     public static <T> T randomOne(List<T> list) {
         if (isEmpty(list)) {
             return null;

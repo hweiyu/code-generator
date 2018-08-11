@@ -21,7 +21,7 @@ public class MyBatisMapperScannerConfig {
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
-        mapperScannerConfigurer.setBasePackage("com.hwy.dao");
+        mapperScannerConfigurer.setBasePackage("com.hwy.mapper");
         Properties properties = new Properties();
         properties.setProperty("notEmpty", "false");
         properties.setProperty("IDENTITY", "MYSQL");

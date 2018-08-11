@@ -1,4 +1,4 @@
-package com.hwy.dao;
+package com.hwy.mapper;
 
 import com.hwy.model.DataSourceModel;
 import org.springframework.stereotype.Component;
