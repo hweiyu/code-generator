@@ -120,7 +120,7 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public List<TemplateModel> listByGroupId(Long groupId) {
-        return templateMapper.select(TemplateModel.builder().build());
+        return templateMapper.select(TemplateModel.builder().groupId(groupId).build());
     }
 
     @Override

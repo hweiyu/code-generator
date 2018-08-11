@@ -96,6 +96,10 @@ var vm = new Vue({
 			    alert("请选择模板组");
 			    return;
             }
+            if (vm.templateList.length === 0) {
+			    alert("请先配置模板");
+			    return;
+            }
             $('#genForm').modal('hide');
 			location.href = "code/generator/code?tables=" + JSON.stringify(tableNames) + "&groupId=" + vm.genForm.groupId;
 		},
