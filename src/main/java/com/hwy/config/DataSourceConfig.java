@@ -1,6 +1,7 @@
 package com.hwy.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.hwy.utils.CollectionUtil;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,12 +42,12 @@ public class DataSourceConfig {
     public DataSource dynamicDataSource() {
         DynamicDataSource dynamic = DynamicDataSource.get();
         DruidDataSource defaultDataSource = new DruidDataSource();
-        Map<Object, Object> dataSourceMap = new HashMap<>(16);
+        Map<Object, Object> dataSourceMap = CollectionUtil.newHashMap();
         defaultDataSource.setUrl(url);
         defaultDataSource.setUsername(userName);
         defaultDataSource.setPassword(password);
         defaultDataSource.setDriverClassName(driverClassName);
-        dataSourceMap.put("default", new DruidDataSource());
+        dataSourceMap.put(DynamicDataSource.DEFAULT_DATA_SOURCE, defaultDataSource);
         dynamic.setTargetDataSources(dataSourceMap);
         dynamic.setDefaultTargetDataSource(defaultDataSource);
         return dynamic;

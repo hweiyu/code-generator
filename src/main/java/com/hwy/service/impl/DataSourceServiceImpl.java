@@ -93,7 +93,7 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     @Override
     public boolean connectTest(DataSourceReqDto reqDto) {
-        return JdbcUtil.tryConnect(reqDto.to());
+        return JdbcUtil.tryConnect(reqDto.toBean());
     }
 
     @Override

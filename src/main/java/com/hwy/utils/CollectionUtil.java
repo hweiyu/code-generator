@@ -70,4 +70,8 @@ public class CollectionUtil {
     public static <T> T getOneIfHas(List<T> list) {
         return isEmpty(list) ? null : list.get(0);
     }
+
+    public static <T> int listSize(List<T> list) {
+        return isNotEmpty(list) ? list.size() : 0;
+    }
 }

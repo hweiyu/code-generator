@@ -17,6 +17,12 @@ public class DynamicDataSource extends AbstractRoutingDataSource{
 
     private static final Object LOCK = new Object();
 
+    public static final String DEFAULT_DATA_SOURCE = "default";
+
+    public static final String DYNAMIC_DATA_SOURCE = "dynamic";
+
+    private String dataSourceKey = DEFAULT_DATA_SOURCE;
+
     public static DynamicDataSource get() {
         if (null == dynamicDataSource) {
             synchronized (LOCK) {
@@ -26,6 +32,14 @@ public class DynamicDataSource extends AbstractRoutingDataSource{
             }
         }
         return dynamicDataSource;
+    }
+
+    public void switchDefaultDataSource() {
+        dataSourceKey = DEFAULT_DATA_SOURCE;
+    }
+
+    public void switchDynamicDataSource() {
+        dataSourceKey = DYNAMIC_DATA_SOURCE;
     }
 
     @Override
@@ -43,6 +57,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource{
      */
     @Override
     protected Object determineCurrentLookupKey() {
-        return "dynamic";
+        return dataSourceKey;
     }
 }

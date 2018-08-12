@@ -1,5 +1,6 @@
 package com.hwy.dto.request;
 
+import com.hwy.bean.DataSourceBean;
 import com.hwy.model.DataSourceModel;
 import lombok.*;
 
@@ -68,6 +69,17 @@ public class DataSourceReqDto extends BaseReq {
                 .userName(getUserName())
                 .userPassword(getUserPassword())
                 .dataStatus(getDataStatus())
+                .build();
+    }
+
+    public DataSourceBean toBean() {
+        return DataSourceBean.builder()
+                .dataSourceName(getDataSourceName())
+                .driverClassName(getDriverClassName())
+                .url(getUrl())
+                .dbName(getDbName())
+                .userName(getUserName())
+                .userPassword(getUserPassword())
                 .build();
     }
 }
