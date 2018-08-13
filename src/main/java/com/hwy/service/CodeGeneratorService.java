@@ -1,5 +1,6 @@
 package com.hwy.service;
 
+import com.hwy.dto.request.CodeGenQueryReqDto;
 import com.hwy.dto.request.CodeGenReqDto;
 import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.response.TableResDto;
@@ -15,7 +16,7 @@ import java.util.Map;
  **/
 public interface CodeGeneratorService {
 
-    PageResDto<TableResDto> list(Map<String, Object> map);
+    PageResDto<TableResDto> list(CodeGenQueryReqDto reqDto);
 
     byte[] generatorCode(CodeGenReqDto reqDto);
 

@@ -2,6 +2,7 @@ package com.hwy.handler;
 
 import com.hwy.bean.*;
 import com.hwy.exception.CodeGenException;
+import com.hwy.utils.AssertUtil;
 import com.hwy.utils.CollectionUtil;
 import com.hwy.utils.DateUtils;
 import com.hwy.utils.VelocityUtil;
@@ -67,8 +68,10 @@ public class CodeGeneratorHandlerImpl implements CodeGeneratorHandler {
     private void generatorCode(String tableName) {
         //查询表信息
         TableBean table = param.getTableMap().get(tableName);
+        AssertUtil.notNull(table, "表信息为空");
         //查询列信息
         List<ColumnBean> columns = param.getColumnMap().get(tableName);
+        AssertUtil.notNull(columns, "表字段信息为空");
         //表信息
         wrapTableBean(table, columns);
         //封装模板数据

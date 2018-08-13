@@ -26,13 +26,17 @@ public class CodeGenReqDto extends BaseReq {
 
     private Long groupId;
 
+    private Long sourceId;
+
     public static CodeGenReqDto get(HttpServletRequest request) {
         String tables = request.getParameter("tables");
         List<String> tableList = JSON.parseArray(tables, String.class);
         String groupId = request.getParameter("groupId");
+        String sourceId = request.getParameter("sourceId");
         return CodeGenReqDto.builder()
                 .tableNameList(tableList)
                 .groupId(null == groupId ? 0L : Long.valueOf(groupId))
+                .sourceId(null == sourceId ? 0L : Long.valueOf(sourceId))
                 .build();
     }
 }

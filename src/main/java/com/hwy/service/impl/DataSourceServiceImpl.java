@@ -67,6 +67,12 @@ public class DataSourceServiceImpl implements DataSourceService {
         return DataSourceResDto.get(model);
     }
 
+    @Override
+    public DataSourceModel getById(Long id) {
+        return dataSourceMapper.selectOne(DataSourceModel.builder()
+                .id(id).dataStatus(DataStatusEnum.ENABLE.getType()).build());
+    }
+
     /**
     * 添加
     */

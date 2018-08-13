@@ -5,6 +5,7 @@ import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.request.DataSourceQueryReqDto;
 import com.hwy.dto.request.DataSourceReqDto;
 import com.hwy.dto.response.DataSourceResDto;
+import com.hwy.model.DataSourceModel;
 
 import java.util.List;
 
@@ -25,6 +26,8 @@ public interface DataSourceService {
     * 查询
     */
     DataSourceResDto get(DataSourceReqDto reqDto);
+
+    DataSourceModel getById(Long id);
 
     /**
     * 添加

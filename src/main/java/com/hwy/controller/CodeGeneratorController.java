@@ -1,6 +1,7 @@
 package com.hwy.controller;
 
 import com.hwy.dto.ResultData;
+import com.hwy.dto.request.CodeGenQueryReqDto;
 import com.hwy.dto.request.CodeGenReqDto;
 import com.hwy.dto.response.TableResDto;
 import com.hwy.service.CodeGeneratorService;
@@ -33,9 +34,9 @@ public class CodeGeneratorController {
 	 * 列表
 	 */
 	@ResponseBody
-	@RequestMapping("/list")
-	public ResultData<PageResDto<TableResDto>> list(@RequestParam Map<String, Object> params){
-		return ResultUtil.success(codeGeneratorService.list(params));
+	@PostMapping("/list")
+	public ResultData<PageResDto<TableResDto>> list(@RequestBody CodeGenQueryReqDto reqDto){
+		return ResultUtil.success(codeGeneratorService.list(reqDto));
 	}
 
 	/**

@@ -2,6 +2,7 @@ $(function () {
     $("#jqGrid").jqGrid({
         url: 'code/generator/list',
         datatype: "local",
+        mtype: 'POST',
         colModel: [
 			{ label: '表名', name: 'tableName', width: 100, key: true },
 			{ label: 'Engine', name: 'engine', width: 70},
@@ -36,6 +37,9 @@ $(function () {
             if ("false" === data.result) {
                 alert(data.message);
             }
+        },
+        serializeGridData: function (postData) {
+            return JSON.stringify(postData);
         }
     });
 });
@@ -57,12 +61,12 @@ var vm = new Vue({
 	methods: {
 		query: function () {
             if (vm.q.sourceId <= 0) {
-                alert("请选择模板组");
+                alert("请选择数据源");
                 return;
             }
 			$("#jqGrid").jqGrid('setGridParam',{
                 datatype: "json",
-                postData:{'tableName': vm.q.tableName},
+                postData:{'tableName': vm.q.tableName, 'sourceId': vm.q.sourceId},
                 page:1 
             }).trigger("reloadGrid");
 		},
@@ -101,7 +105,7 @@ var vm = new Vue({
 			    return;
             }
             $('#genForm').modal('hide');
-			location.href = "code/generator/code?tables=" + JSON.stringify(tableNames) + "&groupId=" + vm.genForm.groupId;
+			location.href = "code/generator/code?tables=" + JSON.stringify(tableNames) + "&groupId=" + vm.genForm.groupId + "&sourceId=" + vm.q.sourceId;
 		},
         getDataSource: function () {
             $.ajax({

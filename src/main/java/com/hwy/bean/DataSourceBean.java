@@ -60,10 +60,15 @@ public class DataSourceBean {
 
     public DruidDataSource toDruidDataSource() {
         DruidDataSource source = new DruidDataSource();
-        source.setUrl(url);
+        source.setUrl(getCompleteUrl());
         source.setUsername(userName);
         source.setPassword(userPassword);
         source.setDriverClassName(driverClassName);
         return source;
+    }
+
+    public String getCompleteUrl() {
+        String template = "%s/%s?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false";
+        return String.format(template, getUrl(), getDbName());
     }
 }

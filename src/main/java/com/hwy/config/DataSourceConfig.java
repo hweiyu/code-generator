@@ -1,18 +1,14 @@
 package com.hwy.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.hwy.utils.CollectionUtil;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author huangweiyu
@@ -38,27 +34,22 @@ public class DataSourceConfig {
      *
      * @return data source
      */
-    @Bean("dynamicDataSource")
-    public DataSource dynamicDataSource() {
-        DynamicDataSource dynamic = DynamicDataSource.get();
+    @Bean("dataSource")
+    public DataSource defaultDataSource() {
         DruidDataSource defaultDataSource = new DruidDataSource();
-        Map<Object, Object> dataSourceMap = CollectionUtil.newHashMap();
         defaultDataSource.setUrl(url);
         defaultDataSource.setUsername(userName);
         defaultDataSource.setPassword(password);
         defaultDataSource.setDriverClassName(driverClassName);
-        dataSourceMap.put(DynamicDataSource.DEFAULT_DATA_SOURCE, defaultDataSource);
-        dynamic.setTargetDataSources(dataSourceMap);
-        dynamic.setDefaultTargetDataSource(defaultDataSource);
-        return dynamic;
+        return defaultDataSource;
     }
 
     @Bean(name = "sqlSessionFactory")
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("dynamicDataSource") DataSource dynamicDataSource)
+    public SqlSessionFactory sqlSessionFactory()
             throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         // 配置数据源，此处配置为关键配置，如果没有将 dynamicDataSource 作为数据源则不能实现切换
-        sqlSessionFactoryBean.setDataSource(dynamicDataSource);
+        sqlSessionFactoryBean.setDataSource(defaultDataSource());
         sqlSessionFactoryBean.setMapperLocations(
                 new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));
         return sqlSessionFactoryBean.getObject();

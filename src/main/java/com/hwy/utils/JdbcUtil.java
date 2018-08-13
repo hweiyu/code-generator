@@ -1,15 +1,21 @@
 package com.hwy.utils;
 
 import com.hwy.bean.DataSourceBean;
-import lombok.Data;
+import com.hwy.bean.param.SqlParamBean;
+import com.hwy.factory.JdbcFactory;
+import com.hwy.factory.SqlParamFactory;
+import com.hwy.factory.SqlWrapFactory;
+import com.hwy.model.DataSourceModel;
+import com.hwy.service.DataSourceService;
+import com.hwy.service.impl.DataSourceServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author huangweiyu
@@ -21,12 +27,12 @@ import java.util.Map;
 @Slf4j
 public class JdbcUtil {
 
-    public static boolean tryConnect(DataSourceBean sourceBean) {
+    public static boolean tryConnect(DataSourceBean source) {
         Connection con = null;
         try {
-            Class.forName(sourceBean.getDriverClassName());
+            Class.forName(source.getDriverClassName());
             con = DriverManager.getConnection(
-                    getUrl(sourceBean), sourceBean.getUserName(), sourceBean.getUserPassword());
+                    source.getCompleteUrl(), source.getUserName(), source.getUserPassword());
             return true;
         } catch (Exception e) {
             log.error("数据库连接失败");
@@ -42,22 +48,32 @@ public class JdbcUtil {
         return false;
     }
 
-    public static int queryForInt(String sql, DataSourceBean source) {
-        List<Map<String, Object>> result = getJdbcTemplate(source).queryForList(sql);
-        return CollectionUtil.listSize(result);
+    public static int queryForInt(String sql, SqlParamBean param) {
+        Integer res = getJdbcTemplate(param.getSourceId())
+                .queryForObject(
+                        SqlWrapFactory.builder().sql(sql).condition(param).build(),
+                        SqlParamFactory.builder().param(new SqlParamBean()).build(),
+                        Integer.class);
+        return LangUtils.nvl(res, 0);
     }
 
-    public static <T> List<T> queryForList(String sql, Class<T> elementType, DataSourceBean source) {
-       return getJdbcTemplate(source).queryForList(sql, elementType);
+    public static <T> List<T> queryForList(String sql, SqlParamBean param, Class<T> resultType) {
+        List<T> result = getJdbcTemplate(param.getSourceId())
+                .query(
+                        SqlWrapFactory.builder().sql(sql).condition(param).build(),
+                        SqlParamFactory.builder().param(param).build(),
+                        new BeanPropertyRowMapper<>(resultType));
+       return CollectionUtil.newArrayList(result);
     }
 
-    private static JdbcTemplate getJdbcTemplate(DataSourceBean sourceBean) {
-        tryConnect(sourceBean);
-        return new JdbcTemplate(sourceBean.toDruidDataSource());
+    private static NamedParameterJdbcTemplate getJdbcTemplate(Long sourceId) {
+        AssertUtil.notNull(sourceId, "数据源为空");
+        DataSourceService dataSourceService = ApplicationUtil.getBean(DataSourceServiceImpl.class);
+        DataSourceModel model = dataSourceService.getById(sourceId);
+        AssertUtil.notNull(model, "数据源为空");
+        DataSourceBean source = DataSourceBean.get(model);
+        tryConnect(source);
+        return JdbcFactory.builder().source(source).build();
     }
 
-    private static String getUrl(DataSourceBean bean) {
-        String template = "%s/%s?useUnicode=true&characterEncoding=UTF-8";
-        return String.format(template, bean.getUrl(), bean.getDbName());
-    }
 }
