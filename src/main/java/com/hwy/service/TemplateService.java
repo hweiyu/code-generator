@@ -2,6 +2,7 @@ package com.hwy.service;
 
 import com.hwy.dto.request.TemplateQueryReqDto;
 import com.hwy.dto.request.TemplateReqDto;
+import com.hwy.dto.response.HelpResDto;
 import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.response.TemplateResDto;
 import com.hwy.model.TemplateModel;
@@ -26,6 +27,8 @@ public interface TemplateService {
     */
     TemplateResDto get(TemplateReqDto reqDto);
 
+    TemplateModel getById(Long id);
+
     /**
     * 添加
     */
@@ -44,5 +47,7 @@ public interface TemplateService {
     List<TemplateModel> listByGroupId(Long groupId);
 
     List<TemplateResDto> genList(Long groupId);
+
+    HelpResDto getHelp(Long templateId);
 }
 

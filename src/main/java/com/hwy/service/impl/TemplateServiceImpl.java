@@ -1,6 +1,7 @@
 package com.hwy.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.hwy.dto.response.HelpResDto;
 import com.hwy.enums.DataStatusEnum;
 import com.hwy.mapper.TemplateMapper;
 import com.hwy.dto.Page;
@@ -12,6 +13,7 @@ import com.hwy.model.TemplateGroupModel;
 import com.hwy.model.TemplateModel;
 import com.hwy.service.TemplateGroupService;
 import com.hwy.service.TemplateService;
+import com.hwy.utils.AssertUtil;
 import com.hwy.utils.CollectionUtil;
 import com.hwy.utils.LangUtils;
 import com.hwy.utils.PageUtil;
@@ -94,6 +96,12 @@ public class TemplateServiceImpl implements TemplateService {
         return TemplateResDto.getWithContext(model);
     }
 
+    @Override
+    public TemplateModel getById(Long id) {
+        return templateMapper.selectOne(TemplateModel.builder()
+                .id(id).dataStatus(DataStatusEnum.ENABLE.getType()).build());
+    }
+
     /**
     * 添加
     */
@@ -137,6 +145,15 @@ public class TemplateServiceImpl implements TemplateService {
             }
         }
         return result;
+    }
+
+    @Override
+    public HelpResDto getHelp(Long templateId) {
+        TemplateModel templateModel = getById(templateId);
+        AssertUtil.notNull(templateModel, "查询不到模板信息");
+        TemplateGroupModel groupModel = templateGroupService.getById(templateModel.getGroupId());
+        AssertUtil.notNull(groupModel, "查询不到模板组信息");
+        return HelpResDto.get(groupModel, templateModel);
     }
 
 }
