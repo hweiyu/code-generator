@@ -197,11 +197,6 @@ public class SqlWrapFactory {
         return false;
     }
 
-    private boolean isSortCondition(SqlParam.ConditionTypeEnum curEnum) {
-        return SqlParam.ConditionTypeEnum.ASC == curEnum
-                || SqlParam.ConditionTypeEnum.DESC == curEnum;
-    }
-
     public void limit() {
         if (hasLimit()) {
             int offset = LangUtils.nvl(param.getOffset(), 0);
