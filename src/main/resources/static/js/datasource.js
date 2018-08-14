@@ -152,14 +152,33 @@ var vm = new Vue({
                 }
             });
         },
-        connectTest: function () {
+        connectTestByInsert: function () {
             $.ajax({
                 type: "post",
                 url: this.serverUrl() + "/datasource/connect/test",
                 data: JSON.stringify(vm.addForm),
                 dataType: "json",
                 success: function(data){
-                    alert(data.data);
+                    if ("false" === data.result) {
+                        alert(data.message);
+                    } else {
+                        alert(data.data);
+                    }
+                }
+            });
+        },
+        connectTestByEdit: function () {
+            $.ajax({
+                type: "post",
+                url: this.serverUrl() + "/datasource/connect/test",
+                data: JSON.stringify(vm.editForm),
+                dataType: "json",
+                success: function(data){
+                    if ("false" === data.result) {
+                        alert(data.message);
+                    } else {
+                        alert(data.data);
+                    }
                 }
             });
         }

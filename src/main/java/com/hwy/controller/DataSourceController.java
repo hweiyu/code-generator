@@ -70,8 +70,8 @@ public class DataSourceController {
 
     @PostMapping("/connect/test")
     public ResultData<String> connectTest(@RequestBody DataSourceReqDto reqDto){
-        boolean res = dataSourceService.connectTest(reqDto);
-        return ResultUtil.success(res ? "连接成功" : "连接失败");
+        dataSourceService.connectTest(reqDto);
+        return ResultUtil.success("连接成功");
     }
 
     /**

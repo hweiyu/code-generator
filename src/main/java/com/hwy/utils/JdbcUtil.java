@@ -2,6 +2,7 @@ package com.hwy.utils;
 
 import com.hwy.bean.DataSourceBean;
 import com.hwy.bean.param.SqlParamBean;
+import com.hwy.exception.CodeGenException;
 import com.hwy.factory.JdbcFactory;
 import com.hwy.factory.SqlParamFactory;
 import com.hwy.factory.SqlWrapFactory;
@@ -27,25 +28,29 @@ import java.util.List;
 @Slf4j
 public class JdbcUtil {
 
-    public static boolean tryConnect(DataSourceBean source) {
+    public static void tryConnect(DataSourceBean source) {
         Connection con = null;
+        boolean tryError = false;
         try {
             Class.forName(source.getDriverClassName());
             con = DriverManager.getConnection(
                     source.getCompleteUrl(), source.getUserName(), source.getUserPassword());
-            return true;
         } catch (Exception e) {
             log.error("数据库连接失败");
+            tryError = true;
         } finally {
             if (null != con) {
                 try {
                     con.close();
                 } catch (SQLException e) {
                     log.error("数据库连接失败");
+                    tryError = true;
                 }
             }
         }
-        return false;
+        if (tryError) {
+            throw new CodeGenException("连接失败");
+        }
     }
 
     public static int queryForInt(String sql, SqlParamBean param) {

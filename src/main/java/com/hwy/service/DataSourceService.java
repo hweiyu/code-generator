@@ -44,7 +44,7 @@ public interface DataSourceService {
     */
     int delete(DataSourceReqDto reqDto);
 
-    boolean connectTest(DataSourceReqDto reqDto);
+    void connectTest(DataSourceReqDto reqDto);
 
     List<DataSourceSelectResDto> listAll();
 }
