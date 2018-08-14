@@ -173,15 +173,176 @@
 						<h4 class="modal-title" id="helpFormFormLabel">帮助信息</h4>
 					</div>
 					<div class="modal-body">
+						<div class="panel panel-default">
+							<div class="panel-heading">示例表</div>
+							<div style="padding: 5px 0 10px 5px;">
+								CREATE TABLE `t_demo_info` (<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;`id` BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT '主键',<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;`demo_name` VARCHAR (50) NOT NULL DEFAULT '' COMMENT '示例名称',<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;`demo_value` VARCHAR (50) NOT NULL DEFAULT '' COMMENT '示例值',<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;PRIMARY KEY (`id`)<br/>
+								) ENGINE = INNODB DEFAULT CHARSET = utf8 COMMENT = '示例信息表'
+							</div>
+						</div>
 						<table class="table table-bordered">
-							<thead>
-							<th>使用示例</th>
-							<th>结果展示</th>
-							</thead>
 							<tbody>
 							<tr>
-								<td>xxxxxxxxxxx</td>
-								<td>yyyyyyy</td>
+								<td class="col-sm-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">模板组配置</div>
+										<div style="padding: 5px 0 10px 5px;">
+											<ul>
+												<li>模板组名称：<span style="color: red;">demo_group</span></li>
+												<li>模块名：<span style="color: red;">generator</span></li>
+												<li>作者：<span style="color: red;">hweiyu</span></li>
+												<li>表前缀：<span style="color: red;">t_</span></li>
+												<li>主包名：<span style="color: red;">com.hwy</span></li>
+											</ul>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="panel panel-default">
+										<div class="panel-heading">模板配置</div>
+										<div style="padding: 5px 0 10px 5px;">
+											<ul>
+												<li>模板组：<span style="color: red;">demo_group</span></li>
+												<li>模板名称：<span style="color: red;">controller</span></li>
+												<li>类型：<span style="color: red;">java</span></li>
+												<li>生成包名：<span style="color: red;">controller</span></li>
+												<li>文件名：<span style="color: red;">Controller.java</span></li>
+											</ul>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">&nbsp;</td>
+							</tr>
+							<tr>
+								<td><b>示例</b></td>
+								<td><b>效果</b></td>
+							</tr>
+							<tr>
+								<td>
+									${tableName}
+								</td>
+								<td>
+									t_demo_info
+								</td>
+							</tr>
+							<tr>
+								<td>
+									${comments}
+								</td>
+								<td>
+									示例信息表
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<ul>
+										<li>${pk.columnName}</li>
+										<li>${pk.comments}</li>
+										<li>${pk.attrName}</li>
+										<li>${pk.attrname}</li>
+										<li>${pk.attrType}</li>
+									</ul>
+								</td>
+								<td>
+									<ul>
+										<li>id</li>
+										<li>主键</li>
+										<li>Id</li>
+										<li>id</li>
+										<li>Long</li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									${className}
+								</td>
+								<td>
+									DemoInfo
+								</td>
+							</tr>
+							<tr>
+								<td>
+									${classname}
+								</td>
+								<td>
+									demoInfo
+								</td>
+							</tr>
+							<tr>
+								<td>
+									${pathName}
+								</td>
+								<td>
+									demoinfo
+								</td>
+							</tr>
+							<tr>
+								<td>
+									注：拥有<span style="color: red;">${pk}</span>中所有的方法<br/>
+									#foreach($column in $columns)<br/>
+									&nbsp;&nbsp;&nbsp;&nbsp;/**<br/>
+									&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;${column.comments}<br/>
+									&nbsp;&nbsp;&nbsp;&nbsp;*/<br/>
+									&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;&nbsp;${column.attrType}&nbsp;&nbsp;${column.attrname};<br/>
+									#end
+								</td>
+								<td>
+									/**<br/>
+									&nbsp;&nbsp;*&nbsp;&nbsp;示例名称<br/>
+									&nbsp;&nbsp;*/<br/>
+									private String demoName;<br/>
+									/**<br/>
+									&nbsp;&nbsp;*&nbsp;&nbsp;示例名称<br/>
+									&nbsp;&nbsp;*/<br/>
+									private String demoValue;
+								</td>
+							</tr>
+							<tr>
+								<td>
+									${hasBigDecimal}
+								</td>
+								<td>
+									false
+								</td>
+							</tr>
+							<tr>
+								<td>
+									${package}
+								</td>
+								<td>
+									com.hwy
+								</td>
+							</tr>
+							<tr>
+								<td>
+									${author}
+								</td>
+								<td>
+									hweiyu
+								</td>
+							</tr>
+							<tr>
+								<td>
+									${moduleName}
+								</td>
+								<td>
+									generator
+								</td>
+							</tr>
+							<tr>
+								<td>
+									${datetime}
+								</td>
+								<td>
+									2099-12-31 23:59:59
+								</td>
 							</tr>
 							</tbody>
 						</table>
