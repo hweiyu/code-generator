@@ -83,4 +83,10 @@ public class DataSourceResDto extends BaseRes {
                 .updateTime(model.getUpdateTime())
                 .build();
     }
+
+    public static DataSourceResDto getWithPasswordHide(DataSourceModel model) {
+        DataSourceResDto resDto = get(model);
+        resDto.setUserPassword("******");
+        return resDto;
+    }
 }

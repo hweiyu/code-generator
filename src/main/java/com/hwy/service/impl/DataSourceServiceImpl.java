@@ -38,7 +38,7 @@ public class DataSourceServiceImpl implements DataSourceService {
     */
     @Override
     public PageResDto<DataSourceResDto> select(DataSourceQueryReqDto reqDto) {
-        List<DataSourceResDto> result = new ArrayList<>(20);
+        List<DataSourceResDto> result = CollectionUtil.newArrayList();
         Example example = new Example(DataSourceModel.class);
         Example.Criteria criteria = example.createCriteria();
         if (null != reqDto.getDataSourceName()) {
@@ -51,7 +51,7 @@ public class DataSourceServiceImpl implements DataSourceService {
             List<DataSourceModel> models = dataSourceMapper.selectByExample(example);
             if (null != models) {
                 for (DataSourceModel model : models) {
-                    result.add(DataSourceResDto.get(model));
+                    result.add(DataSourceResDto.getWithPasswordHide(model));
                 }
             }
         }
