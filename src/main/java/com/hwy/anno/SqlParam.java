@@ -13,16 +13,54 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SqlParam {
 
+    /**
+     * 排序，仅在设置ConditionTypeEnum类型为ASC或DESC时有效
+     * @return
+     */
     int sort() default 1;
 
+    /**
+     * sql中字段名称
+     * @return
+     */
     String column() default "";
 
+    /**
+     * 条件类型
+     * @return
+     */
     ConditionTypeEnum[] type() default ConditionTypeEnum.EQUALS;
 
+    /**
+     * 是否给条件对应的值加单引号
+     * @return
+     */
     boolean singleQuotes() default false;
 
+    /**
+     * 条件类型枚举
+     */
     enum ConditionTypeEnum {
-        EQUALS, LIKE, ASC, DESC
+
+        /**
+         * =
+         */
+        EQUALS,
+
+        /**
+         * like
+         */
+        LIKE,
+
+        /**
+         * asc
+         */
+        ASC,
+
+        /**
+         * desc
+         */
+        DESC
     }
 
 }
