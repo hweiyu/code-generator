@@ -45,8 +45,16 @@ public interface DataSourceService {
     */
     int delete(DataSourceReqDto reqDto);
 
+    /**
+     * 连接测试
+     * @param reqDto
+     */
     void connectTest(DataSourceReqDto reqDto);
 
+    /**
+     * 数据源列表
+     * @return
+     */
     List<DataSourceSelectResDto> listAll();
 }
 

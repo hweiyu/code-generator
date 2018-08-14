@@ -66,6 +66,11 @@ public class TemplateGroupServiceImpl implements TemplateGroupService {
         return TemplateGroupResDto.get(model);
     }
 
+    /**
+     * 通过id查
+     * @param id
+     * @return
+     */
     @Override
     public TemplateGroupModel getById(Long id) {
         TemplateGroupModel param = TemplateGroupModel.builder()
@@ -99,6 +104,10 @@ public class TemplateGroupServiceImpl implements TemplateGroupService {
         return templateGroupMapper.delete(reqDto.to());
     }
 
+    /**
+     * 模板组列表
+     * @return
+     */
     @Override
     public List<TemplateGroupSelectResDto> listAll() {
         List<TemplateGroupSelectResDto> result = CollectionUtil.newArrayList();
@@ -111,6 +120,10 @@ public class TemplateGroupServiceImpl implements TemplateGroupService {
         return result;
     }
 
+    /**
+     * 查所有模板组
+     * @return
+     */
     @Override
     public List<TemplateGroupModel> listAllModel() {
         List<TemplateGroupModel> models = templateGroupMapper.select(

@@ -23,8 +23,14 @@ import java.util.zip.ZipOutputStream;
 @AllArgsConstructor
 public class CodeGeneratorHandlerFactory {
 
+    /**
+     * 参数
+     */
     private CodeGeneratorBean param;
 
+    /**
+     * 返回zip
+     */
     private ZipOutputStream zip;
 
     public CodeGeneratorHandler createHandler() {

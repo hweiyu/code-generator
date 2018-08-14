@@ -17,6 +17,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ColumnBean {
 
+	/**
+	 * key
+	 */
 	private String columnKey;
 
 	/**

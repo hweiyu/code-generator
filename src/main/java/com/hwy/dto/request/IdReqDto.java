@@ -18,5 +18,8 @@ public class IdReqDto extends BaseReq {
 
     private static final long serialVersionUID = -6356663987957698790L;
 
+    /**
+     * 主键id
+     */
     private Long id;
 }

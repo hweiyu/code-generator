@@ -95,12 +95,6 @@ public class TemplateServiceImpl implements TemplateService {
         return TemplateResDto.getWithContext(model);
     }
 
-    @Override
-    public TemplateModel getById(Long id) {
-        return templateMapper.selectOne(TemplateModel.builder()
-                .id(id).dataStatus(DataStatusEnum.ENABLE.getType()).build());
-    }
-
     /**
     * 添加
     */
@@ -125,11 +119,21 @@ public class TemplateServiceImpl implements TemplateService {
         return templateMapper.delete(reqDto.to());
     }
 
+    /**
+     * 通过模板组id查模板列表
+     * @param groupId
+     * @return
+     */
     @Override
     public List<TemplateModel> listByGroupId(Long groupId) {
         return templateMapper.select(TemplateModel.builder().groupId(groupId).build());
     }
 
+    /**
+     * 通过模板组id查模板列表，生成代码使用
+     * @param groupId
+     * @return
+     */
     @Override
     public List<TemplateResDto> genList(Long groupId) {
         TemplateGroupModel groupModel = templateGroupService.getById(groupId);

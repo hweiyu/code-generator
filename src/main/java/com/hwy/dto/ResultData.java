@@ -11,6 +11,9 @@ public class ResultData<T> extends BaseResult {
 
     private static final long serialVersionUID = -495303608504114277L;
 
+    /**
+     * 数据
+     */
     private T data;
 
     public ResultData() {

@@ -16,8 +16,18 @@ import java.util.Map;
  **/
 public interface CodeGeneratorService {
 
+    /**
+     * 表信息列表
+     * @param reqDto
+     * @return
+     */
     PageResDto<TableResDto> list(CodeGenQueryReqDto reqDto);
 
+    /**
+     * 生成代码
+     * @param reqDto
+     * @return
+     */
     byte[] generatorCode(CodeGenReqDto reqDto);
 
 }

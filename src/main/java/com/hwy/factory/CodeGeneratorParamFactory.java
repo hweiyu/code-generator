@@ -27,14 +27,29 @@ import java.util.Map;
 @Setter
 public class CodeGeneratorParamFactory {
 
+    /**
+     * 模板组信息
+     */
     private TemplateGroupBean group;
 
+    /**
+     * 表名列表
+     */
     private List<String> tableNameList;
 
+    /**
+     * 表字段信息集合
+     */
     private Map<String, List<ColumnBean>> columnMap = CollectionUtil.newHashMap(512);
 
+    /**
+     * 表结构信息集合
+     */
     private Map<String, TableBean> tableMap = CollectionUtil.newHashMap(256);
 
+    /**
+     * 模板列表
+     */
     private List<TemplateBean> templateList = CollectionUtil.newArrayList();
 
     public static CodeGeneratorParamFactory builder() {

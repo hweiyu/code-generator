@@ -28,6 +28,10 @@ import java.util.List;
 @Slf4j
 public class JdbcUtil {
 
+    /**
+     * 连接测试
+     * @param source
+     */
     public static void tryConnect(DataSourceBean source) {
         Connection con = null;
         boolean tryError = false;
@@ -53,6 +57,12 @@ public class JdbcUtil {
         }
     }
 
+    /**
+     * 查记录数
+     * @param sql
+     * @param param
+     * @return
+     */
     public static int queryForInt(String sql, SqlParamBean param) {
         Integer res = getJdbcTemplate(param.getSourceId())
                 .queryForObject(
@@ -62,6 +72,14 @@ public class JdbcUtil {
         return LangUtils.nvl(res, 0);
     }
 
+    /**
+     * 查列表
+     * @param sql
+     * @param param
+     * @param resultType
+     * @param <T>
+     * @return
+     */
     public static <T> List<T> queryForList(String sql, SqlParamBean param, Class<T> resultType) {
         List<T> result = getJdbcTemplate(param.getSourceId())
                 .query(

@@ -24,16 +24,34 @@ import java.util.Map;
 @Slf4j
 public class SqlWrapFactory {
 
+    /**
+     * sql
+     */
     private String sql;
 
+    /**
+     * where条件
+     */
     private String whereCondition;
 
+    /**
+     * 排序条件
+     */
     private String sortCondition;
 
+    /**
+     * 分页条件
+     */
     private String limitCondition;
 
+    /**
+     * 参数
+     */
     private SqlParamBean param;
 
+    /**
+     * 参数bean对应的类属性列表
+     */
     private List<Field> fields;
 
     public static SqlWrapFactory builder() {

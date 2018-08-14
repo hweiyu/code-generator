@@ -14,10 +14,19 @@ import lombok.*;
 @Setter
 public class SqlParamBean {
 
+    /**
+     * 数据源id
+     */
     private Long sourceId;
 
+    /**
+     * 分页偏移量
+     */
     private Integer offset;
 
+    /**
+     * 分页一页显示数量
+     */
     private Integer limit;
 
     public SqlParamBean() {}

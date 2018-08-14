@@ -28,6 +28,11 @@ public interface TemplateGroupService {
      */
     TemplateGroupResDto get(TemplateGroupReqDto reqDto);
 
+    /**
+     * 通过id查
+     * @param id
+     * @return
+     */
     TemplateGroupModel getById(Long id);
 
     /**
@@ -45,8 +50,16 @@ public interface TemplateGroupService {
      */
     int delete(TemplateGroupReqDto reqDto);
 
+    /**
+     * 模板组列表
+     * @return
+     */
     List<TemplateGroupSelectResDto> listAll();
 
+    /**
+     * 查所有模板组
+     * @return
+     */
     List<TemplateGroupModel> listAllModel();
 }
 

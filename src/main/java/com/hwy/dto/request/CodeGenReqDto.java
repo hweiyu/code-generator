@@ -22,10 +22,19 @@ public class CodeGenReqDto extends BaseReq {
 
     private static final long serialVersionUID = -756987923142930041L;
 
+    /**
+     * 表名列表
+     */
     private List<String> tableNameList;
 
+    /**
+     * 模板组id
+     */
     private Long groupId;
 
+    /**
+     * 数据源id
+     */
     private Long sourceId;
 
     public static CodeGenReqDto get(HttpServletRequest request) {

@@ -27,8 +27,6 @@ public interface TemplateService {
     */
     TemplateResDto get(TemplateReqDto reqDto);
 
-    TemplateModel getById(Long id);
-
     /**
     * 添加
     */
@@ -44,8 +42,18 @@ public interface TemplateService {
     */
     int delete(TemplateReqDto reqDto);
 
+    /**
+     * 通过模板组id查模板列表
+     * @param groupId
+     * @return
+     */
     List<TemplateModel> listByGroupId(Long groupId);
 
+    /**
+     * 通过模板组id查模板列表，生成代码使用
+     * @param groupId
+     * @return
+     */
     List<TemplateResDto> genList(Long groupId);
 }
 

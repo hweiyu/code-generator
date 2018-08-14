@@ -12,6 +12,11 @@ import org.springframework.util.Assert;
  **/
 public class AssertUtil {
 
+    /**
+     * 非空判断
+     * @param obj
+     * @param error
+     */
     public static void notNull(Object obj, String error) {
         try {
             Assert.notNull(obj, error);

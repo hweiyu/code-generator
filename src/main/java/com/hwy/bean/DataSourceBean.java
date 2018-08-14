@@ -68,6 +68,10 @@ public class DataSourceBean {
         return source;
     }
 
+    /**
+     * 生成完整的jdbc连接url
+     * @return
+     */
     public String getCompleteUrl() {
         String template = "%s/%s?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false";
         return String.format(template, getUrl(), getDbName());

@@ -30,8 +30,14 @@ import java.util.zip.ZipOutputStream;
  **/
 public class CodeGeneratorHandlerImpl implements CodeGeneratorHandler {
 
+    /**
+     * 封装的参数
+     */
     private CodeGeneratorBean param;
 
+    /**
+     * 返回zip
+     */
     private ZipOutputStream zip;
 
     public CodeGeneratorHandlerImpl(CodeGeneratorBean param, ZipOutputStream zip) {

@@ -16,9 +16,18 @@ import lombok.*;
 @NoArgsConstructor
 public class Page {
 
+    /**
+     * 当前页
+     */
     private int page;
 
+    /**
+     * 每页显示数量
+     */
     private int limit;
 
+    /**
+     * 总页数
+     */
     private int total;
 }

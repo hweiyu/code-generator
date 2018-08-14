@@ -30,7 +30,7 @@ public class DataSourceController {
     private DataSourceService dataSourceService;
 
     /**
-     * 列表
+     * 数据源列表
      */
     @PostMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<PageResDto<DataSourceResDto>> list(@RequestBody DataSourceQueryReqDto reqDto){
@@ -38,7 +38,7 @@ public class DataSourceController {
     }
 
     /**
-     * 查询
+     * 查数据源询
      */
     @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<DataSourceResDto> get(@RequestBody DataSourceReqDto reqDto){
@@ -46,7 +46,7 @@ public class DataSourceController {
     }
 
     /**
-     * 插入
+     * 数据源插入
      */
     @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<Void> insert(@RequestBody DataSourceReqDto reqDto){
@@ -54,7 +54,7 @@ public class DataSourceController {
     }
 
     /**
-     * 修改
+     * 数据源修改
      */
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<Void> update(@RequestBody DataSourceReqDto reqDto){
@@ -62,13 +62,18 @@ public class DataSourceController {
     }
 
     /**
-     * 删除
+     * 数据源删除
      */
     @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<Void> delete(@RequestBody DataSourceReqDto reqDto){
         return ResultUtil.create(dataSourceService.delete(reqDto));
     }
 
+    /**
+     * 数据源连接测试
+     * @param reqDto
+     * @return
+     */
     @PostMapping("/connect/test")
     public ResultData<String> connectTest(@RequestBody DataSourceReqDto reqDto){
         dataSourceService.connectTest(reqDto);
@@ -76,7 +81,7 @@ public class DataSourceController {
     }
 
     /**
-     * 列表
+     * 数据源列表
      */
     @PostMapping(value = "/list/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<List<DataSourceSelectResDto>> listAll(){

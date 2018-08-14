@@ -14,15 +14,33 @@ import lombok.Setter;
 @Getter
 public class ColumnModel {
 
+    /**
+     * 表名
+     */
     private String tableName;
 
+    /**
+     * 字段名
+     */
     private String columnName;
 
+    /**
+     * 字段类型
+     */
     private String dataType;
 
+    /**
+     * 字段备注
+     */
     private String columnComment;
 
+    /**
+     * key
+     */
     private String columnKey;
 
+    /**
+     * 额外信息
+     */
     private String extra;
 }

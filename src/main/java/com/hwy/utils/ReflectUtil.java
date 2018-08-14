@@ -16,6 +16,11 @@ import java.util.List;
 @Slf4j
 public class ReflectUtil {
 
+    /**
+     * 获取所有类属性，包括父类中的属性
+     * @param clazz
+     * @return
+     */
     public static List<Field> getAllField(Class<?> clazz) {
         List<Field> result = CollectionUtil.newArrayList();
         while (null != clazz) {
@@ -32,6 +37,12 @@ public class ReflectUtil {
         return result;
     }
 
+    /**
+     * 获取对象属性对应的值
+     * @param field
+     * @param obj
+     * @return
+     */
     public static Object getValue(Field field, Object obj) {
         try {
             field.setAccessible(true);

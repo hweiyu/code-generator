@@ -46,6 +46,11 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
 	@Autowired
 	private TemplateGroupService templateGroupService;
 
+	/**
+	 * 表信息列表
+	 * @param reqDto
+	 * @return
+	 */
 	@Override
 	public PageResDto<TableResDto> list(CodeGenQueryReqDto reqDto) {
 		//查询列表数据
@@ -65,6 +70,11 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
 		return PageUtil.getPageInfo(result, page);
 	}
 
+	/**
+	 * 生成代码
+	 * @param reqDto
+	 * @return
+	 */
 	@Override
 	public byte[] generatorCode(CodeGenReqDto reqDto) {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

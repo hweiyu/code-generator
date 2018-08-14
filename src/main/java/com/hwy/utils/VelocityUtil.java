@@ -15,6 +15,9 @@ import java.util.Properties;
  **/
 public class VelocityUtil {
 
+    /**
+     * 静态配置
+     */
     static {
         Properties property = new Properties();
         property.setProperty(Velocity.ENCODING_DEFAULT, "UTF-8");
@@ -22,6 +25,12 @@ public class VelocityUtil {
         Velocity.init(property);
     }
 
+    /**
+     * 创建模板
+     * @param template
+     * @param context
+     * @return
+     */
     public static StringWriter create(String template, VelocityContext context) {
         StringWriter writer = new StringWriter();
         Velocity.evaluate(context, writer, "dynamicTemplate", template);

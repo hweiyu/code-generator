@@ -32,7 +32,7 @@ public class TemplateController {
     private TemplateService templateService;
 
     /**
-     * 列表
+     * 模板列表
      */
     @PostMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<PageResDto<TemplateResDto>> list(@RequestBody TemplateQueryReqDto reqDto){
@@ -40,7 +40,7 @@ public class TemplateController {
     }
 
     /**
-     * 查询
+     * 模板查询
      */
     @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<TemplateResDto> get(@RequestBody TemplateReqDto reqDto){
@@ -48,7 +48,7 @@ public class TemplateController {
     }
 
     /**
-     * 插入
+     * 模板插入
      */
     @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<Void> insert(@RequestBody TemplateReqDto reqDto){
@@ -56,7 +56,7 @@ public class TemplateController {
     }
 
     /**
-     * 修改
+     * 模板修改
      */
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<Void> update(@RequestBody TemplateReqDto reqDto){
@@ -64,7 +64,7 @@ public class TemplateController {
     }
 
     /**
-     * 删除
+     * 模板删除
      */
     @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<Void> delete(@RequestBody TemplateReqDto reqDto){
@@ -72,7 +72,7 @@ public class TemplateController {
     }
 
     /**
-     * 列表
+     * 模板列表
      */
     @PostMapping(value = "gen/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<List<TemplateResDto>> genList(@RequestBody IdReqDto reqDto){

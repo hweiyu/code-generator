@@ -9,5 +9,8 @@ package com.hwy.handler;
  **/
 public interface CodeGeneratorHandler {
 
+    /**
+     * 生成代码
+     */
     void generatorCode();
 }

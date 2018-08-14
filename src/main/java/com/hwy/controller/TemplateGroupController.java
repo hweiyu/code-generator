@@ -30,7 +30,7 @@ public class TemplateGroupController {
     private TemplateGroupService templateGroupService;
 
     /**
-     * 列表
+     * 模板组列表
      */
     @PostMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<PageResDto<TemplateGroupResDto>> list(@RequestBody TemplateGroupQueryReqDto reqDto){
@@ -38,7 +38,7 @@ public class TemplateGroupController {
     }
 
     /**
-     * 查询
+     * 模板组查询
      */
     @PostMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<TemplateGroupResDto> get(@RequestBody TemplateGroupReqDto reqDto){
@@ -46,7 +46,7 @@ public class TemplateGroupController {
     }
 
     /**
-     * 插入
+     * 模板组插入
      */
     @PostMapping(value = "/insert", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<Void> insert(@RequestBody TemplateGroupReqDto reqDto){
@@ -54,7 +54,7 @@ public class TemplateGroupController {
     }
 
     /**
-     * 修改
+     * 模板组修改
      */
     @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<Void> update(@RequestBody TemplateGroupReqDto reqDto){
@@ -62,7 +62,7 @@ public class TemplateGroupController {
     }
 
     /**
-     * 删除
+     * 模板组删除
      */
     @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<Void> delete(@RequestBody TemplateGroupReqDto reqDto){
@@ -70,7 +70,7 @@ public class TemplateGroupController {
     }
 
     /**
-     * 列表
+     * 模板组列表
      */
     @PostMapping(value = "/list/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<List<TemplateGroupSelectResDto>> listAll(){

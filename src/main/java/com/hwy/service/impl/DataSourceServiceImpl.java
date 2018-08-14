@@ -97,11 +97,19 @@ public class DataSourceServiceImpl implements DataSourceService {
         return dataSourceMapper.delete(reqDto.to());
     }
 
+    /**
+     * 连接测试
+     * @param reqDto
+     */
     @Override
     public void connectTest(DataSourceReqDto reqDto) {
         JdbcUtil.tryConnect(reqDto.toBean());
     }
 
+    /**
+     * 数据源列表
+     * @return
+     */
     @Override
     public List<DataSourceSelectResDto> listAll() {
         List<DataSourceSelectResDto> result = CollectionUtil.newArrayList();

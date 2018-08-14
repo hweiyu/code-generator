@@ -13,10 +13,19 @@ public class BaseResult implements Result, Serializable {
 
     private static final long serialVersionUID = 8796305494299482234L;
 
+    /**
+     * 返回结果true/false
+     */
     private String result;
 
+    /**
+     * 返回码
+     */
     private String code;
 
+    /**
+     * 返回消息
+     */
     private String message;
 
     public void setResult(String result) {

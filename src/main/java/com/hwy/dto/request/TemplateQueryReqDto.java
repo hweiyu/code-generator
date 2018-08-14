@@ -28,6 +28,9 @@ public class TemplateQueryReqDto extends PageReq {
      */
     private Integer type;
 
+    /**
+     * 模板组id
+     */
     private Long groupId;
 
 }

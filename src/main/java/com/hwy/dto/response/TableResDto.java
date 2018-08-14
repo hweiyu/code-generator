@@ -19,12 +19,24 @@ public class TableResDto extends BaseRes {
 
     private static final long serialVersionUID = 8536747378771813313L;
 
+    /**
+     * 表名
+     */
     private String tableName;
 
+    /**
+     * 存储引擎
+     */
     private String engine;
 
+    /**
+     * 表备注
+     */
     private String tableComment;
 
+    /**
+     * 创建时间
+     */
     private String createTime;
 
     public static TableResDto get(TableModel model) {

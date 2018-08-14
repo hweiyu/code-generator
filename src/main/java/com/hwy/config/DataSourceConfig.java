@@ -30,7 +30,7 @@ public class DataSourceConfig {
     private String driverClassName;
 
     /**
-     * 配置动态数据源
+     * 数据源
      *
      * @return data source
      */

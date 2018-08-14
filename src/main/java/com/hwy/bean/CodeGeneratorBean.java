@@ -19,13 +19,30 @@ import java.util.Map;
 @AllArgsConstructor
 public class CodeGeneratorBean {
 
+    /**
+     * 表名称列表
+     */
     private List<String> tableNameList;
 
+    /**
+     * 所有字段的集合
+     * key:表名, value:表字段信息列表
+     */
     private Map<String, List<ColumnBean>> columnMap;
 
+    /**
+     * 所有表的集合
+     * key:表名, value:表结构信息
+     */
     private Map<String, TableBean> tableMap;
 
+    /**
+     * 模板列表
+     */
     private List<TemplateBean> templateList;
 
+    /**
+     * 模板组
+     */
     private TemplateGroupBean group;
 }

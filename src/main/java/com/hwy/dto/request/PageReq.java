@@ -18,8 +18,14 @@ public class PageReq extends BaseReq {
 
     private static final long serialVersionUID = -1113645217731393036L;
 
+    /**
+     * 当前页
+     */
     private Integer page;
 
+    /**
+     * 页显示数量
+     */
     private Integer limit;
 
     public Page to() {

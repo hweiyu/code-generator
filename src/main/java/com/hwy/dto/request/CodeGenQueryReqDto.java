@@ -24,10 +24,19 @@ public class CodeGenQueryReqDto extends PageReq {
      */
     private Long sourceId;
 
+    /**
+     * 表名
+     */
     private String tableName;
 
+    /**
+     * 当前页
+     */
     private Integer offset;
 
+    /**
+     * 页显示数
+     */
     private Integer limit;
 
     public TableParamBean toTableParamBean() {
