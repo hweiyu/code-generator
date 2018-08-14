@@ -82,7 +82,7 @@ public class TemplateController {
     /**
      * 列表
      */
-    @PostMapping(value = "help/list", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "help/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultData<HelpResDto> getHelp(@RequestBody IdReqDto reqDto){
         return ResultUtil.success(templateService.getHelp(reqDto.getId()));
     }

@@ -96,7 +96,11 @@ var vm = new Vue({
             {id: 3, name: 'html'},
             {id: 4, name: 'javascript'}
         ],
-        groupList:[]
+        groupList:[],
+        helpForm: {
+            id: 0
+        },
+        helpInfo: {}
     },
     methods: {
         query: function () {
@@ -120,6 +124,7 @@ var vm = new Vue({
                     $('#editForm').modal('show');
                 }
             });
+            vm.helpForm.id = id;
         },
         edit: function() {
             $.ajax({
@@ -215,6 +220,18 @@ var vm = new Vue({
                     vm.groupList = data.data;
                 }
             });
+        },
+        getHelp: function() {
+            // $.ajax({
+            //     type: "post",
+            //     url: this.serverUrl() + "/template/help/get",
+            //     data: JSON.stringify({id: vm.helpForm.id}),
+            //     dataType: "json",
+            //     success: function(data){
+            //         vm.helpInfo = data.data;
+            //     }
+            // });
+            $('#helpForm').modal('show');
         }
     }
 });
