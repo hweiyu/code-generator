@@ -148,7 +148,7 @@
 						<table class="table table-bordered">
 							<tbody>
 							<tr>
-								<td class="col-sm-2">模板名称&nbsp;&nbsp;<a href="javascript:void(0)" style="color:red"><img src="help.png">[帮助?]</a></td>
+								<td class="col-sm-2">模板名称&nbsp;&nbsp;<a href="javascript:void(0)" tabindex="-2" data-toggle="modal" data-target="#helpForm"><img src="help.png"></a></td>
 								<td><input type="text" class="form-control" v-model="editContextForm.templateName" readonly placeholder="模板名称"></td>
 							</tr>
 							<tr>
@@ -160,6 +160,34 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 						<button type="button" class="btn btn-primary" @click="editContext">保存</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal -->
+		</div>
+
+		<div class="modal fade bs-example-modal-lg" id="helpForm" tabindex="-1" role="dialog" aria-labelledby="helpFormFormLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="helpFormFormLabel">帮助信息</h4>
+					</div>
+					<div class="modal-body">
+						<table class="table table-bordered">
+							<thead>
+							<th>使用示例</th>
+							<th>结果展示</th>
+							</thead>
+							<tbody>
+							<tr>
+								<td>xxxxxxxxxxx</td>
+								<td>yyyyyyy</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal -->
