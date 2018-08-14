@@ -4,7 +4,6 @@ import com.hwy.dto.ResultData;
 import com.hwy.dto.request.IdReqDto;
 import com.hwy.dto.request.TemplateQueryReqDto;
 import com.hwy.dto.request.TemplateReqDto;
-import com.hwy.dto.response.HelpResDto;
 import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.response.TemplateResDto;
 import com.hwy.service.TemplateService;
@@ -19,11 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * 模板控制器
- *
- * @author hweiyu
- * @date 2018-08-10 09:47:28
- */
+ * @author huangweiyu
+ * @version V1.0
+ * @Title: 描述
+ * @Description: 模板控制器
+ * @date 2018/8/13 10:10
+ **/
 @RestController
 @RequestMapping("/template")
 public class TemplateController {
@@ -79,11 +79,4 @@ public class TemplateController {
         return ResultUtil.success(templateService.genList(reqDto.getId()));
     }
 
-    /**
-     * 列表
-     */
-    @PostMapping(value = "help/get", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultData<HelpResDto> getHelp(@RequestBody IdReqDto reqDto){
-        return ResultUtil.success(templateService.getHelp(reqDto.getId()));
-    }
 }

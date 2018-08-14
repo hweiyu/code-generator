@@ -6,7 +6,7 @@ import com.hwy.dto.ResultData;
  * @author huangweiyu
  * @version V1.0
  * @Title: 描述
- * @Description: 描述
+ * @Description: 返回封装工具类
  * @date 2018/6/14 9:26
  **/
 public class ResultUtil {

@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 模板组控制器
- *
- * @author hweiyu
- * @date 2018-08-10 22:32:56
- */
+ * @author huangweiyu
+ * @version V1.0
+ * @Title: 描述
+ * @Description: 模板组控制器
+ * @date 2018/8/13 10:10
+ **/
 @RestController
 @RequestMapping("group")
 public class TemplateGroupController {

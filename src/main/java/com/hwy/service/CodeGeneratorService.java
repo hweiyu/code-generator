@@ -11,7 +11,7 @@ import java.util.Map;
  * @author huangweiyu
  * @version V1.0
  * @Title: 描述
- * @Description: 描述
+ * @Description: 代码生成接口
  * @date 2018/8/7 14:51
  **/
 public interface CodeGeneratorService {

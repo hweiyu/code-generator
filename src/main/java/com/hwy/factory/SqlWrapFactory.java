@@ -18,7 +18,7 @@ import java.util.Map;
  * @author huangweiyu
  * @version V1.0
  * @Title: 描述
- * @Description: 描述
+ * @Description: sql封装工厂
  * @date 2018/8/13 10:57
  **/
 @Slf4j

@@ -7,7 +7,7 @@ import lombok.*;
  * @author huangweiyu
  * @version V1.0
  * @Title: 描述
- * @Description: 描述
+ * @Description: 查询表结构参数bean
  * @date 2018/8/13 10:10
  **/
 @Getter

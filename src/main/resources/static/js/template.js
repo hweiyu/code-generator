@@ -222,15 +222,6 @@ var vm = new Vue({
             });
         },
         getHelp: function() {
-            // $.ajax({
-            //     type: "post",
-            //     url: this.serverUrl() + "/template/help/get",
-            //     data: JSON.stringify({id: vm.helpForm.id}),
-            //     dataType: "json",
-            //     success: function(data){
-            //         vm.helpInfo = data.data;
-            //     }
-            // });
             $('#helpForm').modal('show');
         }
     }

@@ -14,10 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 异常处理器
  * @author huangweiyu
  * @version V1.0
- * @date 2018/8/7 14:06
+ * @Title: 描述
+ * @Description: 业务异常处理器
+ * @date 2018/8/13 10:10
  **/
 @Component
 @Slf4j

@@ -4,10 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- *
  * @author huangweiyu
  * @version V1.0
- * @date 2018/8/7 14:06
+ * @Title: 描述
+ * @Description: 日期工具类
+ * @date 2018/8/13 10:10
  **/
 public class DateUtils {
 

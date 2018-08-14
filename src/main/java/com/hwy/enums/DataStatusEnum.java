@@ -3,7 +3,7 @@ package com.hwy.enums;
 import com.hwy.exception.CodeGenException;
 
 /**
- * 0:禁用,1:启用,2:已删除
+ * 数据状态 0:禁用,1:启用,2:已删除
  *
  * @author hweiyu
  * @date 2018-08-10 09:47:28

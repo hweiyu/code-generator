@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author huangweiyu
  * @version V1.0
- * @date 2018/8/7 14:06
+ * @Title: 描述
+ * @Description: 代码生成 mapper
+ * @date 2018/8/13 10:10
  **/
 @Component
 public interface CodeGeneratorMapper {

@@ -10,7 +10,7 @@ import java.util.List;
  * @author huangweiyu
  * @version V1.0
  * @Title: 描述
- * @Description: 描述
+ * @Description: 分页工具类
  * @date 2018/8/10 13:49
  **/
 public class PageUtil {

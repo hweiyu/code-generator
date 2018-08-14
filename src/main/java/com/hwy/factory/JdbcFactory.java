@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
  * @author huangweiyu
  * @version V1.0
  * @Title: 描述
- * @Description: 描述
+ * @Description: 生成jdbc连接工厂
  * @date 2018/8/13 9:21
  **/
 public class JdbcFactory {

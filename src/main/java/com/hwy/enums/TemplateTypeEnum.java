@@ -3,7 +3,7 @@ package com.hwy.enums;
 import com.hwy.exception.CodeGenException;
 
 /**
- * 1:java,2:xml,3:html,4:javascript
+ * 模板类型 1:java,2:xml,3:html,4:javascript
  *
  * @author hweiyu
  * @date 2018-08-10 09:47:28

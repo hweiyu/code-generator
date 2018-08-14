@@ -9,7 +9,9 @@ import lombok.Setter;
 /**
  * @author huangweiyu
  * @version V1.0
- * @date 10:39
+ * @Title: 描述
+ * @Description: 模板信息bean
+ * @date 2018/8/13 10:10
  **/
 @Getter
 @Setter

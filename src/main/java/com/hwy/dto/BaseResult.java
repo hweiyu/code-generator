@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author huangweiyu
  * @version V1.0
  * @Title: 描述
- * @Description: 描述
+ * @Description: 基础返回类
  * @date 2018/6/14 9:21
  **/
 public class BaseResult implements Result, Serializable {

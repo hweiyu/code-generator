@@ -8,7 +8,10 @@ import java.util.function.Predicate;
 
 /**
  * @author huangweiyu
- * @date 2018/3/20 13:53
+ * @version V1.0
+ * @Title: 描述
+ * @Description: lang包工具类
+ * @date 2018/8/13 10:10
  **/
 public abstract class LangUtils {
 

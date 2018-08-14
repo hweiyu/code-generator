@@ -17,11 +17,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 异常处理器
- *
  * @author huangweiyu
  * @version V1.0
- * @date 10:33
+ * @Title: 描述
+ * @Description: 构造生成代码参数工厂
+ * @date 2018/8/13 10:10
  **/
 @Getter
 @Setter

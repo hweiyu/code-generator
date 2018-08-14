@@ -20,11 +20,12 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.List;
 
 /**
- * 数据库源服务
- *
- * @author hweiyu
- * @date 2018-08-10 09:47:28
- */
+ * @author huangweiyu
+ * @version V1.0
+ * @Title: 描述
+ * @Description: 模板组服务
+ * @date 2018/8/13 10:10
+ **/
 @Service
 public class TemplateGroupServiceImpl implements TemplateGroupService {
 

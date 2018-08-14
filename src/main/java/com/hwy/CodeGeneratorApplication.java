@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * boot启动类
  * @author huangweiyu
  * @version V1.0
- * @date 2018/8/7 14:06
+ * @Title: 描述
+ * @Description: boot项目启动类
+ * @date 2018/8/13 10:10
  **/
 @SpringBootApplication
 public class CodeGeneratorApplication {

@@ -10,7 +10,7 @@ import java.util.Properties;
 /**
  * @author liuzw
  * @Title 描述
- * @Description 描述
+ * @Description mybatis扫描mapper配置
  * @date 2018/8/6 18:08
  **/
 @Configuration

@@ -14,7 +14,7 @@ import javax.sql.DataSource;
  * @author huangweiyu
  * @version V1.0
  * @Title: 描述
- * @Description: 描述
+ * @Description: 数据源配置
  * @date 2018/8/9 17:57
  **/
 @Configuration

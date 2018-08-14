@@ -10,7 +10,7 @@ import java.util.Properties;
  * @author huangweiyu
  * @version V1.0
  * @Title: 描述
- * @Description: 描述
+ * @Description: velocity工具类
  * @date 2018/8/10 19:23
  **/
 public class VelocityUtil {

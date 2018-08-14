@@ -2,7 +2,6 @@ package com.hwy.service;
 
 import com.hwy.dto.request.TemplateQueryReqDto;
 import com.hwy.dto.request.TemplateReqDto;
-import com.hwy.dto.response.HelpResDto;
 import com.hwy.dto.response.PageResDto;
 import com.hwy.dto.response.TemplateResDto;
 import com.hwy.model.TemplateModel;
@@ -10,11 +9,12 @@ import com.hwy.model.TemplateModel;
 import java.util.List;
 
 /**
- * 模板接口
- *
- * @author hweiyu
- * @date 2018-08-10 09:47:28
- */
+ * @author huangweiyu
+ * @version V1.0
+ * @Title: 描述
+ * @Description: 模板接口
+ * @date 2018/8/13 10:10
+ **/
 public interface TemplateService {
 
     /**
@@ -47,7 +47,5 @@ public interface TemplateService {
     List<TemplateModel> listByGroupId(Long groupId);
 
     List<TemplateResDto> genList(Long groupId);
-
-    HelpResDto getHelp(Long templateId);
 }
 

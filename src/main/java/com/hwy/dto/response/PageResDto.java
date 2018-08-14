@@ -6,11 +6,11 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 分页
- *
  * @author huangweiyu
  * @version V1.0
- * @date 2018/8/7 14:06
+ * @Title: 描述
+ * @Description: 分页返回dto
+ * @date 2018/8/13 10:10
  **/
 @Getter
 @Setter

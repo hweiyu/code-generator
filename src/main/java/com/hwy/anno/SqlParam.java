@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * @author huangweiyu
  * @version V1.0
  * @Title: 描述
- * @Description: 描述
+ * @Description: sql参数定义注解
  * @date 2018/8/9 19:31
  **/
 @Target({ElementType.FIELD})

@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 异常处理器
- *
  * @author huangweiyu
  * @version V1.0
- * @date 10:27
+ * @Title: 描述
+ * @Description: 生成代码参数bean
+ * @date 2018/8/13 10:10
  **/
 @Getter
 @Builder

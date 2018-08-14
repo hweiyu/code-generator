@@ -4,11 +4,12 @@ import com.hwy.model.DataSourceModel;
 import lombok.*;
 
 /**
- * 模板组返回dto
- *
- * @author hweiyu
- * @date 2018-08-10 22:32:56
- */
+ * @author huangweiyu
+ * @version V1.0
+ * @Title: 描述
+ * @Description: 数据源查询返回dto
+ * @date 2018/8/13 10:10
+ **/
 @Getter
 @Setter
 @Builder

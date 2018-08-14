@@ -7,10 +7,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- *
  * @author huangweiyu
  * @version V1.0
- * @date 2018/8/7 14:06
+ * @Title: 描述
+ * @Description: 表字段结构信息bean
+ * @date 2018/8/13 10:10
  **/
 @Builder
 @AllArgsConstructor

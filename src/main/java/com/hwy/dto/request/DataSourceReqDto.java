@@ -5,11 +5,12 @@ import com.hwy.model.DataSourceModel;
 import lombok.*;
 
 /**
- * 数据库源返回dto
- *
- * @author hweiyu
- * @date 2018-08-10 09:47:28
- */
+ * @author huangweiyu
+ * @version V1.0
+ * @Title: 描述
+ * @Description: 数据源请求dto
+ * @date 2018/8/13 10:10
+ **/
 @Getter
 @Setter
 @Builder

@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 数据库源控制器
- *
- * @author hweiyu
- * @date 2018-08-10 09:47:28
- */
+ * @author huangweiyu
+ * @version V1.0
+ * @Title: 描述
+ * @Description: 数据库源控制器
+ * @date 2018/8/13 10:10
+ **/
 @RestController
 @RequestMapping("/datasource")
 public class DataSourceController {

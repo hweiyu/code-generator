@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 /**
- * 主程序控制器
  * @author huangweiyu
  * @version V1.0
- * @date 2018/8/7 14:06
+ * @Title: 描述
+ * @Description: 生成代码控制器
+ * @date 2018/8/13 10:10
  **/
 @Controller
 @RequestMapping("/code/generator")
@@ -31,7 +31,7 @@ public class CodeGeneratorController {
 	private CodeGeneratorService codeGeneratorService;
 	
 	/**
-	 * 列表
+	 * 表信息列表
 	 */
 	@ResponseBody
 	@PostMapping("/list")
