@@ -15,9 +15,9 @@ IF NOT EXISTS `t_data_source` (
 	PRIMARY KEY (`id`)
 ) ENGINE = INNODB DEFAULT CHARSET = utf8 COMMENT = '数据库源';
 
-REPLACE INTO `code_gen`.`t_data_source` (`id`, `data_source_name`, `driver_class_name`, `url`, `db_name`, `user_name`, `user_password`, `data_status`, `create_time`, `update_time`) VALUES ('1', 'code_gen', 'com.mysql.jdbc.Driver', 'jdbc:mysql://39.108.102.71:3306', 'code_gen', 'guest', 'guest123456', '1', '2018-08-10 14:54:32', '2018-08-16 01:08:40');
-REPLACE INTO `code_gen`.`t_data_source` (`id`, `data_source_name`, `driver_class_name`, `url`, `db_name`, `user_name`, `user_password`, `data_status`, `create_time`, `update_time`) VALUES ('2', 'blog', 'com.mysql.jdbc.Driver', 'jdbc:mysql://39.108.102.71:3306', 'blog', 'guest', 'guest123456', '1', '2018-08-11 14:01:49', '2018-08-16 01:08:41');
-REPLACE INTO `code_gen`.`t_data_source` (`id`, `data_source_name`, `driver_class_name`, `url`, `db_name`, `user_name`, `user_password`, `data_status`, `create_time`, `update_time`) VALUES ('3', 'mpys', 'com.mysql.jdbc.Driver', 'jdbc:mysql://39.108.102.71:3306', 'mpys', 'guest', 'guest123456', '1', '2018-08-13 20:28:50', '2018-08-16 01:08:43');
+REPLACE INTO `code_gen`.`t_data_source` (`id`, `data_source_name`, `driver_class_name`, `url`, `db_name`, `user_name`, `user_password`, `data_status`, `create_time`, `update_time`) VALUES ('1', 'code_gen', 'com.mysql.jdbc.Driver', 'jdbc:mysql://localhost:3306', 'code_gen', 'guest', 'guest123456', '1', '2018-08-10 14:54:32', '2018-08-16 01:08:40');
+REPLACE INTO `code_gen`.`t_data_source` (`id`, `data_source_name`, `driver_class_name`, `url`, `db_name`, `user_name`, `user_password`, `data_status`, `create_time`, `update_time`) VALUES ('2', 'blog', 'com.mysql.jdbc.Driver', 'jdbc:mysql://localhost:3306', 'blog', 'guest', 'guest123456', '1', '2018-08-11 14:01:49', '2018-08-16 01:08:41');
+REPLACE INTO `code_gen`.`t_data_source` (`id`, `data_source_name`, `driver_class_name`, `url`, `db_name`, `user_name`, `user_password`, `data_status`, `create_time`, `update_time`) VALUES ('3', 'mpys', 'com.mysql.jdbc.Driver', 'jdbc:mysql://localhost:3306', 'mpys', 'guest', 'guest123456', '1', '2018-08-13 20:28:50', '2018-08-16 01:08:43');
 
 DROP TABLE t_template;
 
