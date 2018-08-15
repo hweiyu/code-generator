@@ -9,8 +9,8 @@ spring:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.jdbc.Driver
         url: jdbc:mysql://localhost:3306/code_gen?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
-        username: root
-        password: root123456
+        username: guest
+        password: guest123456
         initialSize: 1
         minIdle: 3
         maxActive: 20
@@ -29,7 +29,7 @@ spring:
         time-zone: GMT+8
         date-format: yyyy-MM-dd HH:mm:ss
     resources:
-            static-locations: classpath:/static/,classpath:/views/
+            static-locations: classpath:/static/, classpath:/views/
 
 # Mybatis配置
 mybatis:
