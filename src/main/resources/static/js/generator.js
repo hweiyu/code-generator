@@ -74,7 +74,7 @@ var vm = new Vue({
             $.ajax({
                 type: "post",
                 url: this.serverUrl() + "/template/gen/list",
-                data: JSON.stringify({'id': vm.genForm.groupId}),
+                data: JSON.stringify({'groupId': vm.genForm.groupId, 'tableNameList': getSelectedRows()}),
                 dataType: "json",
                 success: function(data){
                     vm.templateList = data.data;

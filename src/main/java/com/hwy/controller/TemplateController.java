@@ -1,10 +1,11 @@
 package com.hwy.controller;
 
 import com.hwy.dto.ResultData;
-import com.hwy.dto.request.IdReqDto;
+import com.hwy.dto.request.TemplateGenReqDto;
 import com.hwy.dto.request.TemplateQueryReqDto;
 import com.hwy.dto.request.TemplateReqDto;
 import com.hwy.dto.response.PageResDto;
+import com.hwy.dto.response.TemplateGenResDto;
 import com.hwy.dto.response.TemplateResDto;
 import com.hwy.service.TemplateService;
 import com.hwy.utils.ResultUtil;
@@ -75,8 +76,8 @@ public class TemplateController {
      * 模板列表
      */
     @PostMapping(value = "gen/list", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultData<List<TemplateResDto>> genList(@RequestBody IdReqDto reqDto){
-        return ResultUtil.success(templateService.genList(reqDto.getId()));
+    public ResultData<List<TemplateGenResDto>> genList(@RequestBody TemplateGenReqDto reqDto){
+        return ResultUtil.success(templateService.genList(reqDto));
     }
 
 }

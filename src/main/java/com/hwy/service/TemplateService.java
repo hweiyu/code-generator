@@ -1,8 +1,10 @@
 package com.hwy.service;
 
+import com.hwy.dto.request.TemplateGenReqDto;
 import com.hwy.dto.request.TemplateQueryReqDto;
 import com.hwy.dto.request.TemplateReqDto;
 import com.hwy.dto.response.PageResDto;
+import com.hwy.dto.response.TemplateGenResDto;
 import com.hwy.dto.response.TemplateResDto;
 import com.hwy.model.TemplateModel;
 
@@ -51,9 +53,9 @@ public interface TemplateService {
 
     /**
      * 通过模板组id查模板列表，生成代码使用
-     * @param groupId
+     * @param reqDto
      * @return
      */
-    List<TemplateResDto> genList(Long groupId);
+    List<TemplateGenResDto> genList(TemplateGenReqDto reqDto);
 }
 

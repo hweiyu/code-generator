@@ -33,7 +33,7 @@
 		<!-- 按钮触发模态框 -->
 		<button class="btn btn-primary" @click="preGen">生成代码</button>
 		<!-- 模态框（Modal） -->
-		<div class="modal fade" id="genForm" tabindex="-1" role="dialog" aria-labelledby="genFormLabel" aria-hidden="true">
+		<div class="modal fade bs-example-modal-lg" id="genForm" tabindex="-1" role="dialog" aria-labelledby="genFormLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -55,12 +55,16 @@
 						</table>
 						<table class="table table-bordered">
 							<thead>
+								<th>表名</th>
+								<th>表前缀</th>
 								<th>模板名</th>
 								<th>生成路径</th>
 								<th>文件名</th>
 							</thead>
 							<tbody>
 							<tr v-for="item in templateList">
+								<td>{{item.tableName}}</td>
+								<td>{{item.tablePrefix}}</td>
 								<td>{{item.templateName}}</td>
 								<td>{{item.packagePath}}</td>
 								<td>{{item.fileName}}</td>

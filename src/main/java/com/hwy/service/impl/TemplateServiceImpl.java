@@ -1,6 +1,8 @@
 package com.hwy.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.hwy.dto.request.TemplateGenReqDto;
+import com.hwy.dto.response.TemplateGenResDto;
 import com.hwy.enums.DataStatusEnum;
 import com.hwy.mapper.TemplateMapper;
 import com.hwy.dto.Page;
@@ -131,20 +133,27 @@ public class TemplateServiceImpl implements TemplateService {
 
     /**
      * 通过模板组id查模板列表，生成代码使用
-     * @param groupId
+     * @param reqDto
      * @return
      */
     @Override
-    public List<TemplateResDto> genList(Long groupId) {
-        TemplateGroupModel groupModel = templateGroupService.getById(groupId);
+    public List<TemplateGenResDto> genList(TemplateGenReqDto reqDto) {
+        TemplateGroupModel groupModel = templateGroupService.getById(reqDto.getGroupId());
         List<TemplateModel> templateModels = templateMapper.select(
-                TemplateModel.builder().groupId(groupId).dataStatus(DataStatusEnum.ENABLE.getType()).build());
-        List<TemplateResDto> result = CollectionUtil.newArrayList();
+                TemplateModel.builder().groupId(reqDto.getGroupId()).dataStatus(DataStatusEnum.ENABLE.getType()).build());
+        List<TemplateGenResDto> result = CollectionUtil.newArrayList();
         if (null != groupModel
-                && CollectionUtil.isNotEmpty(templateModels)) {
-            for (TemplateModel templateModel : templateModels) {
-                result.add(TemplateResDto.get(templateModel)
-                        .setFilePath(groupModel.getMainPackage(), groupModel.getModuleName()));
+                && CollectionUtil.isNotEmpty(templateModels)
+                && CollectionUtil.isNotEmpty(reqDto.getTableNameList())) {
+            for (String tableName : reqDto.getTableNameList()) {
+                for (TemplateModel templateModel : templateModels) {
+                    TemplateGenResDto resDto = TemplateGenResDto.get(templateModel);
+                    resDto.setTableName(tableName);
+                    resDto.setTablePrefix(groupModel.getTablePrefix());
+                    resDto.setFilePath(groupModel.getMainPackage(), groupModel.getModuleName());
+                    resDto.setFileRealName();
+                    result.add(resDto);
+                }
             }
         }
         return result;
