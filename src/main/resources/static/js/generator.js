@@ -89,6 +89,8 @@ var vm = new Vue({
             if(tableNames == null){
                 return ;
             }
+            vm.genForm.groupId = 0;
+            vm.templateList = [];
             $('#genForm').modal('show');
         },
 		generator: function() {
