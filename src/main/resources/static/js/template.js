@@ -5,15 +5,24 @@ $(function () {
         mtype: 'POST',
         colModel: [
             { label: 'id', name: 'id', width: 50, key: true, hidden: true},
+            { label: '状态', name: 'dataStatus', width: 50, hidden: true},
             {
-                label: '操作', name: 'operate', width: 70,
+                label: '操作', name: 'operate', width: 100,
                 formatter: function (cellvalue, options, rowObject) {
-                    return '<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.get(' + options.rowId +')">编辑</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.getContext(' + options.rowId +')">编辑模板内容</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.delete(' + options.rowId +')">删除</a>';
+                    var dataStatus;
+                    var curStatus = rowObject.dataStatus;
+                    if (0 === curStatus) {
+                        dataStatus = '<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.changeDataStatus(' + options.rowId + ',1)">启用</a>';
+                    } else {
+                        dataStatus = '<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.changeDataStatus(' + options.rowId + ',0)">禁用</a>';
+                    }
+                    return '<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.get(' + options.rowId +')">编辑</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.getContext(' + options.rowId +')">编辑模板内容</a>&nbsp;&nbsp;' + dataStatus + '&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.delete(' + options.rowId +')">删除</a>';
                 }
             },
 			{ label: '模板名', name: 'templateName', width: 50},
             { label: '模板组', name: 'groupName', width: 50},
-			{ label: '模板类型', name: 'templateTypeName', width: 50 },
+            { label: '状态', name: 'dataStatusDesc', width: 20},
+			{ label: '模板类型', name: 'templateTypeName', width: 20 },
             { label: '生成路径', name: 'packagePath', width: 100 },
             { label: '文件名', name: 'fileName', width: 100 }
         ],
@@ -223,6 +232,21 @@ var vm = new Vue({
         },
         getHelp: function() {
             $('#helpForm').modal('show');
+        },
+        changeDataStatus: function(id, status) {
+            $.ajax({
+                type: "post",
+                url: this.serverUrl() + "/template/update",
+                data: JSON.stringify({id: id, dataStatus: status}),
+                dataType: "json",
+                success: function(data){
+                    if ("false" === data.result) {
+                        alert(data.message);
+                    } else {
+                        vm.query();
+                    }
+                }
+            });
         }
     }
 });

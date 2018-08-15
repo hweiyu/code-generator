@@ -1,5 +1,6 @@
 package com.hwy.dto.response;
 
+import com.hwy.enums.DataStatusEnum;
 import com.hwy.enums.TemplateTypeEnum;
 import com.hwy.model.TemplateModel;
 
@@ -72,6 +73,11 @@ public class TemplateResDto extends BaseRes {
     private Integer dataStatus;
 
     /**
+     * 0:禁用,1:启用,2:已删除
+     */
+    private String dataStatusDesc;
+
+    /**
      * 创建时间
      */
     private String createTime;
@@ -91,6 +97,7 @@ public class TemplateResDto extends BaseRes {
                 .packagePath(model.getPackagePath())
                 .fileName(model.getFileName())
                 .dataStatus(model.getDataStatus())
+                .dataStatusDesc(DataStatusEnum.typeOf(model.getDataStatus()).getDesc())
                 .createTime(model.getCreateTime())
                 .updateTime(model.getUpdateTime())
                 .build();

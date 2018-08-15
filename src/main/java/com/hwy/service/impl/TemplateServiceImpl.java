@@ -68,6 +68,7 @@ public class TemplateServiceImpl implements TemplateService {
 
     private void setCondition(Example example, TemplateQueryReqDto reqDto) {
         Example.Criteria criteria = example.createCriteria();
+        criteria.andNotEqualTo("dataStatus", DataStatusEnum.DELETED.getType());
         if (null != reqDto.getTemplate()) {
             criteria.andLike("templateName", "%" + reqDto.getTemplate() + "%");
         }
