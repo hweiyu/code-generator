@@ -97,19 +97,9 @@ public class TemplateResDto extends BaseRes {
     }
 
     public static TemplateResDto getWithContext(TemplateModel model) {
-        return TemplateResDto.builder()
-                .id(model.getId())
-                .templateName(model.getTemplateName())
-                .groupId(model.getGroupId())
-                .context(model.getContext())
-                .templateType(model.getTemplateType())
-                .templateTypeName(TemplateTypeEnum.typeOf(model.getTemplateType()).getDesc())
-                .packagePath(model.getPackagePath())
-                .fileName(model.getFileName())
-                .dataStatus(model.getDataStatus())
-                .createTime(model.getCreateTime())
-                .updateTime(model.getUpdateTime())
-                .build();
+        TemplateResDto resDto = get(model);
+        resDto.setContext(model.getContext());
+        return resDto;
     }
 
     public TemplateResDto setTemplateGroupName(String groupName) {
