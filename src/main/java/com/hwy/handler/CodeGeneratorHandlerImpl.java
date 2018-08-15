@@ -107,9 +107,9 @@ public class CodeGeneratorHandlerImpl implements CodeGeneratorHandler {
     private String getFileName(TemplateBean template, TableBean tableBean) {
         return param.getGroup().getMainPackage().replace(".", File.separator)
                 + File.separator
-                + template.getPackagePath().replace(".", File.separator)
+                + template.getPackagePath().replace(".", File.separator).replace("${moduleName}", param.getGroup().getModuleName())
                 + File.separator
-                + tableBean.getClassName() + template.getFileName();
+                + template.getFileName().replace("${className}", tableBean.getClassName());
     }
 
     private boolean isPrimaryKey(TableBean table, ColumnBean column) {

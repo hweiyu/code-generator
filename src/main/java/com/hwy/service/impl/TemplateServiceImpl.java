@@ -57,7 +57,7 @@ public class TemplateServiceImpl implements TemplateService {
                     TemplateGroupModel group = groupMap.get(model.getGroupId());
                     result.add(TemplateResDto.get(model)
                             .setTemplateGroupName(group.getGroupName())
-                            .setFilePath(group.getMainPackage()));
+                            .setFilePath(group.getMainPackage(), group.getModuleName()));
                 }
             }
         }
@@ -144,7 +144,7 @@ public class TemplateServiceImpl implements TemplateService {
                 && CollectionUtil.isNotEmpty(templateModels)) {
             for (TemplateModel templateModel : templateModels) {
                 result.add(TemplateResDto.get(templateModel)
-                        .setFilePath(groupModel.getMainPackage()));
+                        .setFilePath(groupModel.getMainPackage(), groupModel.getModuleName()));
             }
         }
         return result;

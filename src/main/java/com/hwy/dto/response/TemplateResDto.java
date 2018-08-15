@@ -107,8 +107,8 @@ public class TemplateResDto extends BaseRes {
         return this;
     }
 
-    public TemplateResDto setFilePath(String mainPath) {
-        setPackagePath(mainPath + "." + getPackagePath());
+    public TemplateResDto setFilePath(String mainPath, String moduleName) {
+        setPackagePath(mainPath + "." + getPackagePath().replace("${moduleName}", moduleName));
         return this;
     }
 
