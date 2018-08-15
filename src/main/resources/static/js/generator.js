@@ -140,6 +140,9 @@ var vm = new Vue({
         },
         groupChange: function () {
 		    vm.templateQuery();
+        },
+        sourceChange: function () {
+            vm.query();
         }
 	}
 });

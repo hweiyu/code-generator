@@ -21,7 +21,7 @@
 <div id="rrapp">
 	<div class="grid-btn">
 		<div class="form-group col-sm-2">
-			<select v-model="q.sourceId" class="form-control">
+			<select v-model="q.sourceId" class="form-control" @change="sourceChange">
 				<option v-for="(item, index) in dataSourceList" :value="item.id">{{item.dataSourceName}}</option>
 			</select>
 		</div>
