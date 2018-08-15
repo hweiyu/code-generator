@@ -9,8 +9,10 @@
 * 项目访问路径：http://localhost:8080
 
 # 使用教程
-1. 配置模板组  
-2. 配置模板  
-3. 配置数据源
-4. 生成代码
-5. 看主页帮助文档
+1. 用 sql/init.sql 生成表结构
+2. 修改 application.yml 数据库连接，然后启动com.hwy.CodeGeneratorApplication.java
+3. 看主页帮助文档
+4. 配置模板组
+5. 配置模板
+6. 配置数据源
+7. 生成代码
