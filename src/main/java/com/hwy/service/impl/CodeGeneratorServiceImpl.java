@@ -82,8 +82,10 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
 		ZipOutputStream zip = new ZipOutputStream(outputStream);
 		//封装参数
 		CodeGeneratorBean param = getParam(reqDto);
-		//获取处理器并生成代码
-		getHandler(param, zip).generatorCode();
+		//获取代码处理器
+		CodeGeneratorHandler handler = getHandler(param, zip);
+		//生成代码
+		handler.generatorCode();
 		//关闭压缩包
 		IOUtils.closeQuietly(zip);
 		return outputStream.toByteArray();
