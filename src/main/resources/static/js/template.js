@@ -7,22 +7,22 @@ $(function () {
             { label: 'id', name: 'id', width: 50, key: true, hidden: true},
             { label: '状态', name: 'dataStatus', width: 50, hidden: true},
             {
-                label: '操作', name: 'operate', width: 100,
+                label: '操作', name: 'operate', width: 65,
                 formatter: function (cellvalue, options, rowObject) {
                     var dataStatus;
                     var curStatus = rowObject.dataStatus;
                     if (0 === curStatus) {
-                        dataStatus = '<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.changeDataStatus(' + options.rowId + ',1)">启用</a>';
+                        dataStatus = '<a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="启用" class="btn btn-default" onclick="vm.changeDataStatus(' + options.rowId + ',1)"><span class="glyphicon glyphicon-ok-circle"></span></a>';
                     } else {
-                        dataStatus = '<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.changeDataStatus(' + options.rowId + ',0)">禁用</a>';
+                        dataStatus = '<a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="禁用" class="btn btn-default" onclick="vm.changeDataStatus(' + options.rowId + ',0)"><span class="glyphicon glyphicon-ban-circle"></span></a>';
                     }
-                    return '<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.get(' + options.rowId +')">编辑</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.getContext(' + options.rowId +')">编辑模板内容</a>&nbsp;&nbsp;' + dataStatus + '&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.delete(' + options.rowId +')">删除</a>';
+                    return '<a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="编辑" class="btn btn-default" onclick="vm.get(' + options.rowId +')"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="编辑模板内容" class="btn btn-default" onclick="vm.getContext(' + options.rowId +')"><span class="glyphicon glyphicon-list-alt"></span></a>&nbsp;&nbsp;' + dataStatus + '&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="删除" class="btn btn-default" onclick="vm.delete(' + options.rowId +')"><span class="glyphicon glyphicon-remove"></span></a>';
                 }
             },
 			{ label: '模板名', name: 'templateName', width: 50},
             { label: '模板组', name: 'groupName', width: 50},
             { label: '状态', name: 'dataStatusDesc', width: 20},
-			{ label: '模板类型', name: 'templateTypeName', width: 20 },
+			{ label: '模板类型', name: 'templateTypeName', width: 50},
             { label: '生成路径', name: 'packagePath', width: 100 },
             { label: '文件名', name: 'fileName', width: 100 }
         ],
@@ -59,6 +59,8 @@ $(function () {
             return JSON.stringify(postData);
         }
     });
+
+    $("[data-toggle='tooltip']").tooltip();
 });
 
 var vm = new Vue({

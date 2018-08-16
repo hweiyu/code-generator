@@ -6,9 +6,9 @@ $(function () {
         colModel: [
             { label: 'id', name: 'id', width: 50, key: true, hidden: true},
             {
-                label: '操作', name: 'operate', width: 70,
+                label: '操作', name: 'operate', width: 40,
                 formatter: function (cellvalue, options, rowObject) {
-                    return '<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.get(' + options.rowId +')">编辑</a>&nbsp;&nbsp;<a href="javascript:void(0);" class="btn btn-primary" onclick="vm.delete(' + options.rowId +')">删除</a>';
+                    return '<a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="编辑" class="btn btn-default" onclick="vm.get(' + options.rowId +')"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="删除" class="btn btn-default" onclick="vm.delete(' + options.rowId +')"><span class="glyphicon glyphicon-remove"></span></a>';
                 }
             },
 			{ label: '模板组名称', name: 'groupName', width: 50},
@@ -50,6 +50,8 @@ $(function () {
             return JSON.stringify(postData);
         },
     });
+
+    $("[data-toggle='tooltip']").tooltip();
 });
 
 var vm = new Vue({
