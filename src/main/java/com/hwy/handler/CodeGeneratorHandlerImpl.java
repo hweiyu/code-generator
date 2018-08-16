@@ -143,18 +143,18 @@ public class CodeGeneratorHandlerImpl implements CodeGeneratorHandler {
 
     private void wrapTableBean(TableBean table, List<ColumnBean> columns) {
         //设置类名
-        setClassName(param.getGroup().getTablePrefix(), table);
+        setClassName(table);
         //封装字段数据
         wrapColumnBean(table, columns);
         //没主键，则第一个字段为主键
         resetPrimaryKey(table);
     }
 
-    private static void setClassName(String prefix, TableBean entity) {
+    private void setClassName(TableBean table) {
         //表名转换成Java类名
-        String className = tableToJava(entity.getTableName(), prefix);
-        entity.setClassName(className);
-        entity.setClassname(StringUtils.uncapitalize(className));
+        String className = tableToJava(table.getTableName());
+        table.setClassName(className);
+        table.setClassname(StringUtils.uncapitalize(className));
     }
 
     private void wrapColumnBean(ColumnBean column) {
@@ -184,13 +184,13 @@ public class CodeGeneratorHandlerImpl implements CodeGeneratorHandler {
         table.setColumns(columsList);
     }
 
-    private static boolean hasBigDecimal(TableBean tableBean, ColumnBean columnBean) {
+    private boolean hasBigDecimal(TableBean tableBean, ColumnBean columnBean) {
         final String bigDecimal = "BigDecimal";
         return !tableBean.getHasBigDecimal()
                 && bigDecimal.equals(columnBean.getAttrType());
     }
 
-    private static void resetPrimaryKey(TableBean entity) {
+    private void resetPrimaryKey(TableBean entity) {
         if (entity.getPk() == null) {
             entity.setPk(entity.getColumns().get(0));
         }
@@ -199,15 +199,17 @@ public class CodeGeneratorHandlerImpl implements CodeGeneratorHandler {
     /**
      * 列名转换成Java属性名
      */
-    private static String columnToJava(String columnName) {
+    private String columnToJava(String columnName) {
         return WordUtils.capitalizeFully(columnName, new char[]{'_'}).replace("_", "");
     }
 
     /**
      * 表名转换成Java类名
      */
-    private static String tableToJava(String tableName, String tablePrefix) {
-        if (StringUtils.isNotBlank(tablePrefix) && tableName.startsWith(tablePrefix)) {
+    private String tableToJava(String tableName) {
+        String tablePrefix = param.getGroup().getTablePrefix();
+        if (StringUtils.isNotBlank(tablePrefix)
+                && tableName.startsWith(tablePrefix)) {
             tableName = tableName.substring(tablePrefix.length());
         }
         return columnToJava(tableName);
