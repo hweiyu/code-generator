@@ -84,12 +84,11 @@ public class CodeGeneratorHandlerImpl implements CodeGeneratorHandler {
         //封装模板数据
         for (TemplateBean template : param.getTemplateList()) {
             VelocityContext context = wrapVelocityContext(table);
-            wrapZip(template, context, table, zip);
+            wrapZip(template, context, table);
         }
     }
 
-    private void wrapZip(TemplateBean template, VelocityContext context,
-                                TableBean tableBean, ZipOutputStream zip) {
+    private void wrapZip(TemplateBean template, VelocityContext context, TableBean tableBean) {
         //渲染模板
         StringWriter sw = VelocityUtil.create(template.getContext(), context);
         try {
