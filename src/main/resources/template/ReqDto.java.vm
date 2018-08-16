@@ -1,18 +1,17 @@
-package ${package}.${moduleName}.dto.request;
+package ${package}.dto.request.${moduleName};
 
 import io.swagger.annotations.ApiModelProperty;
-
 #if(${hasBigDecimal})
+
 import java.math.BigDecimal;
 #end
 
 import lombok.*;
 import java.io.Serializable;
 
-import ${package}.${moduleName}.model.${className}Model;
+import ${package}.model.${moduleName}.${className}Model;
 
 /**
- *
  * ${comments}请求dto
  *
  * @author ${author}
@@ -24,20 +23,20 @@ import ${package}.${moduleName}.model.${className}Model;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ${className}ReqDto implements Serializable {
-	#foreach ($column in $columns)
+#foreach ($column in $columns)
 
     /**
-      * $column.comments
-      */
+     * $column.comments
+     */
     @ApiModelProperty(value = "$column.comments", name = "$column.comments")
     private $column.attrType $column.attrname;
-	#end
+#end
 
     public ${className}Model to() {
-            return ${className}Model.builder()
-		#foreach ($column in $columns)
-                .${column.attrname}(get${column.attrName}())
-		#end
-        .build();
+        return ${className}Model.builder()
+#foreach ($column in $columns)
+            .${column.attrname}(get${column.attrName}())
+#end
+            .build();
     }
 }

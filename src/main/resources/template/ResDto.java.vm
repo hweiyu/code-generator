@@ -1,7 +1,6 @@
-package ${package}.${moduleName}.dto.response;
+package ${package}.dto.response.${moduleName};
 
 import io.swagger.annotations.ApiModelProperty;
-
 #if(${hasBigDecimal})
 import java.math.BigDecimal;
 #end
@@ -9,10 +8,9 @@ import java.math.BigDecimal;
 import lombok.*;
 import java.io.Serializable;
 
-import ${package}.${moduleName}.model.${className}Model;
+import ${package}.model.${moduleName}.${className}Model;
 
 /**
- *
  * ${comments}返回dto
  *
  * @author ${author}
@@ -24,20 +22,20 @@ import ${package}.${moduleName}.model.${className}Model;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ${className}ResDto implements Serializable {
-	#foreach ($column in $columns)
+#foreach ($column in $columns)
 
-    /**
-      * $column.comments
-      */
-    @ApiModelProperty(value = "$column.comments", name = "$column.comments")
-    private $column.attrType $column.attrname;
-	#end
+	/**
+	 * $column.comments
+	 */
+	@ApiModelProperty(value = "$column.comments", name = "$column.comments")
+	private $column.attrType $column.attrname;
+#end
 
 	public static ${className}ResDto get(${className}Model model) {
 		return ${className}ResDto.builder()
-		#foreach ($column in $columns)
-            .${column.attrname}(model.get${column.attrName}())
-		#end
-				.build();
-	}
+#foreach ($column in $columns)
+			.${column.attrname}(model.get${column.attrName}())
+#end
+			.build();
+    }
 }

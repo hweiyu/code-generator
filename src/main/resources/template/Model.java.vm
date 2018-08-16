@@ -1,6 +1,6 @@
-package ${package}.${moduleName}.model;
-
+package ${package}.model.${moduleName};
 #if(${hasBigDecimal})
+
 import java.math.BigDecimal;
 #end
 
@@ -14,7 +14,7 @@ import lombok.*;
 /**
  *
  * ${comments}模型
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  */
@@ -31,10 +31,10 @@ public class ${className}Model {
 	 * $column.comments
 	 */
 	#if($column.columnName == $pk.columnName)
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	#end
     @Column(name = "$column.columnName")
-	private $column.attrType $column.attrname;
+    private $column.attrType $column.attrname;
 #end
 }

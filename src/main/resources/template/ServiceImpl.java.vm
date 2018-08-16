@@ -1,13 +1,13 @@
-package ${package}.${moduleName}.service.impl;
+package ${package}.service.impl.${moduleName};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ${package}.${moduleName}.dao.${className}Mapper;
-import ${package}.${moduleName}.model.${className}Model;
-import ${package}.${moduleName}.service.${className}Service;
-import ${package}.${moduleName}.dto.request.${className}ReqDto;
-import ${package}.${moduleName}.dto.response.${className}ResDto;
+import ${package}.mapper.${moduleName}.${className}Mapper;
+import ${package}.model.${moduleName}.${className}Model;
+import ${package}.service.${moduleName}.${className}Service;
+import ${package}.dto.request.${moduleName}.${className}ReqDto;
+import ${package}.dto.response.${moduleName}.${className}ResDto;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     private ${className}Mapper ${classname}Mapper;
 
     /**
-    * 列表
+    * ${comments}列表
     */
     @Override
     public List<${className}ResDto> select(${className}ReqDto reqDto) {
@@ -40,16 +40,16 @@ public class ${className}ServiceImpl implements ${className}Service {
     }
 
     /**
-    * 查询
+    * ${comments}查询
     */
     @Override
     public ${className}ResDto get(${className}ReqDto reqDto) {
-        ${className}Model model = ${classname}Mapper.selectOne(reqDto.to());
+            ${className}Model model = ${classname}Mapper.selectOne(reqDto.to());
         return ${className}ResDto.get(model);
     }
 
     /**
-    * 添加
+    * ${comments}添加
     */
     @Override
     public int insert(${className}ReqDto reqDto) {
@@ -57,7 +57,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     }
 
     /**
-    * 修改
+    * ${comments}修改
     */
     @Override
     public int update(${className}ReqDto reqDto) {
@@ -65,7 +65,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     }
 
     /**
-    * 删除
+    * ${comments}删除
     */
     @Override
     public int delete(${className}ReqDto reqDto) {
