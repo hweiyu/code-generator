@@ -7,7 +7,6 @@ import com.hwy.dto.request.CodeGenQueryReqDto;
 import com.hwy.factory.CodeGeneratorHandlerFactory;
 import com.hwy.factory.CodeGeneratorParamFactory;
 import com.hwy.handler.CodeGeneratorHandler;
-import com.hwy.mapper.CodeGeneratorMapper;
 import com.hwy.dto.Page;
 import com.hwy.dto.request.CodeGenReqDto;
 import com.hwy.dto.response.PageResDto;
