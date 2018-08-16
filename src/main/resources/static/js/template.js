@@ -249,6 +249,12 @@ var vm = new Vue({
                     }
                 }
             });
+        },
+        groupChange: function() {
+            vm.query();
+        },
+        templateTypeChange: function () {
+            vm.query();
         }
     }
 });

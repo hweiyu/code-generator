@@ -6,7 +6,7 @@ $(function () {
         colModel: [
             { label: 'id', name: 'id', width: 50, key: true, hidden: true},
             {
-                label: '操作', name: 'operate', width: 40,
+                label: '操作', name: 'operate', width: 60,
                 formatter: function (cellvalue, options, rowObject) {
                     return '<a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="编辑" class="btn btn-default" onclick="vm.get(' + options.rowId +')"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;<a href="javascript:void(0);" data-toggle="tooltip" data-placement="bottom" title="删除" class="btn btn-default" onclick="vm.delete(' + options.rowId +')"><span class="glyphicon glyphicon-remove"></span></a>';
                 }

@@ -21,12 +21,12 @@
 <div id="rrapp">
 	<div class="grid-btn">
 		<div class="form-group col-sm-2">
-			<select v-model="q.groupId" class="form-control">
+			<select v-model="q.groupId" class="form-control" @change="groupChange">
 				<option v-for="item in q.groupList" :value="item.id">{{item.groupName}}</option>
 			</select>
 		</div>
         <div class="form-group col-sm-2">
-            <select v-model="q.type" class="form-control">
+            <select v-model="q.type" class="form-control" @change="templateTypeChange">
                 <option v-for="(item, index) in q.typeList" :value="item.id">{{item.name}}</option>
             </select>
         </div>
