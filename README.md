@@ -1,6 +1,6 @@
 # 项目说明
-* code-generator是个人开源项目的代码生成器
-* 可在线生成model、dto、xml、dao、service、html代码，减少70%以上的开发任务
+* code-generator是个人开源项目的代码生成器，支持在线编辑动态模板
+* 可在线生成model、dto、xml、dao、service、html、controller甚至前端代码，减少70%以上的开发任务
 
 # 本地部署
 * 通过git下载源码
