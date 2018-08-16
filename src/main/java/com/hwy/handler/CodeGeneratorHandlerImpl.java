@@ -190,9 +190,9 @@ public class CodeGeneratorHandlerImpl implements CodeGeneratorHandler {
                 && bigDecimal.equals(columnBean.getAttrType());
     }
 
-    private void resetPrimaryKey(TableBean entity) {
-        if (entity.getPk() == null) {
-            entity.setPk(entity.getColumns().get(0));
+    private void resetPrimaryKey(TableBean table) {
+        if (table.getPk() == null) {
+            table.setPk(table.getColumns().get(0));
         }
     }
 
