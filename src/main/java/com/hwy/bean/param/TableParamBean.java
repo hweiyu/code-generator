@@ -20,9 +20,6 @@ public class TableParamBean extends SqlParamBean {
     @SqlParam(column = "table_name", type = SqlParam.ConditionTypeEnum.LIKE)
     private String tableName;
 
-    @SqlParam(column = "group_id", type = SqlParam.ConditionTypeEnum.EQUALS)
-    private Long groupId;
-
     @SqlParam(column = "table_schema", type = SqlParam.ConditionTypeEnum.EQUALS)
     private String tableSchema;
 }
