@@ -8,10 +8,11 @@ import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 import java.util.Properties;
 
 /**
- * @author liuzw
- * @Title 描述
- * @Description mybatis扫描mapper配置
- * @date 2018/8/6 18:08
+ * @author huangweiyu
+ * @version V1.0
+ * @Title: 描述
+ * @Description: mybatis扫描mapper配置
+ * @date 2018/8/9 17:57
  **/
 @Configuration
 @AutoConfigureAfter(DataSourceConfig.class)
