@@ -1,5 +1,4 @@
-DROP TABLE t_data_source;
-
+DROP TABLE IF EXISTS t_data_source;
 CREATE TABLE
 IF NOT EXISTS `t_data_source` (
 	`id` BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -19,8 +18,7 @@ REPLACE INTO `code_gen`.`t_data_source` (`id`, `data_source_name`, `driver_class
 REPLACE INTO `code_gen`.`t_data_source` (`id`, `data_source_name`, `driver_class_name`, `url`, `db_name`, `user_name`, `user_password`, `data_status`, `create_time`, `update_time`) VALUES ('2', 'blog', 'com.mysql.jdbc.Driver', 'jdbc:mysql://localhost:3306', 'blog', 'guest', 'guest123456', '1', '2018-08-11 14:01:49', '2018-08-16 01:08:41');
 REPLACE INTO `code_gen`.`t_data_source` (`id`, `data_source_name`, `driver_class_name`, `url`, `db_name`, `user_name`, `user_password`, `data_status`, `create_time`, `update_time`) VALUES ('3', 'mpys', 'com.mysql.jdbc.Driver', 'jdbc:mysql://localhost:3306', 'mpys', 'guest', 'guest123456', '1', '2018-08-13 20:28:50', '2018-08-16 01:08:43');
 
-DROP TABLE t_template;
-
+DROP TABLE IF EXISTS t_template;
 CREATE TABLE
 IF NOT EXISTS `t_template` (
 	`id` BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -28,10 +26,12 @@ IF NOT EXISTS `t_template` (
 	`template_name` VARCHAR (100) NOT NULL DEFAULT '' COMMENT '模板名',
 	`context` VARCHAR (5000) NOT NULL DEFAULT '' COMMENT '模板内容',
 	`template_type` TINYINT (4) NOT NULL DEFAULT 1 COMMENT '1:java,2:xml,3:html,4:javascript',
+	`package_path` VARCHAR (200) NOT NULL DEFAULT '' COMMENT '包路径',
 	`file_name` VARCHAR (100) NOT NULL DEFAULT '' COMMENT '文件名',
 	`data_status` TINYINT (4) NOT NULL DEFAULT 1 COMMENT '0:禁用,1:启用,2:已删除',
 	`create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
 	`update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+	`module_name` VARCHAR (100) NOT NULL DEFAULT '' COMMENT '模块名',
 	PRIMARY KEY (`id`)
 ) ENGINE = INNODB DEFAULT CHARSET = utf8 COMMENT = '模板信息';
 
@@ -45,8 +45,7 @@ REPLACE INTO `code_gen`.`t_template` (`id`, `group_id`, `template_name`, `contex
 REPLACE INTO `code_gen`.`t_template` (`id`, `group_id`, `template_name`, `context`, `template_type`, `package_path`, `file_name`, `data_status`, `create_time`, `update_time`, `module_name`) VALUES ('8', '1', 'serviceImpl', 'package ${package}.service.impl.${moduleName};\n\nimport org.springframework.beans.factory.annotation.Autowired;\nimport org.springframework.stereotype.Service;\n\nimport ${package}.mapper.${moduleName}.${className}Mapper;\nimport ${package}.model.${moduleName}.${className}Model;\nimport ${package}.service.${moduleName}.${className}Service;\nimport ${package}.dto.request.${moduleName}.${className}ReqDto;\nimport ${package}.dto.response.${moduleName}.${className}ResDto;\n\nimport java.util.List;\nimport java.util.ArrayList;\n\n/**\n * ${comments}服务\n *\n * @author ${author}\n * @date ${datetime}\n */\n@Service\npublic class ${className}ServiceImpl implements ${className}Service {\n\n    @Autowired\n    private ${className}Mapper ${classname}Mapper;\n\n    /**\n    * 列表\n    */\n    @Override\n    public List<${className}ResDto> select(${className}ReqDto reqDto) {\n        List<${className}Model> models = ${classname}Mapper.select(reqDto.to());\n        List<${className}ResDto> result = new ArrayList<>(20);\n        if (null != models) {\n            for (${className}Model model : models) {\n                result.add(${className}ResDto.get(model));\n            }\n        }\n        return result;\n    }\n\n    /**\n    * 查询\n    */\n    @Override\n    public ${className}ResDto get(${className}ReqDto reqDto) {\n        ${className}Model model = ${classname}Mapper.selectOne(reqDto.to());\n        return ${className}ResDto.get(model);\n    }\n\n    /**\n    * 添加\n    */\n    @Override\n    public int insert(${className}ReqDto reqDto) {\n        return ${classname}Mapper.insertSelective(reqDto.to());\n    }\n\n    /**\n    * 修改\n    */\n    @Override\n    public int update(${className}ReqDto reqDto) {\n        return ${classname}Mapper.updateByPrimaryKeySelective(reqDto.to());\n    }\n\n    /**\n    * 删除\n    */\n    @Override\n    public int delete(${className}ReqDto reqDto) {\n        return ${classname}Mapper.delete(reqDto.to());\n    }\n\n}\n', '1', 'service.impl.${moduleName}', '${className}ServiceImpl.java', '1', '2018-08-10 22:32:11', '2018-08-16 01:09:21', 'group');
 REPLACE INTO `code_gen`.`t_template` (`id`, `group_id`, `template_name`, `context`, `template_type`, `package_path`, `file_name`, `data_status`, `create_time`, `update_time`, `module_name`) VALUES ('9', '2', 'xxxxx', '${moduleName}\n${package}\n${author}', '1', 'mypackage', 'Xwe.txt', '1', '2018-08-13 20:27:16', '2018-08-16 01:09:19', '');
 
-DROP TABLE `t_template_group`;
-
+DROP TABLE IF EXISTS t_template_group;
 CREATE TABLE
 IF NOT EXISTS `t_template_group` (
 	`id` BIGINT (20) NOT NULL AUTO_INCREMENT COMMENT '主键',
